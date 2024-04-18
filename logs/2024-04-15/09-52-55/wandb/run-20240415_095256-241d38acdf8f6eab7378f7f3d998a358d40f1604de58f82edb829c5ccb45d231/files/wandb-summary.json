@@ -1,0 +1,1 @@
+{"device": "None", "error": "Error in call to target 'stint_sampler.stint.sis.half_sis':\nAttributeError(\"'half_sis' object has no attribute 'k'\")\nfull_key: solver", "_wandb": {"runtime": 10}}

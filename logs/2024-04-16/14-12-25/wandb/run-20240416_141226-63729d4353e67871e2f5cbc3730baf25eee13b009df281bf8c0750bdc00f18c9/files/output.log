@@ -1,0 +1,60 @@
+{'wandb': {'project': 'sis', 'resume': 'allow', 'mode': 'run', 'name': '2024-04-16/14-12-25,', 'tags': [], 'id': '63729d4353e67871e2f5cbc3730baf25eee13b009df281bf8c0750bdc00f18c9'}, 'keops_build_path': '/Users/ajgeorge/.cache/keops/unknown/2024-04-16/14-12-25', 'merge_wandb_resume_cfg': True, 'restore_ckpt_from_wandb': True, 'target': {'_target_': 'stint_sampler.targets.targets.gmm', 'd': 2, 'mean': 5.0, 'var': 1.0}, 'interpolant': {'_target_': 'stint_sampler.stint.linearInterpolants.linear', 'type': 'trig'}, 'model': {'_target_': 'stint_sampler.models.energyNets.DenseNet', 'features': [20, 50, 200, 200, 50, 1]}, 'hjb_solver': {'_target_': 'stint_sampler.hjb_solver.fbsde.fbsde'}, 'seed': 1, 'T': 1.0, 'dim': 2, 'eps0': 1e-05, 'eps1': 1e-05, 'batch_size': 128, 'log_interval': 10, 'eval_interval': 100, 'jit_lossFn': 0, 'train': {'NtTrain': 100, 'epochs': 2000, 'epoch_steps': 4, 'learning_rate': 0.01}, 'solver': {'_target_': 'stint_sampler.stint.sis.half_sis'}, 'sampler': {'Nsamples': 10000, 'NtSampler': 1000}, 'eval': {'hist_dims': [0, 1]}, 'out_dir': '/Users/ajgeorge/python/sis/logs/2024-04-16/14-12-25'}
+[2024-04-16 14:12:32,854][root][INFO] - ---------------------------------------------------------------
+[2024-04-16 14:12:32,862][root][INFO] - Run config:
+wandb:
+  project: sis
+  resume: allow
+  mode: run
+  name: 2024-04-16/14-12-25,
+  tags: []
+  id: 63729d4353e67871e2f5cbc3730baf25eee13b009df281bf8c0750bdc00f18c9
+keops_build_path: /Users/ajgeorge/.cache/keops/unknown/2024-04-16/14-12-25
+merge_wandb_resume_cfg: true
+restore_ckpt_from_wandb: true
+target:
+  _target_: stint_sampler.targets.targets.gmm
+  d: 2
+  mean: 5.0
+  var: 1.0
+interpolant:
+  _target_: stint_sampler.stint.linearInterpolants.linear
+  type: trig
+model:
+  _target_: stint_sampler.models.energyNets.DenseNet
+  features:
+  - 20
+  - 50
+  - 200
+  - 200
+  - 50
+  - 1
+hjb_solver:
+  _target_: stint_sampler.hjb_solver.fbsde.fbsde
+seed: 1
+T: 1.0
+dim: 2
+eps0: 1.0e-05
+eps1: 1.0e-05
+batch_size: 128
+log_interval: 10
+eval_interval: 100
+jit_lossFn: 0
+train:
+  NtTrain: 100
+  epochs: 2000
+  epoch_steps: 4
+  learning_rate: 0.01
+solver:
+  _target_: stint_sampler.stint.sis.half_sis
+sampler:
+  Nsamples: 10000
+  NtSampler: 1000
+eval:
+  hist_dims:
+  - 0
+  - 1
+out_dir: /Users/ajgeorge/python/sis/logs/2024-04-16/14-12-25
+[2024-04-16 14:12:32,862][root][INFO] - ---------------------------------------------------------------
+[2024-04-16 14:12:33,459][jax._src.xla_bridge][INFO] - Unable to initialize backend 'cuda': module 'jaxlib.xla_extension' has no attribute 'GpuAllocatorConfig'
+[2024-04-16 14:12:33,460][jax._src.xla_bridge][INFO] - Unable to initialize backend 'rocm': module 'jaxlib.xla_extension' has no attribute 'GpuAllocatorConfig'
+[2024-04-16 14:12:33,463][jax._src.xla_bridge][INFO] - Unable to initialize backend 'tpu': INTERNAL: Failed to open libtpu.so: dlopen(libtpu.so, 0x0001): tried: 'libtpu.so' (no such file), '/System/Volumes/Preboot/Cryptexes/OSlibtpu.so' (no such file), '/Users/ajgeorge/anaconda3/envs/sis/lib/python3.11/site-packages/jaxlib/../../../libtpu.so' (no such file), '/Users/ajgeorge/anaconda3/envs/sis/bin/../lib/libtpu.so' (no such file), '/usr/lib/libtpu.so' (no such file, not in dyld cache), 'libtpu.so' (no such file), '/usr/local/lib/libtpu.so' (no such file), '/usr/lib/libtpu.so' (no such file, not in dyld cache)

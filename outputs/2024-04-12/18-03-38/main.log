@@ -1,0 +1,18 @@
+[2024-04-12 18:03:38,275][root][INFO] - Command line args:
++target.dim=2
+[2024-04-12 18:03:38,275][root][INFO] - Hydra and wandb output path: /Users/ajgeorge/python/sis/outputs/2024-04-12/18-03-38
+[2024-04-12 18:03:38,275][root][INFO] - Solver output path: /Users/ajgeorge/python/sis/outputs/2024-04-12/18-03-38
+[2024-04-12 18:03:46,612][root][INFO] - ---------------------------------------------------------------
+[2024-04-12 18:03:46,612][root][INFO] - Run config:
+b: 1
+a: 1
+target:
+  dim: 2
+out_dir: /Users/ajgeorge/python/sis/outputs/2024-04-12/18-03-38
+wandb:
+  tags:
+  - +target.dim=2
+  id: dd19b79692eb63899b4635f7b8873bf505a33af5e866db3af1885cd5a09b5ed8
+  name: 2024-04-12/18-03-38,2
+
+[2024-04-12 18:03:46,613][root][INFO] - ---------------------------------------------------------------

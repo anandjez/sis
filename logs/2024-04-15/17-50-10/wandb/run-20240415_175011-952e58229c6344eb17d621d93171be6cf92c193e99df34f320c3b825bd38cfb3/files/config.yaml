@@ -1,0 +1,121 @@
+wandb_version: 1
+
+wandb:
+  desc: null
+  value:
+    project: sis
+    resume: allow
+    mode: run
+    name: 2024-04-15/17-50-10,
+    tags: []
+    id: 952e58229c6344eb17d621d93171be6cf92c193e99df34f320c3b825bd38cfb3
+keops_build_path:
+  desc: null
+  value: /Users/ajgeorge/.cache/keops/unknown/2024-04-15/17-50-10
+merge_wandb_resume_cfg:
+  desc: null
+  value: true
+restore_ckpt_from_wandb:
+  desc: null
+  value: true
+target:
+  desc: null
+  value:
+    _target_: stint_sampler.targets.targets.gmm
+    mean: 5.0
+    var: 1.0
+interpolant:
+  desc: null
+  value:
+    _target_: stint_sampler.stint.linearInterpolants.linear
+    type: trig
+model:
+  desc: null
+  value:
+    _target_: stint_sampler.models.scoreNets.DDSnet
+    dim: 2
+    width: 64
+seed:
+  desc: null
+  value: 1
+T:
+  desc: null
+  value: 1.0
+dim:
+  desc: null
+  value: 2
+eps0:
+  desc: null
+  value: 1.0e-05
+eps1:
+  desc: null
+  value: 1.0e-05
+batch_size:
+  desc: null
+  value: 128
+log_interval:
+  desc: null
+  value: 10
+eval_interval:
+  desc: null
+  value: 200
+jit_lossFn:
+  desc: null
+  value: 1
+train:
+  desc: null
+  value:
+    NtTrain: 100
+    epochs: 1000
+    epoch_steps: 4
+    learning_rate: 0.01
+solver:
+  desc: null
+  value:
+    _target_: stint_sampler.stint.sis.half_sis
+sampler:
+  desc: null
+  value:
+    Nsamples: 10000
+    NtSampler: 1000
+eval:
+  desc: null
+  value:
+    hist_dims:
+    - 0
+    - 1
+out_dir:
+  desc: null
+  value: /Users/ajgeorge/python/sis/logs/2024-04-15/17-50-10
+_wandb:
+  desc: null
+  value:
+    python_version: 3.11.4
+    cli_version: 0.16.6
+    is_jupyter_run: false
+    is_kaggle_kernel: false
+    start_time: 1713196211.0
+    t:
+      1:
+      - 12
+      - 50
+      - 55
+      2:
+      - 2
+      - 3
+      - 12
+      - 45
+      - 50
+      - 55
+      3:
+      - 13
+      - 14
+      - 16
+      - 23
+      - 62
+      4: 3.11.4
+      5: 0.16.6
+      8:
+      - 8
+      13: darwin-arm64
+    framework: keras

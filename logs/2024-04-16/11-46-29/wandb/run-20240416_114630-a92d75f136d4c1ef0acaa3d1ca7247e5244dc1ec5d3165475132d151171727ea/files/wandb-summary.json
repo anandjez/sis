@@ -1,0 +1,1 @@
+{"device": "None", "error": "Error in call to target 'stint_sampler.stint.sis.half_sis':\nConfigValueError('Unions of containers are not supported:\\nparent: Union[Type[Module], Scope, Type[_Sentinel]]\\n    full_key: \\n    object_type=None')\nfull_key: solver", "_wandb": {"runtime": 16}}

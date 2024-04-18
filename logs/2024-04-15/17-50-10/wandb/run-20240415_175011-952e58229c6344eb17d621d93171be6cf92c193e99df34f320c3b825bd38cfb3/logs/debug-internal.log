@@ -1,0 +1,80 @@
+2024-04-15 17:50:11,547 INFO    StreamThr :5429 [internal.py:wandb_internal():86] W&B internal server running at pid: 5429, started at: 2024-04-15 17:50:11.546541
+2024-04-15 17:50:11,548 DEBUG   HandlerThread:5429 [handler.py:handle_request():146] handle_request: status
+2024-04-15 17:50:11,553 INFO    WriterThread:5429 [datastore.py:open_for_write():87] open: /Users/ajgeorge/python/sis/logs/2024-04-15/17-50-10/wandb/run-20240415_175011-952e58229c6344eb17d621d93171be6cf92c193e99df34f320c3b825bd38cfb3/run-952e58229c6344eb17d621d93171be6cf92c193e99df34f320c3b825bd38cfb3.wandb
+2024-04-15 17:50:11,553 DEBUG   SenderThread:5429 [sender.py:send():379] send: header
+2024-04-15 17:50:11,556 DEBUG   SenderThread:5429 [sender.py:send():379] send: run
+2024-04-15 17:50:11,558 INFO    SenderThread:5429 [sender.py:_setup_resume():749] checking resume status for None/sis/952e58229c6344eb17d621d93171be6cf92c193e99df34f320c3b825bd38cfb3
+2024-04-15 17:50:12,135 INFO    SenderThread:5429 [dir_watcher.py:__init__():211] watching files in: /Users/ajgeorge/python/sis/logs/2024-04-15/17-50-10/wandb/run-20240415_175011-952e58229c6344eb17d621d93171be6cf92c193e99df34f320c3b825bd38cfb3/files
+2024-04-15 17:50:12,135 INFO    SenderThread:5429 [sender.py:_start_run_threads():1124] run started: 952e58229c6344eb17d621d93171be6cf92c193e99df34f320c3b825bd38cfb3 with start time 1713196211.547798
+2024-04-15 17:50:12,152 DEBUG   HandlerThread:5429 [handler.py:handle_request():146] handle_request: check_version
+2024-04-15 17:50:12,152 DEBUG   SenderThread:5429 [sender.py:send_request():406] send_request: check_version
+2024-04-15 17:50:12,252 DEBUG   HandlerThread:5429 [handler.py:handle_request():146] handle_request: run_start
+2024-04-15 17:50:12,257 DEBUG   HandlerThread:5429 [system_info.py:__init__():26] System info init
+2024-04-15 17:50:12,258 DEBUG   HandlerThread:5429 [system_info.py:__init__():41] System info init done
+2024-04-15 17:50:12,258 INFO    HandlerThread:5429 [system_monitor.py:start():194] Starting system monitor
+2024-04-15 17:50:12,258 INFO    SystemMonitor:5429 [system_monitor.py:_start():158] Starting system asset monitoring threads
+2024-04-15 17:50:12,258 INFO    HandlerThread:5429 [system_monitor.py:probe():214] Collecting system info
+2024-04-15 17:50:12,258 DEBUG   HandlerThread:5429 [system_info.py:probe():150] Probing system
+2024-04-15 17:50:12,258 INFO    SystemMonitor:5429 [interfaces.py:start():190] Started cpu monitoring
+2024-04-15 17:50:12,259 INFO    SystemMonitor:5429 [interfaces.py:start():190] Started disk monitoring
+2024-04-15 17:50:12,260 INFO    SystemMonitor:5429 [interfaces.py:start():190] Started gpuapple monitoring
+2024-04-15 17:50:12,261 INFO    SystemMonitor:5429 [interfaces.py:start():190] Started memory monitoring
+2024-04-15 17:50:12,262 INFO    SystemMonitor:5429 [interfaces.py:start():190] Started network monitoring
+2024-04-15 17:50:12,268 DEBUG   HandlerThread:5429 [gitlib.py:_init_repo():56] git repository is invalid
+2024-04-15 17:50:12,268 DEBUG   HandlerThread:5429 [system_info.py:probe():198] Probing system done
+2024-04-15 17:50:12,268 DEBUG   HandlerThread:5429 [system_monitor.py:probe():223] {'os': 'macOS-13.5-arm64-arm-64bit', 'python': '3.11.4', 'heartbeatAt': '2024-04-15T15:50:12.258861', 'startedAt': '2024-04-15T15:50:11.528905', 'docker': None, 'cuda': None, 'args': (), 'state': 'running', 'program': '/Users/ajgeorge/python/sis/main.py', 'codePathLocal': 'main.py', 'codePath': 'main.py', 'host': 'iscpc79.epfl.ch', 'username': 'ajgeorge', 'executable': '/Users/ajgeorge/anaconda3/envs/sis/bin/python', 'cpu_count': 8, 'cpu_count_logical': 8, 'disk': {'/': {'total': 460.4317207336426, 'used': 153.97715377807617}}, 'gpuapple': {'type': 'arm', 'vendor': 'Apple'}, 'memory': {'total': 16.0}}
+2024-04-15 17:50:12,268 INFO    HandlerThread:5429 [system_monitor.py:probe():224] Finished collecting system info
+2024-04-15 17:50:12,268 INFO    HandlerThread:5429 [system_monitor.py:probe():227] Publishing system info
+2024-04-15 17:50:12,268 DEBUG   HandlerThread:5429 [system_info.py:_save_conda():207] Saving list of conda packages installed into the current environment
+2024-04-15 17:50:13,139 INFO    Thread-12 :5429 [dir_watcher.py:_on_file_created():271] file/dir created: /Users/ajgeorge/python/sis/logs/2024-04-15/17-50-10/wandb/run-20240415_175011-952e58229c6344eb17d621d93171be6cf92c193e99df34f320c3b825bd38cfb3/files/conda-environment.yaml
+2024-04-15 17:50:17,934 DEBUG   HandlerThread:5429 [system_info.py:_save_conda():222] Saving conda packages done
+2024-04-15 17:50:17,934 INFO    HandlerThread:5429 [system_monitor.py:probe():229] Finished publishing system info
+2024-04-15 17:50:17,945 DEBUG   HandlerThread:5429 [handler.py:handle_request():146] handle_request: status_report
+2024-04-15 17:50:17,945 DEBUG   HandlerThread:5429 [handler.py:handle_request():146] handle_request: keepalive
+2024-04-15 17:50:17,946 DEBUG   SenderThread:5429 [sender.py:send():379] send: files
+2024-04-15 17:50:17,946 INFO    SenderThread:5429 [sender.py:_save_file():1390] saving file wandb-metadata.json with policy now
+2024-04-15 17:50:18,157 INFO    Thread-12 :5429 [dir_watcher.py:_on_file_modified():288] file/dir modified: /Users/ajgeorge/python/sis/logs/2024-04-15/17-50-10/wandb/run-20240415_175011-952e58229c6344eb17d621d93171be6cf92c193e99df34f320c3b825bd38cfb3/files/conda-environment.yaml
+2024-04-15 17:50:18,158 INFO    Thread-12 :5429 [dir_watcher.py:_on_file_created():271] file/dir created: /Users/ajgeorge/python/sis/logs/2024-04-15/17-50-10/wandb/run-20240415_175011-952e58229c6344eb17d621d93171be6cf92c193e99df34f320c3b825bd38cfb3/files/wandb-metadata.json
+2024-04-15 17:50:18,440 DEBUG   HandlerThread:5429 [handler.py:handle_request():146] handle_request: python_packages
+2024-04-15 17:50:18,440 DEBUG   HandlerThread:5429 [handler.py:handle_request():146] handle_request: stop_status
+2024-04-15 17:50:18,440 DEBUG   SenderThread:5429 [sender.py:send_request():406] send_request: python_packages
+2024-04-15 17:50:18,440 DEBUG   HandlerThread:5429 [handler.py:handle_request():146] handle_request: internal_messages
+2024-04-15 17:50:18,441 DEBUG   SenderThread:5429 [sender.py:send_request():406] send_request: stop_status
+2024-04-15 17:50:18,506 INFO    wandb-upload_0:5429 [upload_job.py:push():131] Uploaded file /var/folders/zm/pvx4kk8j5y71lh90_9ynxzrh007rvq/T/tmps5ob5mpywandb/2sdxlojh-wandb-metadata.json
+2024-04-15 17:50:18,674 DEBUG   SenderThread:5429 [sender.py:send():379] send: telemetry
+2024-04-15 17:50:19,129 DEBUG   SenderThread:5429 [sender.py:send():379] send: telemetry
+2024-04-15 17:50:19,130 DEBUG   SenderThread:5429 [sender.py:send_request():406] send_request: summary_record
+2024-04-15 17:50:19,130 INFO    SenderThread:5429 [sender.py:_save_file():1390] saving file wandb-summary.json with policy end
+2024-04-15 17:50:19,163 INFO    Thread-12 :5429 [dir_watcher.py:_on_file_created():271] file/dir created: /Users/ajgeorge/python/sis/logs/2024-04-15/17-50-10/wandb/run-20240415_175011-952e58229c6344eb17d621d93171be6cf92c193e99df34f320c3b825bd38cfb3/files/output.log
+2024-04-15 17:50:19,163 INFO    Thread-12 :5429 [dir_watcher.py:_on_file_created():271] file/dir created: /Users/ajgeorge/python/sis/logs/2024-04-15/17-50-10/wandb/run-20240415_175011-952e58229c6344eb17d621d93171be6cf92c193e99df34f320c3b825bd38cfb3/files/wandb-summary.json
+2024-04-15 17:50:19,163 INFO    Thread-12 :5429 [dir_watcher.py:_on_file_created():271] file/dir created: /Users/ajgeorge/python/sis/logs/2024-04-15/17-50-10/wandb/run-20240415_175011-952e58229c6344eb17d621d93171be6cf92c193e99df34f320c3b825bd38cfb3/files/requirements.txt
+2024-04-15 17:50:21,170 INFO    Thread-12 :5429 [dir_watcher.py:_on_file_modified():288] file/dir modified: /Users/ajgeorge/python/sis/logs/2024-04-15/17-50-10/wandb/run-20240415_175011-952e58229c6344eb17d621d93171be6cf92c193e99df34f320c3b825bd38cfb3/files/output.log
+2024-04-15 17:50:23,139 DEBUG   HandlerThread:5429 [handler.py:handle_request():146] handle_request: status_report
+2024-04-15 17:50:25,427 DEBUG   SenderThread:5429 [sender.py:send():379] send: telemetry
+2024-04-15 17:50:25,427 DEBUG   SenderThread:5429 [sender.py:send():379] send: telemetry
+2024-04-15 17:50:25,885 DEBUG   SenderThread:5429 [sender.py:send():379] send: telemetry
+2024-04-15 17:50:28,901 DEBUG   HandlerThread:5429 [handler.py:handle_request():146] handle_request: status_report
+2024-04-15 17:50:33,448 DEBUG   HandlerThread:5429 [handler.py:handle_request():146] handle_request: stop_status
+2024-04-15 17:50:33,448 DEBUG   HandlerThread:5429 [handler.py:handle_request():146] handle_request: internal_messages
+2024-04-15 17:50:33,449 DEBUG   SenderThread:5429 [sender.py:send_request():406] send_request: stop_status
+2024-04-15 17:50:34,651 DEBUG   HandlerThread:5429 [handler.py:handle_request():146] handle_request: status_report
+2024-04-15 17:50:39,664 DEBUG   HandlerThread:5429 [handler.py:handle_request():146] handle_request: status_report
+2024-04-15 17:50:44,687 DEBUG   HandlerThread:5429 [handler.py:handle_request():146] handle_request: status_report
+2024-04-15 17:50:45,277 INFO    Thread-12 :5429 [dir_watcher.py:_on_file_modified():288] file/dir modified: /Users/ajgeorge/python/sis/logs/2024-04-15/17-50-10/wandb/run-20240415_175011-952e58229c6344eb17d621d93171be6cf92c193e99df34f320c3b825bd38cfb3/files/config.yaml
+2024-04-15 17:50:48,448 DEBUG   HandlerThread:5429 [handler.py:handle_request():146] handle_request: internal_messages
+2024-04-15 17:50:48,448 DEBUG   HandlerThread:5429 [handler.py:handle_request():146] handle_request: stop_status
+2024-04-15 17:50:48,449 DEBUG   SenderThread:5429 [sender.py:send_request():406] send_request: stop_status
+2024-04-15 17:50:50,679 DEBUG   HandlerThread:5429 [handler.py:handle_request():146] handle_request: status_report
+2024-04-15 17:50:55,702 DEBUG   HandlerThread:5429 [handler.py:handle_request():146] handle_request: status_report
+2024-04-15 17:51:00,718 DEBUG   HandlerThread:5429 [handler.py:handle_request():146] handle_request: status_report
+2024-04-15 17:51:01,108 ERROR   gpuapple  :5429 [gpu_apple.py:sample():81] GPU stats error: Command '['/Users/ajgeorge/anaconda3/envs/sis/lib/python3.11/site-packages/wandb/bin/apple_gpu_stats', '--json']' died with <Signals.SIGINT: 2>.
+Traceback (most recent call last):
+  File "/Users/ajgeorge/anaconda3/envs/sis/lib/python3.11/site-packages/wandb/sdk/internal/system/assets/gpu_apple.py", line 60, in sample
+    subprocess.check_output(command, universal_newlines=True)
+  File "/Users/ajgeorge/anaconda3/envs/sis/lib/python3.11/subprocess.py", line 466, in check_output
+    return run(*popenargs, stdout=PIPE, timeout=timeout, check=True,
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/ajgeorge/anaconda3/envs/sis/lib/python3.11/subprocess.py", line 571, in run
+    raise CalledProcessError(retcode, process.args,
+subprocess.CalledProcessError: Command '['/Users/ajgeorge/anaconda3/envs/sis/lib/python3.11/site-packages/wandb/bin/apple_gpu_stats', '--json']' died with <Signals.SIGINT: 2>.
+2024-04-15 17:51:03,367 INFO    Thread-12 :5429 [dir_watcher.py:_on_file_modified():288] file/dir modified: /Users/ajgeorge/python/sis/logs/2024-04-15/17-50-10/wandb/run-20240415_175011-952e58229c6344eb17d621d93171be6cf92c193e99df34f320c3b825bd38cfb3/files/output.log

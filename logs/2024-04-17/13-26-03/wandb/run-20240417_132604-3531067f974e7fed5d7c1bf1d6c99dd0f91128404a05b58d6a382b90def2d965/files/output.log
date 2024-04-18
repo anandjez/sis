@@ -1,0 +1,140 @@
+{'wandb': {'project': 'sis', 'resume': 'allow', 'mode': 'run', 'name': '2024-04-17/13-26-03,', 'tags': [], 'id': '3531067f974e7fed5d7c1bf1d6c99dd0f91128404a05b58d6a382b90def2d965'}, 'keops_build_path': '/Users/ajgeorge/.cache/keops/unknown/2024-04-17/13-26-03', 'merge_wandb_resume_cfg': True, 'restore_ckpt_from_wandb': True, 'target': {'_target_': 'stint_sampler.targets.targets.gmm', 'd': 2, 'mean': 5.0, 'var': 1.0}, 'interpolant': {'_target_': 'stint_sampler.stint.linearInterpolants.linear', 'type': 'trig_lin'}, 'hjb_solver': {'_target_': 'stint_sampler.hjb_solver.fbsde.fbsde'}, 'model': {'_target_': 'stint_sampler.models.energyNets.DenseNet', 'features': [20, 50, 200, 200, 50, 1]}, 'seed': 1, 'T': 1.0, 'dim': 2, 'eps0': 1e-05, 'eps1': 1e-05, 'batch_size': 128, 'log_interval': 10, 'eval_interval': 100, 'jit_lossFn': 0, 'train': {'NtTrain': 20, 'epochs': 1000, 'epoch_steps': 2, 'learning_rate': 0.005}, 'solver': {'_target_': 'stint_sampler.stint.sis.half_sis'}, 'sampler': {'Nsamples': 10000, 'NtSampler': 1000}, 'pde_solver': {'scale_init_train': 0.01, 'train_sde_drift': 0.0}, 'eval': {'hist_dims': [0, 1]}, 'out_dir': '/Users/ajgeorge/python/sis/logs/2024-04-17/13-26-03'}
+[2024-04-17 13:26:10,760][root][INFO] - ---------------------------------------------------------------
+[2024-04-17 13:26:10,762][root][INFO] - Run config:
+wandb:
+  project: sis
+  resume: allow
+  mode: run
+  name: 2024-04-17/13-26-03,
+  tags: []
+  id: 3531067f974e7fed5d7c1bf1d6c99dd0f91128404a05b58d6a382b90def2d965
+keops_build_path: /Users/ajgeorge/.cache/keops/unknown/2024-04-17/13-26-03
+merge_wandb_resume_cfg: true
+restore_ckpt_from_wandb: true
+target:
+  _target_: stint_sampler.targets.targets.gmm
+  d: 2
+  mean: 5.0
+  var: 1.0
+interpolant:
+  _target_: stint_sampler.stint.linearInterpolants.linear
+  type: trig_lin
+hjb_solver:
+  _target_: stint_sampler.hjb_solver.fbsde.fbsde
+model:
+  _target_: stint_sampler.models.energyNets.DenseNet
+  features:
+  - 20
+  - 50
+  - 200
+  - 200
+  - 50
+  - 1
+seed: 1
+T: 1.0
+dim: 2
+eps0: 1.0e-05
+eps1: 1.0e-05
+batch_size: 128
+log_interval: 10
+eval_interval: 100
+jit_lossFn: 0
+train:
+  NtTrain: 20
+  epochs: 1000
+  epoch_steps: 2
+  learning_rate: 0.005
+solver:
+  _target_: stint_sampler.stint.sis.half_sis
+sampler:
+  Nsamples: 10000
+  NtSampler: 1000
+pde_solver:
+  scale_init_train: 0.01
+  train_sde_drift: 0.0
+eval:
+  hist_dims:
+  - 0
+  - 1
+out_dir: /Users/ajgeorge/python/sis/logs/2024-04-17/13-26-03
+[2024-04-17 13:26:10,763][root][INFO] - ---------------------------------------------------------------
+[2024-04-17 13:26:11,255][jax._src.xla_bridge][INFO] - Unable to initialize backend 'cuda': module 'jaxlib.xla_extension' has no attribute 'GpuAllocatorConfig'
+[2024-04-17 13:26:11,255][jax._src.xla_bridge][INFO] - Unable to initialize backend 'rocm': module 'jaxlib.xla_extension' has no attribute 'GpuAllocatorConfig'
+[2024-04-17 13:26:11,256][jax._src.xla_bridge][INFO] - Unable to initialize backend 'tpu': INTERNAL: Failed to open libtpu.so: dlopen(libtpu.so, 0x0001): tried: 'libtpu.so' (no such file), '/System/Volumes/Preboot/Cryptexes/OSlibtpu.so' (no such file), '/Users/ajgeorge/anaconda3/envs/sis/lib/python3.11/site-packages/jaxlib/../../../libtpu.so' (no such file), '/Users/ajgeorge/anaconda3/envs/sis/bin/../lib/libtpu.so' (no such file), '/usr/lib/libtpu.so' (no such file, not in dyld cache), 'libtpu.so' (no such file), '/usr/local/lib/libtpu.so' (no such file), '/usr/lib/libtpu.so' (no such file, not in dyld cache)
+[2024-04-17 13:26:11,274][root][INFO] - Checkpoint directory: /Users/ajgeorge/python/sis/logs/2024-04-17/13-26-03/ckpt
+loss =  4.952448 {'x_max': Array(2.077465, dtype=float32), 'x_min': Array(-2.1345444, dtype=float32)}
+loss =  0.49961466 {'x_max': Array(2.4215958, dtype=float32), 'x_min': Array(-1.9071172, dtype=float32)}
+loss =  0.26414615 {'x_max': Array(2.672471, dtype=float32), 'x_min': Array(-2.086708, dtype=float32)}
+loss =  0.059375077 {'x_max': Array(1.738246, dtype=float32), 'x_min': Array(-2.253628, dtype=float32)}
+loss =  0.048395343 {'x_max': Array(2.1524816, dtype=float32), 'x_min': Array(-2.0312245, dtype=float32)}
+loss =  0.053849857 {'x_max': Array(1.9050971, dtype=float32), 'x_min': Array(-2.3403544, dtype=float32)}
+loss =  0.030354265 {'x_max': Array(1.8902956, dtype=float32), 'x_min': Array(-2.097406, dtype=float32)}
+loss =  0.028854012 {'x_max': Array(2.213086, dtype=float32), 'x_min': Array(-1.7006279, dtype=float32)}
+loss =  0.031929392 {'x_max': Array(1.6710712, dtype=float32), 'x_min': Array(-2.3123293, dtype=float32)}
+loss =  0.026031105 {'x_max': Array(2.3119874, dtype=float32), 'x_min': Array(-1.7983975, dtype=float32)}
+Traceback (most recent call last):
+  File "/Users/ajgeorge/python/sis/main.py", line 86, in <module>
+    main()
+  File "/Users/ajgeorge/anaconda3/envs/sis/lib/python3.11/site-packages/hydra/main.py", line 94, in decorated_main
+    _run_hydra(
+  File "/Users/ajgeorge/anaconda3/envs/sis/lib/python3.11/site-packages/hydra/_internal/utils.py", line 394, in _run_hydra
+    _run_app(
+  File "/Users/ajgeorge/anaconda3/envs/sis/lib/python3.11/site-packages/hydra/_internal/utils.py", line 457, in _run_app
+    run_and_report(
+  File "/Users/ajgeorge/anaconda3/envs/sis/lib/python3.11/site-packages/hydra/_internal/utils.py", line 220, in run_and_report
+    return func()
+           ^^^^^^
+  File "/Users/ajgeorge/anaconda3/envs/sis/lib/python3.11/site-packages/hydra/_internal/utils.py", line 458, in <lambda>
+    lambda: hydra.run(
+            ^^^^^^^^^^
+  File "/Users/ajgeorge/anaconda3/envs/sis/lib/python3.11/site-packages/hydra/_internal/hydra.py", line 119, in run
+    ret = run_job(
+          ^^^^^^^^
+  File "/Users/ajgeorge/anaconda3/envs/sis/lib/python3.11/site-packages/hydra/core/utils.py", line 186, in run_job
+    ret.return_value = task_function(task_cfg)
+                       ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/ajgeorge/python/sis/main.py", line 73, in main
+    params = sampler.train()
+             ^^^^^^^^^^^^^^^
+  File "/Users/ajgeorge/python/sis/stint_sampler/stint/sis.py", line 103, in train
+    self.params, opt_state, L,metrics = opt_step(self.params, opt_state, runs - run,k1)
+                                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/ajgeorge/python/sis/stint_sampler/stint/sis.py", line 85, in opt_step
+    (L,metrics), grad_par = self.loss_grad(params,k)
+                            ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/ajgeorge/anaconda3/envs/sis/lib/python3.11/site-packages/jax/_src/traceback_util.py", line 177, in reraise_with_filtered_traceback
+    return fun(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "/Users/ajgeorge/anaconda3/envs/sis/lib/python3.11/site-packages/jax/_src/api.py", line 738, in value_and_grad_f
+    g = vjp_py(lax_internal._one(ans))
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/ajgeorge/anaconda3/envs/sis/lib/python3.11/site-packages/jax/_src/tree_util.py", line 353, in __call__
+    return self.fun(*args, **kw)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/ajgeorge/anaconda3/envs/sis/lib/python3.11/site-packages/jax/_src/api.py", line 2163, in _vjp_pullback_wrapper
+    ans = fun(*args)
+          ^^^^^^^^^^
+  File "/Users/ajgeorge/anaconda3/envs/sis/lib/python3.11/site-packages/jax/_src/tree_util.py", line 353, in __call__
+    return self.fun(*args, **kw)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/ajgeorge/anaconda3/envs/sis/lib/python3.11/site-packages/jax/_src/interpreters/ad.py", line 147, in unbound_vjp
+    arg_cts = backward_pass(jaxpr, reduce_axes, True, consts, dummy_args, cts)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/ajgeorge/anaconda3/envs/sis/lib/python3.11/site-packages/jax/_src/interpreters/ad.py", line 251, in backward_pass
+    cts_out = reducing_transposes[eqn.primitive](
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/ajgeorge/anaconda3/envs/sis/lib/python3.11/site-packages/jax/_src/pjit.py", line 1699, in _pjit_transpose
+    nz_cts_out = pjit_p.bind(
+                 ^^^^^^^^^^^^
+  File "/Users/ajgeorge/anaconda3/envs/sis/lib/python3.11/site-packages/jax/_src/core.py", line 2656, in bind
+    return self.bind_with_trace(top_trace, args, params)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/ajgeorge/anaconda3/envs/sis/lib/python3.11/site-packages/jax/_src/core.py", line 388, in bind_with_trace
+    out = trace.process_primitive(self, map(trace.full_raise, args), params)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/ajgeorge/anaconda3/envs/sis/lib/python3.11/site-packages/jax/_src/core.py", line 868, in process_primitive
+    return primitive.impl(*tracers, **params)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/ajgeorge/anaconda3/envs/sis/lib/python3.11/site-packages/jax/_src/pjit.py", line 1212, in _pjit_call_impl
+    return xc._xla.pjit(name, f, call_impl_cache_miss, [], [], donated_argnums,
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^

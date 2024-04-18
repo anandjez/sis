@@ -1,0 +1,1 @@
+{"device": "None", "error": "Error in call to target 'stint_sampler.stint.sis.half_sis':\nInstantiationException(\"Error locating target 'stint_sampler.stint.linearInterpolant.linear', set env var HYDRA_FULL_ERROR=1 to see chained exception.\\nfull_key: interpolant\")\nfull_key: solver", "_wandb": {"runtime": 25}}

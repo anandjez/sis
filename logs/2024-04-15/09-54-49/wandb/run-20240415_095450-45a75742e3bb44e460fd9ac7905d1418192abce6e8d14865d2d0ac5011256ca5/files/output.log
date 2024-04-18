@@ -1,0 +1,62 @@
+{'wandb': {'project': 'sis', 'resume': 'allow', 'mode': 'run', 'name': '2024-04-15/09-54-49,', 'tags': [], 'id': '45a75742e3bb44e460fd9ac7905d1418192abce6e8d14865d2d0ac5011256ca5'}, 'keops_build_path': '/Users/ajgeorge/.cache/keops/unknown/2024-04-15/09-54-49', 'merge_wandb_resume_cfg': True, 'restore_ckpt_from_wandb': True, 'target': {'_target_': 'stint_sampler.targets.targets.gmm', 'mean': 5.0, 'var': 1.0}, 'interpolant': {'_target_': 'stint_sampler.stint.linearInterpolants.linear', 'type': 'sin'}, 'model': {'_target_': 'stint_sampler.models.scoreNets.DenseNet', 'dim': 2, 'features': [20, 50, 200, 200, 50]}, 'seed': 1, 'T': 1.0, 'dim': 2, 'batch_size': 128, 'NtTrain': 100, 'epochs': 1000, 'epoch_steps': 4, 'learning_rate': 0.01, 'solver': {'_target_': 'stint_sampler.stint.sis.half_sis'}, 'sampler': {'Nsamples': 10000, 'NtSampler': 1000}, 'out_dir': '/Users/ajgeorge/python/sis/logs/2024-04-15/09-54-49'}
+[2024-04-15 09:54:56,106][root][INFO] - ---------------------------------------------------------------
+[2024-04-15 09:54:56,109][root][INFO] - Run config:
+wandb:
+  project: sis
+  resume: allow
+  mode: run
+  name: 2024-04-15/09-54-49,
+  tags: []
+  id: 45a75742e3bb44e460fd9ac7905d1418192abce6e8d14865d2d0ac5011256ca5
+keops_build_path: /Users/ajgeorge/.cache/keops/unknown/2024-04-15/09-54-49
+merge_wandb_resume_cfg: true
+restore_ckpt_from_wandb: true
+target:
+  _target_: stint_sampler.targets.targets.gmm
+  mean: 5.0
+  var: 1.0
+interpolant:
+  _target_: stint_sampler.stint.linearInterpolants.linear
+  type: sin
+model:
+  _target_: stint_sampler.models.scoreNets.DenseNet
+  dim: 2
+  features:
+  - 20
+  - 50
+  - 200
+  - 200
+  - 50
+seed: 1
+T: 1.0
+dim: 2
+batch_size: 128
+NtTrain: 100
+epochs: 1000
+epoch_steps: 4
+learning_rate: 0.01
+solver:
+  _target_: stint_sampler.stint.sis.half_sis
+sampler:
+  Nsamples: 10000
+  NtSampler: 1000
+out_dir: /Users/ajgeorge/python/sis/logs/2024-04-15/09-54-49
+[2024-04-15 09:54:56,109][root][INFO] - ---------------------------------------------------------------
+[2024-04-15 09:54:56,935][jax._src.xla_bridge][INFO] - Unable to initialize backend 'cuda': module 'jaxlib.xla_extension' has no attribute 'GpuAllocatorConfig'
+[2024-04-15 09:54:56,936][jax._src.xla_bridge][INFO] - Unable to initialize backend 'rocm': module 'jaxlib.xla_extension' has no attribute 'GpuAllocatorConfig'
+[2024-04-15 09:54:56,937][jax._src.xla_bridge][INFO] - Unable to initialize backend 'tpu': INTERNAL: Failed to open libtpu.so: dlopen(libtpu.so, 0x0001): tried: 'libtpu.so' (no such file), '/System/Volumes/Preboot/Cryptexes/OSlibtpu.so' (no such file), '/Users/ajgeorge/anaconda3/envs/sis/lib/python3.11/site-packages/jaxlib/../../../libtpu.so' (no such file), '/Users/ajgeorge/anaconda3/envs/sis/bin/../lib/libtpu.so' (no such file), '/usr/lib/libtpu.so' (no such file, not in dyld cache), 'libtpu.so' (no such file), '/usr/local/lib/libtpu.so' (no such file), '/usr/lib/libtpu.so' (no such file, not in dyld cache)
+[2024-04-15 09:54:57,065][root][INFO] - Checkpoint directory: /Users/ajgeorge/python/sis/logs/2024-04-15/09-54-49/ckpt
+[2024-04-15 09:55:02,030][root][CRITICAL] - half_sis.lossFn() takes 2 positional arguments but 3 were given
+Traceback (most recent call last):
+  File "/Users/ajgeorge/python/sis/main.py", line 73, in main
+    params = sampler.train()
+             ^^^^^^^^^^^^^^^
+  File "/Users/ajgeorge/python/sis/stint_sampler/stint/sis.py", line 89, in train
+    self.params, opt_state, L = opt_step(self.params, opt_state, runs - run, k1)
+                                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/ajgeorge/python/sis/stint_sampler/stint/sis.py", line 71, in opt_step
+    L, grad_par = self.loss_grad(params, k)
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: half_sis.lossFn() takes 2 positional arguments but 3 were given
+--------------------
+For simplicity, JAX has removed its internal frames from the traceback of the following exception. Set JAX_TRACEBACK_FILTERING=off to include these.

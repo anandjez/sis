@@ -1,0 +1,21 @@
+Error executing job with overrides: []
+Traceback (most recent call last):
+  File "/Users/ajgeorge/python/sis/main.py", line 70, in main
+    wandb_config["hydra"] = OmegaConf.to_container(hydra_config, resolve=True)
+                            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+omegaconf.errors.InterpolationToMissingValueError: MissingMandatoryValue while resolving interpolation: Missing mandatory value: hydra.job.num
+    full_key: hydra.sweep.subdir
+    reference_type=SweepDir
+    object_type=SweepDir
+Set the environment variable HYDRA_FULL_ERROR=1 for a complete stack trace.
+{'b': 1, 'a': 1, 'out_dir': '/Users/ajgeorge/python/sis/outputs/2024-04-12/18-07-00', 'wandb': {'tags': [], 'id': 'd21e7f9c96e250b59a471f17d8b76ca12c03f45d830a4014d81dfd3b841cdb39', 'name': '2024-04-12/18-07-00,'}}
+[2024-04-12 18:07:07,746][root][INFO] - ---------------------------------------------------------------
+[2024-04-12 18:07:07,746][root][INFO] - Run config:
+b: 1
+a: 1
+out_dir: /Users/ajgeorge/python/sis/outputs/2024-04-12/18-07-00
+wandb:
+  tags: []
+  id: d21e7f9c96e250b59a471f17d8b76ca12c03f45d830a4014d81dfd3b841cdb39
+  name: 2024-04-12/18-07-00,
+[2024-04-12 18:07:07,746][root][INFO] - ---------------------------------------------------------------

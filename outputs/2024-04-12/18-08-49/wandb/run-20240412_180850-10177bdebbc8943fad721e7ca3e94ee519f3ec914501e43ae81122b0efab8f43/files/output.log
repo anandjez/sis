@@ -1,0 +1,35 @@
+{'b': 1, 'a': 1, 'out_dir': '/Users/ajgeorge/python/sis/outputs/2024-04-12/18-08-49', 'wandb': {'tags': [], 'id': '10177bdebbc8943fad721e7ca3e94ee519f3ec914501e43ae81122b0efab8f43', 'name': '2024-04-12/18-08-49,'}}
+[2024-04-12 18:08:56,797][root][INFO] - ---------------------------------------------------------------
+[2024-04-12 18:08:56,799][root][INFO] - Run config:
+b: 1
+a: 1
+out_dir: /Users/ajgeorge/python/sis/outputs/2024-04-12/18-08-49
+wandb:
+  tags: []
+  id: 10177bdebbc8943fad721e7ca3e94ee519f3ec914501e43ae81122b0efab8f43
+  name: 2024-04-12/18-08-49,
+[2024-04-12 18:08:56,799][root][INFO] - ---------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/ajgeorge/python/sis/main.py", line 84, in <module>
+    main()
+  File "/Users/ajgeorge/anaconda3/envs/sis/lib/python3.11/site-packages/hydra/main.py", line 94, in decorated_main
+    _run_hydra(
+  File "/Users/ajgeorge/anaconda3/envs/sis/lib/python3.11/site-packages/hydra/_internal/utils.py", line 394, in _run_hydra
+    _run_app(
+  File "/Users/ajgeorge/anaconda3/envs/sis/lib/python3.11/site-packages/hydra/_internal/utils.py", line 457, in _run_app
+    run_and_report(
+  File "/Users/ajgeorge/anaconda3/envs/sis/lib/python3.11/site-packages/hydra/_internal/utils.py", line 220, in run_and_report
+    return func()
+           ^^^^^^
+  File "/Users/ajgeorge/anaconda3/envs/sis/lib/python3.11/site-packages/hydra/_internal/utils.py", line 458, in <lambda>
+    lambda: hydra.run(
+            ^^^^^^^^^^
+  File "/Users/ajgeorge/anaconda3/envs/sis/lib/python3.11/site-packages/hydra/_internal/hydra.py", line 119, in run
+    ret = run_job(
+          ^^^^^^^^
+  File "/Users/ajgeorge/anaconda3/envs/sis/lib/python3.11/site-packages/hydra/core/utils.py", line 186, in run_job
+    ret.return_value = task_function(task_cfg)
+                       ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/ajgeorge/python/sis/main.py", line 70, in main
+    wandb_config["hydra"] = OmegaConf.to_container(hydra_config, resolve=True)
+                            ^^^^^^^^^

@@ -1,0 +1,50 @@
+wandb:
+  project: sis
+  resume: allow
+  mode: run
+  name: null
+  tags: null
+  id: null
+keops_build_path: ${oc.env:HOME,logs}/.cache/keops/${oc.env:HOSTNAME,unknown}/${now:%Y-%m-%d}/${now:%H-%M-%S}
+merge_wandb_resume_cfg: true
+restore_ckpt_from_wandb: true
+target:
+  _target_: stint_sampler.targets.targets.gmm
+  d: 2
+  mean: 8.0
+  var: 1.0
+interpolant:
+  _target_: stint_sampler.stint.linearInterpolants.linear
+  type: trig
+hjb_solver:
+  _target_: stint_sampler.hjb_solver.oc.test
+model:
+  _target_: stint_sampler.models.scoreNets.DISnet
+  dim: ${dim}
+  width: 64
+seed: 1
+T: 1.0
+dim: ${target.d}
+eps0: 1.0e-05
+eps1: 1.0e-05
+batch_size: 128
+log_interval: 10
+eval_interval: 100
+jit_lossFn: 1
+train:
+  NtTrain: 200
+  epochs: 4000
+  epoch_steps: 3
+  learning_rate: 0.01
+solver:
+  _target_: stint_sampler.stint.sis.half_sis
+sampler:
+  Nsamples: 10000
+  NtSampler: 1000
+pde_solver:
+  scale_init_train: 0.01
+  train_sde_drift: 0.0
+eval:
+  hist_dims:
+  - 0
+  - 1

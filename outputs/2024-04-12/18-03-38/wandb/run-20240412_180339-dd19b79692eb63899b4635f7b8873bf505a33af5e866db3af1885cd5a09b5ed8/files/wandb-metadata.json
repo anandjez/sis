@@ -1,0 +1,33 @@
+{
+    "os": "macOS-13.5-arm64-arm-64bit",
+    "python": "3.11.4",
+    "heartbeatAt": "2024-04-12T16:03:39.928726",
+    "startedAt": "2024-04-12T16:03:39.313058",
+    "docker": null,
+    "cuda": null,
+    "args": [
+        "+target.dim=2"
+    ],
+    "state": "running",
+    "program": "/Users/ajgeorge/python/sis/main.py",
+    "codePathLocal": "main.py",
+    "codePath": "main.py",
+    "host": "B118321",
+    "username": "ajgeorge",
+    "executable": "/Users/ajgeorge/anaconda3/envs/sis/bin/python",
+    "cpu_count": 8,
+    "cpu_count_logical": 8,
+    "disk": {
+        "/": {
+            "total": 460.4317207336426,
+            "used": 152.93495559692383
+        }
+    },
+    "gpuapple": {
+        "type": "arm",
+        "vendor": "Apple"
+    },
+    "memory": {
+        "total": 16.0
+    }
+}

@@ -1,0 +1,1 @@
+{"device": "None", "error": "Gradient only defined for scalar-output functions. Output was None.", "_wandb": {"runtime": 19}}

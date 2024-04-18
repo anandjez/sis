@@ -1,0 +1,28 @@
+2024-04-12 18:07:02,013 INFO    MainThread:54793 [wandb_setup.py:_flush():76] Current SDK version is 0.16.6
+2024-04-12 18:07:02,014 INFO    MainThread:54793 [wandb_setup.py:_flush():76] Configure stats pid to 54793
+2024-04-12 18:07:02,014 INFO    MainThread:54793 [wandb_setup.py:_flush():76] Loading settings from /Users/ajgeorge/.config/wandb/settings
+2024-04-12 18:07:02,014 INFO    MainThread:54793 [wandb_setup.py:_flush():76] Loading settings from /Users/ajgeorge/python/sis/wandb/settings
+2024-04-12 18:07:02,014 INFO    MainThread:54793 [wandb_setup.py:_flush():76] Loading settings from environment variables: {}
+2024-04-12 18:07:02,014 INFO    MainThread:54793 [wandb_setup.py:_flush():76] Applying setup settings: {'_disable_service': False}
+2024-04-12 18:07:02,014 INFO    MainThread:54793 [wandb_setup.py:_flush():76] Inferring run settings from compute environment: {'program_relpath': 'main.py', 'program_abspath': '/Users/ajgeorge/python/sis/main.py', 'program': '/Users/ajgeorge/python/sis/main.py'}
+2024-04-12 18:07:02,014 INFO    MainThread:54793 [wandb_setup.py:_flush():76] Applying login settings: {}
+2024-04-12 18:07:02,014 INFO    MainThread:54793 [wandb_init.py:_log_setup():521] Logging user logs to /Users/ajgeorge/python/sis/outputs/2024-04-12/18-07-00/wandb/run-20240412_180702-d21e7f9c96e250b59a471f17d8b76ca12c03f45d830a4014d81dfd3b841cdb39/logs/debug.log
+2024-04-12 18:07:02,014 INFO    MainThread:54793 [wandb_init.py:_log_setup():522] Logging internal logs to /Users/ajgeorge/python/sis/outputs/2024-04-12/18-07-00/wandb/run-20240412_180702-d21e7f9c96e250b59a471f17d8b76ca12c03f45d830a4014d81dfd3b841cdb39/logs/debug-internal.log
+2024-04-12 18:07:02,014 INFO    MainThread:54793 [wandb_init.py:init():561] calling init triggers
+2024-04-12 18:07:02,014 INFO    MainThread:54793 [wandb_init.py:init():568] wandb.init called with sweep_config: {}
+config: {'b': 1, 'a': 1, 'out_dir': '/Users/ajgeorge/python/sis/outputs/2024-04-12/18-07-00', 'wandb': {'tags': [], 'id': 'd21e7f9c96e250b59a471f17d8b76ca12c03f45d830a4014d81dfd3b841cdb39', 'name': '2024-04-12/18-07-00,'}}
+2024-04-12 18:07:02,014 INFO    MainThread:54793 [wandb_init.py:init():611] starting backend
+2024-04-12 18:07:02,014 INFO    MainThread:54793 [wandb_init.py:init():615] setting up manager
+2024-04-12 18:07:02,016 INFO    MainThread:54793 [backend.py:_multiprocessing_setup():105] multiprocessing start_methods=spawn,fork,forkserver, using: spawn
+2024-04-12 18:07:02,018 INFO    MainThread:54793 [wandb_init.py:init():623] backend started and connected
+2024-04-12 18:07:02,020 INFO    MainThread:54793 [wandb_init.py:init():715] updated telemetry
+2024-04-12 18:07:02,020 INFO    MainThread:54793 [wandb_init.py:init():748] communicating run to backend with 90.0 second timeout
+2024-04-12 18:07:02,412 INFO    MainThread:54793 [wandb_run.py:_on_init():2357] communicating current version
+2024-04-12 18:07:02,501 INFO    MainThread:54793 [wandb_run.py:_on_init():2366] got version response 
+2024-04-12 18:07:02,501 INFO    MainThread:54793 [wandb_init.py:init():799] starting run threads in backend
+2024-04-12 18:07:07,745 INFO    MainThread:54793 [wandb_run.py:_console_start():2335] atexit reg
+2024-04-12 18:07:07,745 INFO    MainThread:54793 [wandb_run.py:_redirect():2190] redirect: wrap_raw
+2024-04-12 18:07:07,745 INFO    MainThread:54793 [wandb_run.py:_redirect():2255] Wrapping output streams.
+2024-04-12 18:07:07,745 INFO    MainThread:54793 [wandb_run.py:_redirect():2280] Redirects installed.
+2024-04-12 18:07:07,746 INFO    MainThread:54793 [wandb_init.py:init():842] run started, returning control to user process
+2024-04-12 18:07:14,553 WARNING MsgRouterThr:54793 [router.py:message_loop():77] message_loop has been closed

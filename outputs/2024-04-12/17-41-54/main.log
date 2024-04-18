@@ -1,0 +1,4 @@
+[2024-04-12 17:41:54,769][root][INFO] - Command line args:
++target.dim=2
+[2024-04-12 17:41:54,769][root][INFO] - Hydra and wandb output path: /Users/ajgeorge/python/sis/outputs/2024-04-12/17-41-54
+[2024-04-12 17:41:54,769][root][INFO] - Solver output path: /Users/ajgeorge/python/sis/outputs/2024-04-12/17-41-54

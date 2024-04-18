@@ -1,0 +1,108 @@
+{'wandb': {'project': 'sis', 'resume': 'allow', 'mode': 'run', 'name': '2024-04-17/15-53-34,', 'tags': [], 'id': '63d88fce385fbd78b8baf2635f5c49dfd9e2f9654ad087e8ea827f741da94f12'}, 'keops_build_path': '/Users/ajgeorge/.cache/keops/unknown/2024-04-17/15-53-34', 'merge_wandb_resume_cfg': True, 'restore_ckpt_from_wandb': True, 'target': {'_target_': 'stint_sampler.targets.targets.gmm', 'd': 2, 'mean': 8.0, 'var': 1.0}, 'interpolant': {'_target_': 'stint_sampler.stint.linearInterpolants.linear', 'type': 'trig'}, 'hjb_solver': {'_target_': 'stint_sampler.hjb_solver.oc.oc'}, 'model': {'_target_': 'stint_sampler.models.scoreNets.DISnet', 'dim': 2, 'width': 64}, 'seed': 1, 'T': 1.0, 'dim': 2, 'eps0': 1e-05, 'eps1': 1e-05, 'batch_size': 128, 'log_interval': 10, 'eval_interval': 100, 'jit_lossFn': 1, 'train': {'NtTrain': 200, 'epochs': 4000, 'epoch_steps': 3, 'learning_rate': 0.01}, 'solver': {'_target_': 'stint_sampler.stint.sis.half_sis'}, 'sampler': {'Nsamples': 10000, 'NtSampler': 1000}, 'pde_solver': {'scale_init_train': 0.01, 'train_sde_drift': 0.0}, 'eval': {'hist_dims': [0, 1]}, 'out_dir': '/Users/ajgeorge/python/sis/logs/2024-04-17/15-53-34'}
+[2024-04-17 15:53:43,242][root][INFO] - ---------------------------------------------------------------
+[2024-04-17 15:53:43,252][root][INFO] - Run config:
+wandb:
+  project: sis
+  resume: allow
+  mode: run
+  name: 2024-04-17/15-53-34,
+  tags: []
+  id: 63d88fce385fbd78b8baf2635f5c49dfd9e2f9654ad087e8ea827f741da94f12
+keops_build_path: /Users/ajgeorge/.cache/keops/unknown/2024-04-17/15-53-34
+merge_wandb_resume_cfg: true
+restore_ckpt_from_wandb: true
+target:
+  _target_: stint_sampler.targets.targets.gmm
+  d: 2
+  mean: 8.0
+  var: 1.0
+interpolant:
+  _target_: stint_sampler.stint.linearInterpolants.linear
+  type: trig
+hjb_solver:
+  _target_: stint_sampler.hjb_solver.oc.oc
+model:
+  _target_: stint_sampler.models.scoreNets.DISnet
+  dim: 2
+  width: 64
+seed: 1
+T: 1.0
+dim: 2
+eps0: 1.0e-05
+eps1: 1.0e-05
+batch_size: 128
+log_interval: 10
+eval_interval: 100
+jit_lossFn: 1
+train:
+  NtTrain: 200
+  epochs: 4000
+  epoch_steps: 3
+  learning_rate: 0.01
+solver:
+  _target_: stint_sampler.stint.sis.half_sis
+sampler:
+  Nsamples: 10000
+  NtSampler: 1000
+pde_solver:
+  scale_init_train: 0.01
+  train_sde_drift: 0.0
+eval:
+  hist_dims:
+  - 0
+  - 1
+out_dir: /Users/ajgeorge/python/sis/logs/2024-04-17/15-53-34
+[2024-04-17 15:53:43,253][root][INFO] - ---------------------------------------------------------------
+[2024-04-17 15:53:44,007][jax._src.xla_bridge][INFO] - Unable to initialize backend 'cuda': module 'jaxlib.xla_extension' has no attribute 'GpuAllocatorConfig'
+[2024-04-17 15:53:44,007][jax._src.xla_bridge][INFO] - Unable to initialize backend 'rocm': module 'jaxlib.xla_extension' has no attribute 'GpuAllocatorConfig'
+[2024-04-17 15:53:44,009][jax._src.xla_bridge][INFO] - Unable to initialize backend 'tpu': INTERNAL: Failed to open libtpu.so: dlopen(libtpu.so, 0x0001): tried: 'libtpu.so' (no such file), '/System/Volumes/Preboot/Cryptexes/OSlibtpu.so' (no such file), '/Users/ajgeorge/anaconda3/envs/sis/lib/python3.11/site-packages/jaxlib/../../../libtpu.so' (no such file), '/Users/ajgeorge/anaconda3/envs/sis/bin/../lib/libtpu.so' (no such file), '/usr/lib/libtpu.so' (no such file, not in dyld cache), 'libtpu.so' (no such file), '/usr/local/lib/libtpu.so' (no such file), '/usr/lib/libtpu.so' (no such file, not in dyld cache)
+[2024-04-17 15:53:44,040][root][INFO] - Checkpoint directory: /Users/ajgeorge/python/sis/logs/2024-04-17/15-53-34/ckpt
+[2024-04-17 15:53:51,396][root][CRITICAL] - Error in call to target 'stint_sampler.stint.sis.half_sis':
+InstantiationException('Error in call to target \'stint_sampler.hjb_solver.oc.oc\':\nTypeError("oc.__init__() missing 4 required positional arguments: \'cfg\', \'pde\', \'model\', and \'intrplnt\'")\nfull_key: hjb_solver.cfg.hjb_solver')
+full_key: solver
+Traceback (most recent call last):
+  File "/Users/ajgeorge/anaconda3/envs/sis/lib/python3.11/site-packages/hydra/_internal/instantiate/_instantiate2.py", line 92, in _call_target
+    return _target_(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: oc.__init__() missing 4 required positional arguments: 'cfg', 'pde', 'model', and 'intrplnt'
+The above exception was the direct cause of the following exception:
+Traceback (most recent call last):
+  File "/Users/ajgeorge/anaconda3/envs/sis/lib/python3.11/site-packages/hydra/_internal/instantiate/_instantiate2.py", line 92, in _call_target
+    return _target_(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/ajgeorge/python/sis/stint_sampler/stint/sis.py", line 166, in __init__
+    self.hjb_solver = instantiate(self.cfg.hjb_solver,cfg=self.cfg,pde=self.pde,model=self.velocity_model.apply,intrplnt=self.intrplnt)
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/ajgeorge/anaconda3/envs/sis/lib/python3.11/site-packages/hydra/_internal/instantiate/_instantiate2.py", line 226, in instantiate
+    return instantiate_node(
+           ^^^^^^^^^^^^^^^^^
+  File "/Users/ajgeorge/anaconda3/envs/sis/lib/python3.11/site-packages/hydra/_internal/instantiate/_instantiate2.py", line 342, in instantiate_node
+    value = instantiate_node(
+            ^^^^^^^^^^^^^^^^^
+  File "/Users/ajgeorge/anaconda3/envs/sis/lib/python3.11/site-packages/hydra/_internal/instantiate/_instantiate2.py", line 366, in instantiate_node
+    cfg[key] = instantiate_node(
+               ^^^^^^^^^^^^^^^^^
+  File "/Users/ajgeorge/anaconda3/envs/sis/lib/python3.11/site-packages/hydra/_internal/instantiate/_instantiate2.py", line 347, in instantiate_node
+    return _call_target(_target_, partial, args, kwargs, full_key)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/ajgeorge/anaconda3/envs/sis/lib/python3.11/site-packages/hydra/_internal/instantiate/_instantiate2.py", line 97, in _call_target
+    raise InstantiationException(msg) from e
+hydra.errors.InstantiationException: Error in call to target 'stint_sampler.hjb_solver.oc.oc':
+TypeError("oc.__init__() missing 4 required positional arguments: 'cfg', 'pde', 'model', and 'intrplnt'")
+full_key: hjb_solver.cfg.hjb_solver
+The above exception was the direct cause of the following exception:
+Traceback (most recent call last):
+  File "/Users/ajgeorge/python/sis/main.py", line 72, in main
+    sampler = instantiate(cfg.solver, cfg)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/ajgeorge/anaconda3/envs/sis/lib/python3.11/site-packages/hydra/_internal/instantiate/_instantiate2.py", line 226, in instantiate
+    return instantiate_node(
+           ^^^^^^^^^^^^^^^^^
+  File "/Users/ajgeorge/anaconda3/envs/sis/lib/python3.11/site-packages/hydra/_internal/instantiate/_instantiate2.py", line 347, in instantiate_node
+    return _call_target(_target_, partial, args, kwargs, full_key)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/ajgeorge/anaconda3/envs/sis/lib/python3.11/site-packages/hydra/_internal/instantiate/_instantiate2.py", line 97, in _call_target
+    raise InstantiationException(msg) from e
+hydra.errors.InstantiationException: Error in call to target 'stint_sampler.stint.sis.half_sis':
+InstantiationException('Error in call to target \'stint_sampler.hjb_solver.oc.oc\':\nTypeError("oc.__init__() missing 4 required positional arguments: \'cfg\', \'pde\', \'model\', and \'intrplnt\'")\nfull_key: hjb_solver.cfg.hjb_solver')
+full_key: solver

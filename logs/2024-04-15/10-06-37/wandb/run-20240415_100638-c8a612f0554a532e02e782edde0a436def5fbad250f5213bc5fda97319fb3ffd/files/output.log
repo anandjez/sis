@@ -1,0 +1,86 @@
+{'wandb': {'project': 'sis', 'resume': 'allow', 'mode': 'run', 'name': '2024-04-15/10-06-37,', 'tags': [], 'id': 'c8a612f0554a532e02e782edde0a436def5fbad250f5213bc5fda97319fb3ffd'}, 'keops_build_path': '/Users/ajgeorge/.cache/keops/unknown/2024-04-15/10-06-37', 'merge_wandb_resume_cfg': True, 'restore_ckpt_from_wandb': True, 'target': {'_target_': 'stint_sampler.targets.targets.gmm', 'mean': 5.0, 'var': 1.0}, 'interpolant': {'_target_': 'stint_sampler.stint.linearInterpolants.linear', 'type': 'sin'}, 'model': {'_target_': 'stint_sampler.models.scoreNets.DenseNet', 'dim': 2, 'features': [20, 50, 200, 200, 50]}, 'seed': 1, 'T': 1.0, 'dim': 2, 'eps0': 1e-05, 'eps1': 1e-05, 'batch_size': 128, 'train': {'NtTrain': 100, 'epochs': 1000, 'epoch_steps': 4, 'learning_rate': 0.01}, 'solver': {'_target_': 'stint_sampler.stint.sis.half_sis'}, 'sampler': {'Nsamples': 10000, 'NtSampler': 1000}, 'out_dir': '/Users/ajgeorge/python/sis/logs/2024-04-15/10-06-37'}
+[2024-04-15 10:06:45,110][root][INFO] - ---------------------------------------------------------------
+[2024-04-15 10:06:45,112][root][INFO] - Run config:
+wandb:
+  project: sis
+  resume: allow
+  mode: run
+  name: 2024-04-15/10-06-37,
+  tags: []
+  id: c8a612f0554a532e02e782edde0a436def5fbad250f5213bc5fda97319fb3ffd
+keops_build_path: /Users/ajgeorge/.cache/keops/unknown/2024-04-15/10-06-37
+merge_wandb_resume_cfg: true
+restore_ckpt_from_wandb: true
+target:
+  _target_: stint_sampler.targets.targets.gmm
+  mean: 5.0
+  var: 1.0
+interpolant:
+  _target_: stint_sampler.stint.linearInterpolants.linear
+  type: sin
+model:
+  _target_: stint_sampler.models.scoreNets.DenseNet
+  dim: 2
+  features:
+  - 20
+  - 50
+  - 200
+  - 200
+  - 50
+seed: 1
+T: 1.0
+dim: 2
+eps0: 1.0e-05
+eps1: 1.0e-05
+batch_size: 128
+train:
+  NtTrain: 100
+  epochs: 1000
+  epoch_steps: 4
+  learning_rate: 0.01
+solver:
+  _target_: stint_sampler.stint.sis.half_sis
+sampler:
+  Nsamples: 10000
+  NtSampler: 1000
+out_dir: /Users/ajgeorge/python/sis/logs/2024-04-15/10-06-37
+[2024-04-15 10:06:45,113][root][INFO] - ---------------------------------------------------------------
+[2024-04-15 10:06:47,331][jax._src.xla_bridge][INFO] - Unable to initialize backend 'cuda': module 'jaxlib.xla_extension' has no attribute 'GpuAllocatorConfig'
+[2024-04-15 10:06:47,331][jax._src.xla_bridge][INFO] - Unable to initialize backend 'rocm': module 'jaxlib.xla_extension' has no attribute 'GpuAllocatorConfig'
+[2024-04-15 10:06:47,333][jax._src.xla_bridge][INFO] - Unable to initialize backend 'tpu': INTERNAL: Failed to open libtpu.so: dlopen(libtpu.so, 0x0001): tried: 'libtpu.so' (no such file), '/System/Volumes/Preboot/Cryptexes/OSlibtpu.so' (no such file), '/Users/ajgeorge/anaconda3/envs/sis/lib/python3.11/site-packages/jaxlib/../../../libtpu.so' (no such file), '/Users/ajgeorge/anaconda3/envs/sis/bin/../lib/libtpu.so' (no such file), '/usr/lib/libtpu.so' (no such file, not in dyld cache), 'libtpu.so' (no such file), '/usr/local/lib/libtpu.so' (no such file), '/usr/lib/libtpu.so' (no such file, not in dyld cache)
+[2024-04-15 10:06:47,490][root][INFO] - Checkpoint directory: /Users/ajgeorge/python/sis/logs/2024-04-15/10-06-37/ckpt
+[2024-04-15 10:06:58,531][root][CRITICAL] - sub got incompatible shapes for broadcasting: (256, 9), (2, 9).
+Traceback (most recent call last):
+  File "/Users/ajgeorge/python/sis/main.py", line 73, in main
+    params = sampler.train()
+             ^^^^^^^^^^^^^^^
+  File "/Users/ajgeorge/python/sis/stint_sampler/stint/sis.py", line 88, in train
+    self.params, opt_state, L = opt_step(self.params, opt_state, runs - run)
+                                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/ajgeorge/python/sis/stint_sampler/stint/sis.py", line 71, in opt_step
+    L, grad_par = self.loss_grad(params)
+                  ^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/ajgeorge/python/sis/stint_sampler/stint/sis.py", line 145, in lossFn
+    L -= self.pde.phi(X)
+         ^^^^^^^^^^^^^^^
+  File "/Users/ajgeorge/python/sis/stint_sampler/stint/sis.py", line 163, in <lambda>
+    phi = lambda x: self.target(self.beta(self.T)*x)-self.logPsi(self.T,x)
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/ajgeorge/python/sis/stint_sampler/targets/targets.py", line 17, in <lambda>
+    log_density = lambda x:jnp.clip(jax.scipy.special.logsumexp(log_density_comp(x)),-1e3,1e3)
+                                                                ^^^^^^^^^^^^^^^^^^^
+  File "/Users/ajgeorge/python/sis/stint_sampler/targets/targets.py", line 16, in <lambda>
+    log_density_comp = lambda x: -jnp.sum((jnp.outer(x,jnp.ones((mean_vec.shape[1],)))-mean_vec)**2,axis=0)/(2*var)
+                                           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~~~
+  File "/Users/ajgeorge/anaconda3/envs/sis/lib/python3.11/site-packages/jax/_src/numpy/array_methods.py", line 728, in op
+    return getattr(self.aval, f"_{name}")(self, *args)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/ajgeorge/anaconda3/envs/sis/lib/python3.11/site-packages/jax/_src/numpy/array_methods.py", line 256, in deferring_binary_op
+    return binary_op(*args)
+           ^^^^^^^^^^^^^^^^
+  File "/Users/ajgeorge/anaconda3/envs/sis/lib/python3.11/site-packages/jax/_src/numpy/ufuncs.py", line 82, in <lambda>
+    fn = lambda x1, x2, /: lax_fn(*promote_args(numpy_fn.__name__, x1, x2))
+                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: sub got incompatible shapes for broadcasting: (256, 9), (2, 9).
+--------------------
+For simplicity, JAX has removed its internal frames from the traceback of the following exception. Set JAX_TRACEBACK_FILTERING=off to include these.

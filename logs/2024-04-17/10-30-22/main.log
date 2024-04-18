@@ -1,0 +1,62 @@
+[2024-04-17 10:30:22,805][root][INFO] - Command line args:
+
+[2024-04-17 10:30:22,806][root][INFO] - Hydra and wandb output path: /Users/ajgeorge/python/sis/logs/2024-04-17/10-30-22
+[2024-04-17 10:30:22,806][root][INFO] - Solver output path: /Users/ajgeorge/python/sis/logs/2024-04-17/10-30-22
+[2024-04-17 10:30:31,419][root][INFO] - ---------------------------------------------------------------
+[2024-04-17 10:30:31,444][root][INFO] - Run config:
+wandb:
+  project: sis
+  resume: allow
+  mode: run
+  name: 2024-04-17/10-30-22,
+  tags: []
+  id: bb8337ac80f9a6cbbef8b9b74d3be2ce45d39ed3e83615ab1e05d01ad1d7c612
+keops_build_path: /Users/ajgeorge/.cache/keops/unknown/2024-04-17/10-30-22
+merge_wandb_resume_cfg: true
+restore_ckpt_from_wandb: true
+target:
+  _target_: stint_sampler.targets.targets.gmm
+  d: 2
+  mean: 5.0
+  var: 0.3
+interpolant:
+  _target_: stint_sampler.stint.linearInterpolants.linear
+  type: trig
+hjb_solver:
+  _target_: stint_sampler.hjb_solver.oc.test
+model:
+  _target_: stint_sampler.models.scoreNets.DISnet
+  dim: 2
+  width: 64
+seed: 1
+T: 1.0
+dim: 2
+eps0: 1.0e-05
+eps1: 1.0e-05
+batch_size: 128
+log_interval: 10
+eval_interval: 100
+jit_lossFn: 0
+train:
+  NtTrain: 100
+  epochs: 500
+  epoch_steps: 4
+  learning_rate: 0.01
+solver:
+  _target_: stint_sampler.stint.sis.half_sis
+sampler:
+  Nsamples: 10000
+  NtSampler: 1000
+pde_solver:
+  scale_init_train: 0.01
+eval:
+  hist_dims:
+  - 0
+  - 1
+out_dir: /Users/ajgeorge/python/sis/logs/2024-04-17/10-30-22
+
+[2024-04-17 10:30:31,444][root][INFO] - ---------------------------------------------------------------
+[2024-04-17 10:30:32,068][jax._src.xla_bridge][INFO] - Unable to initialize backend 'cuda': module 'jaxlib.xla_extension' has no attribute 'GpuAllocatorConfig'
+[2024-04-17 10:30:32,069][jax._src.xla_bridge][INFO] - Unable to initialize backend 'rocm': module 'jaxlib.xla_extension' has no attribute 'GpuAllocatorConfig'
+[2024-04-17 10:30:32,070][jax._src.xla_bridge][INFO] - Unable to initialize backend 'tpu': INTERNAL: Failed to open libtpu.so: dlopen(libtpu.so, 0x0001): tried: 'libtpu.so' (no such file), '/System/Volumes/Preboot/Cryptexes/OSlibtpu.so' (no such file), '/Users/ajgeorge/anaconda3/envs/sis/lib/python3.11/site-packages/jaxlib/../../../libtpu.so' (no such file), '/Users/ajgeorge/anaconda3/envs/sis/bin/../lib/libtpu.so' (no such file), '/usr/lib/libtpu.so' (no such file, not in dyld cache), 'libtpu.so' (no such file), '/usr/local/lib/libtpu.so' (no such file), '/usr/lib/libtpu.so' (no such file, not in dyld cache)
+[2024-04-17 10:30:32,097][root][INFO] - Checkpoint directory: /Users/ajgeorge/python/sis/logs/2024-04-17/10-30-22/ckpt

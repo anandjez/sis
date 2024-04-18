@@ -1,0 +1,127 @@
+wandb_version: 1
+
+wandb:
+  desc: null
+  value:
+    project: sis
+    resume: allow
+    mode: run
+    name: 2024-04-16/14-55-00,
+    tags: []
+    id: d47b7af518e017802994150ecf32b8ba7e893dcdcf82fcfebaca5a595c1d29a8
+keops_build_path:
+  desc: null
+  value: /Users/ajgeorge/.cache/keops/unknown/2024-04-16/14-55-00
+merge_wandb_resume_cfg:
+  desc: null
+  value: true
+restore_ckpt_from_wandb:
+  desc: null
+  value: true
+target:
+  desc: null
+  value:
+    _target_: stint_sampler.targets.targets.gmm
+    d: 2
+    mean: 5.0
+    var: 1.0
+interpolant:
+  desc: null
+  value:
+    _target_: stint_sampler.stint.linearInterpolants.linear
+    type: trig
+model:
+  desc: null
+  value:
+    _target_: stint_sampler.models.scoreNets.DISnet
+    dim: 2
+    width: 64
+hjb_solver:
+  desc: null
+  value:
+    _target_: stint_sampler.hjb_solver.oc.oc
+seed:
+  desc: null
+  value: 1
+T:
+  desc: null
+  value: 1.0
+dim:
+  desc: null
+  value: 2
+eps0:
+  desc: null
+  value: 1.0e-05
+eps1:
+  desc: null
+  value: 1.0e-05
+batch_size:
+  desc: null
+  value: 128
+log_interval:
+  desc: null
+  value: 10
+eval_interval:
+  desc: null
+  value: 100
+jit_lossFn:
+  desc: null
+  value: 0
+train:
+  desc: null
+  value:
+    NtTrain: 100
+    epochs: 2000
+    epoch_steps: 4
+    learning_rate: 0.01
+solver:
+  desc: null
+  value:
+    _target_: stint_sampler.stint.sis.half_sis
+sampler:
+  desc: null
+  value:
+    Nsamples: 10000
+    NtSampler: 1000
+eval:
+  desc: null
+  value:
+    hist_dims:
+    - 0
+    - 1
+out_dir:
+  desc: null
+  value: /Users/ajgeorge/python/sis/logs/2024-04-16/14-55-00
+_wandb:
+  desc: null
+  value:
+    python_version: 3.11.4
+    cli_version: 0.16.6
+    is_jupyter_run: false
+    is_kaggle_kernel: false
+    start_time: 1713272101.0
+    t:
+      1:
+      - 12
+      - 50
+      - 55
+      2:
+      - 2
+      - 3
+      - 12
+      - 45
+      - 50
+      - 55
+      3:
+      - 13
+      - 14
+      - 16
+      - 23
+      - 62
+      4: 3.11.4
+      5: 0.16.6
+      8:
+      - 4
+      - 8
+      13: darwin-arm64
+    framework: keras

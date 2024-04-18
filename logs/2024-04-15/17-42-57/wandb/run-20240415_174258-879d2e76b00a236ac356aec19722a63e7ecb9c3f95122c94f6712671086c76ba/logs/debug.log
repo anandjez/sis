@@ -1,0 +1,26 @@
+2024-04-15 17:42:58,671 INFO    MainThread:5076 [wandb_setup.py:_flush():76] Current SDK version is 0.16.6
+2024-04-15 17:42:58,672 INFO    MainThread:5076 [wandb_setup.py:_flush():76] Configure stats pid to 5076
+2024-04-15 17:42:58,672 INFO    MainThread:5076 [wandb_setup.py:_flush():76] Loading settings from /Users/ajgeorge/.config/wandb/settings
+2024-04-15 17:42:58,672 INFO    MainThread:5076 [wandb_setup.py:_flush():76] Loading settings from /Users/ajgeorge/python/sis/wandb/settings
+2024-04-15 17:42:58,672 INFO    MainThread:5076 [wandb_setup.py:_flush():76] Loading settings from environment variables: {'start_method': 'thread'}
+2024-04-15 17:42:58,672 INFO    MainThread:5076 [wandb_setup.py:_flush():76] Applying setup settings: {'_disable_service': False}
+2024-04-15 17:42:58,672 INFO    MainThread:5076 [wandb_setup.py:_flush():76] Inferring run settings from compute environment: {'program_relpath': 'main.py', 'program_abspath': '/Users/ajgeorge/python/sis/main.py', 'program': '/Users/ajgeorge/python/sis/main.py'}
+2024-04-15 17:42:58,672 INFO    MainThread:5076 [wandb_setup.py:_flush():76] Applying login settings: {}
+2024-04-15 17:42:58,672 INFO    MainThread:5076 [wandb_init.py:_log_setup():521] Logging user logs to /Users/ajgeorge/python/sis/logs/2024-04-15/17-42-57/wandb/run-20240415_174258-879d2e76b00a236ac356aec19722a63e7ecb9c3f95122c94f6712671086c76ba/logs/debug.log
+2024-04-15 17:42:58,672 INFO    MainThread:5076 [wandb_init.py:_log_setup():522] Logging internal logs to /Users/ajgeorge/python/sis/logs/2024-04-15/17-42-57/wandb/run-20240415_174258-879d2e76b00a236ac356aec19722a63e7ecb9c3f95122c94f6712671086c76ba/logs/debug-internal.log
+2024-04-15 17:42:58,673 INFO    MainThread:5076 [wandb_init.py:init():561] calling init triggers
+2024-04-15 17:42:58,673 INFO    MainThread:5076 [wandb_init.py:init():568] wandb.init called with sweep_config: {}
+config: {'wandb': {'project': 'sis', 'resume': 'allow', 'mode': 'run', 'name': '2024-04-15/17-42-57,', 'tags': [], 'id': '879d2e76b00a236ac356aec19722a63e7ecb9c3f95122c94f6712671086c76ba'}, 'keops_build_path': '/Users/ajgeorge/.cache/keops/unknown/2024-04-15/17-42-57', 'merge_wandb_resume_cfg': True, 'restore_ckpt_from_wandb': True, 'target': {'_target_': 'stint_sampler.targets.targets.gmm', 'mean': 5.0, 'var': 1.0}, 'interpolant': {'_target_': 'stint_sampler.stint.linearInterpolants.linear', 'type': 'trig'}, 'model': {'_target_': 'stint_sampler.models.scoreNets.DDSnet', 'dim': 2, 'width': 64}, 'seed': 1, 'T': 1.0, 'dim': 2, 'eps0': 1e-05, 'eps1': 1e-05, 'batch_size': 128, 'log_interval': 10, 'eval_interval': 200, 'jit_lossFn': 1, 'train': {'NtTrain': 100, 'epochs': 1000, 'epoch_steps': 4, 'learning_rate': 0.01}, 'solver': {'_target_': 'stint_sampler.stint.sis.half_sis'}, 'sampler': {'Nsamples': 10000, 'NtSampler': 1000}, 'eval': {'hist_dims': [0, 1]}, 'out_dir': '/Users/ajgeorge/python/sis/logs/2024-04-15/17-42-57'}
+2024-04-15 17:42:58,673 INFO    MainThread:5076 [wandb_init.py:init():611] starting backend
+2024-04-15 17:42:58,673 INFO    MainThread:5076 [wandb_init.py:init():615] setting up manager
+2024-04-15 17:42:58,687 INFO    MainThread:5076 [wandb_init.py:init():623] backend started and connected
+2024-04-15 17:42:58,691 INFO    MainThread:5076 [wandb_init.py:init():715] updated telemetry
+2024-04-15 17:42:58,692 INFO    MainThread:5076 [wandb_init.py:init():748] communicating run to backend with 90.0 second timeout
+2024-04-15 17:42:59,319 INFO    MainThread:5076 [wandb_run.py:_on_init():2357] communicating current version
+2024-04-15 17:42:59,402 INFO    MainThread:5076 [wandb_run.py:_on_init():2366] got version response 
+2024-04-15 17:42:59,402 INFO    MainThread:5076 [wandb_init.py:init():799] starting run threads in backend
+2024-04-15 17:43:05,175 INFO    MainThread:5076 [wandb_run.py:_console_start():2335] atexit reg
+2024-04-15 17:43:05,175 INFO    MainThread:5076 [wandb_run.py:_redirect():2190] redirect: wrap_raw
+2024-04-15 17:43:05,175 INFO    MainThread:5076 [wandb_run.py:_redirect():2255] Wrapping output streams.
+2024-04-15 17:43:05,175 INFO    MainThread:5076 [wandb_run.py:_redirect():2280] Redirects installed.
+2024-04-15 17:43:05,175 INFO    MainThread:5076 [wandb_init.py:init():842] run started, returning control to user process

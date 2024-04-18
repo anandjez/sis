@@ -1,0 +1,3 @@
+_target_: stint_sampler.models.scoreNets.DISnet
+dim: ${dim}
+width: 64

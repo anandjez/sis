@@ -1,0 +1,24 @@
+{'b': 1, 'a': 1, 'target': {'dim': 2}, 'out_dir': '/Users/ajgeorge/python/sis/outputs/2024-04-12/18-03-38', 'wandb': {'tags': ['+target.dim=2'], 'id': 'dd19b79692eb63899b4635f7b8873bf505a33af5e866db3af1885cd5a09b5ed8', 'name': '2024-04-12/18-03-38,2'}}
+[2024-04-12 18:03:46,612][root][INFO] - ---------------------------------------------------------------
+[2024-04-12 18:03:46,612][root][INFO] - Run config:
+b: 1
+a: 1
+target:
+  dim: 2
+out_dir: /Users/ajgeorge/python/sis/outputs/2024-04-12/18-03-38
+wandb:
+  tags:
+  - +target.dim=2
+  id: dd19b79692eb63899b4635f7b8873bf505a33af5e866db3af1885cd5a09b5ed8
+  name: 2024-04-12/18-03-38,2
+[2024-04-12 18:03:46,613][root][INFO] - ---------------------------------------------------------------
+Error executing job with overrides: ['+target.dim=2']
+Traceback (most recent call last):
+  File "/Users/ajgeorge/python/sis/main.py", line 70, in main
+    wandb_config["hydra"] = OmegaConf.to_container(hydra_config, resolve=True)
+                            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+omegaconf.errors.InterpolationToMissingValueError: MissingMandatoryValue while resolving interpolation: Missing mandatory value: hydra.job.num
+    full_key: hydra.sweep.subdir
+    reference_type=SweepDir
+    object_type=SweepDir
+Set the environment variable HYDRA_FULL_ERROR=1 for a complete stack trace.

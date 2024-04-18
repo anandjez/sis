@@ -1,0 +1,15 @@
+[2024-04-12 18:08:49,751][root][INFO] - Command line args:
+
+[2024-04-12 18:08:49,751][root][INFO] - Hydra and wandb output path: /Users/ajgeorge/python/sis/outputs/2024-04-12/18-08-49
+[2024-04-12 18:08:49,752][root][INFO] - Solver output path: /Users/ajgeorge/python/sis/outputs/2024-04-12/18-08-49
+[2024-04-12 18:08:56,797][root][INFO] - ---------------------------------------------------------------
+[2024-04-12 18:08:56,799][root][INFO] - Run config:
+b: 1
+a: 1
+out_dir: /Users/ajgeorge/python/sis/outputs/2024-04-12/18-08-49
+wandb:
+  tags: []
+  id: 10177bdebbc8943fad721e7ca3e94ee519f3ec914501e43ae81122b0efab8f43
+  name: 2024-04-12/18-08-49,
+
+[2024-04-12 18:08:56,799][root][INFO] - ---------------------------------------------------------------

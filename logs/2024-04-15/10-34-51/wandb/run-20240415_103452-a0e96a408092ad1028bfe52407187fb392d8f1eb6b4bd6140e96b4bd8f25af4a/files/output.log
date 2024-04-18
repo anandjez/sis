@@ -1,0 +1,363 @@
+{'wandb': {'project': 'sis', 'resume': 'allow', 'mode': 'run', 'name': '2024-04-15/10-34-51,', 'tags': [], 'id': 'a0e96a408092ad1028bfe52407187fb392d8f1eb6b4bd6140e96b4bd8f25af4a'}, 'keops_build_path': '/Users/ajgeorge/.cache/keops/unknown/2024-04-15/10-34-51', 'merge_wandb_resume_cfg': True, 'restore_ckpt_from_wandb': True, 'target': {'_target_': 'stint_sampler.targets.targets.gmm', 'mean': 5.0, 'var': 1.0}, 'interpolant': {'_target_': 'stint_sampler.stint.linearInterpolants.linear', 'type': 'sin'}, 'model': {'_target_': 'stint_sampler.models.scoreNets.DenseNet', 'dim': 2, 'features': [20, 50, 200, 200, 50]}, 'seed': 1, 'T': 1.0, 'dim': 2, 'eps0': 1e-05, 'eps1': 1e-05, 'batch_size': 128, 'train': {'NtTrain': 10, 'epochs': 1000, 'epoch_steps': 4, 'learning_rate': 0.01}, 'solver': {'_target_': 'stint_sampler.stint.sis.half_sis'}, 'sampler': {'Nsamples': 10000, 'NtSampler': 1000}, 'out_dir': '/Users/ajgeorge/python/sis/logs/2024-04-15/10-34-51'}
+[2024-04-15 10:34:59,518][root][INFO] - ---------------------------------------------------------------
+[2024-04-15 10:34:59,521][root][INFO] - Run config:
+wandb:
+  project: sis
+  resume: allow
+  mode: run
+  name: 2024-04-15/10-34-51,
+  tags: []
+  id: a0e96a408092ad1028bfe52407187fb392d8f1eb6b4bd6140e96b4bd8f25af4a
+keops_build_path: /Users/ajgeorge/.cache/keops/unknown/2024-04-15/10-34-51
+merge_wandb_resume_cfg: true
+restore_ckpt_from_wandb: true
+target:
+  _target_: stint_sampler.targets.targets.gmm
+  mean: 5.0
+  var: 1.0
+interpolant:
+  _target_: stint_sampler.stint.linearInterpolants.linear
+  type: sin
+model:
+  _target_: stint_sampler.models.scoreNets.DenseNet
+  dim: 2
+  features:
+  - 20
+  - 50
+  - 200
+  - 200
+  - 50
+seed: 1
+T: 1.0
+dim: 2
+eps0: 1.0e-05
+eps1: 1.0e-05
+batch_size: 128
+train:
+  NtTrain: 10
+  epochs: 1000
+  epoch_steps: 4
+  learning_rate: 0.01
+solver:
+  _target_: stint_sampler.stint.sis.half_sis
+sampler:
+  Nsamples: 10000
+  NtSampler: 1000
+out_dir: /Users/ajgeorge/python/sis/logs/2024-04-15/10-34-51
+[2024-04-15 10:34:59,521][root][INFO] - ---------------------------------------------------------------
+[2024-04-15 10:35:00,394][jax._src.xla_bridge][INFO] - Unable to initialize backend 'cuda': module 'jaxlib.xla_extension' has no attribute 'GpuAllocatorConfig'
+[2024-04-15 10:35:00,395][jax._src.xla_bridge][INFO] - Unable to initialize backend 'rocm': module 'jaxlib.xla_extension' has no attribute 'GpuAllocatorConfig'
+[2024-04-15 10:35:00,399][jax._src.xla_bridge][INFO] - Unable to initialize backend 'tpu': INTERNAL: Failed to open libtpu.so: dlopen(libtpu.so, 0x0001): tried: 'libtpu.so' (no such file), '/System/Volumes/Preboot/Cryptexes/OSlibtpu.so' (no such file), '/Users/ajgeorge/anaconda3/envs/sis/lib/python3.11/site-packages/jaxlib/../../../libtpu.so' (no such file), '/Users/ajgeorge/anaconda3/envs/sis/bin/../lib/libtpu.so' (no such file), '/usr/lib/libtpu.so' (no such file, not in dyld cache), 'libtpu.so' (no such file), '/usr/local/lib/libtpu.so' (no such file), '/usr/lib/libtpu.so' (no such file, not in dyld cache)
+[2024-04-15 10:35:00,531][root][INFO] - Checkpoint directory: /Users/ajgeorge/python/sis/logs/2024-04-15/10-34-51/ckpt
+loss =  -1052981300000000.0
+loss =  -7.5404664e+21
+loss =  -9.602579e+21
+loss =  -1.1371659e+22
+loss =  -2.3182383e+22
+loss =  -2.8496054e+22
+loss =  -3.7231348e+22
+loss =  -4.0639916e+22
+loss =  -4.66938e+22
+loss =  -4.4028046e+22
+loss =  -5.0628395e+22
+loss =  -6.4152155e+22
+loss =  -5.7443157e+22
+loss =  -6.8477142e+22
+loss =  -7.2214927e+22
+loss =  -7.4260886e+22
+loss =  -7.431286e+22
+loss =  -7.265496e+22
+loss =  -8.276022e+22
+loss =  -9.2427735e+22
+loss =  -8.494975e+22
+loss =  -1.0502266e+23
+loss =  -1.0154854e+23
+loss =  -1.0507285e+23
+loss =  -9.779474e+22
+loss =  -9.96541e+22
+loss =  -1.0406599e+23
+loss =  -1.1017876e+23
+loss =  -1.0357993e+23
+loss =  -1.0385363e+23
+loss =  -1.1193041e+23
+loss =  -1.076385e+23
+loss =  -1.0960295e+23
+loss =  -1.2733383e+23
+loss =  -1.1792312e+23
+loss =  -1.2107365e+23
+loss =  -1.2376103e+23
+loss =  -1.2988956e+23
+loss =  -1.3181549e+23
+loss =  -1.3327196e+23
+loss =  -1.4364366e+23
+loss =  -1.4250281e+23
+loss =  -1.4140314e+23
+loss =  -1.2997679e+23
+loss =  -1.4725857e+23
+loss =  -1.4501951e+23
+loss =  -1.5756629e+23
+loss =  -1.4448544e+23
+loss =  -1.5743064e+23
+loss =  -1.4867968e+23
+loss =  -1.624024e+23
+loss =  -1.487408e+23
+loss =  -1.4853482e+23
+loss =  -1.6071223e+23
+loss =  -1.5852395e+23
+loss =  -1.7506331e+23
+loss =  -1.587809e+23
+loss =  -1.4876194e+23
+loss =  -1.7706844e+23
+loss =  -1.7441061e+23
+loss =  -1.7304575e+23
+loss =  -1.732493e+23
+loss =  -1.5454048e+23
+loss =  -1.6962588e+23
+loss =  -1.6607978e+23
+loss =  -1.7241772e+23
+loss =  -1.8845552e+23
+loss =  -1.8031523e+23
+loss =  -1.7864339e+23
+loss =  -1.7064211e+23
+loss =  -1.8018099e+23
+loss =  -1.892873e+23
+loss =  -1.7809445e+23
+loss =  -1.9016237e+23
+loss =  -1.6933953e+23
+loss =  -1.924258e+23
+loss =  -1.7673717e+23
+loss =  -1.868949e+23
+loss =  -1.9438487e+23
+loss =  -1.9532022e+23
+loss =  -1.9118218e+23
+loss =  -1.7803198e+23
+loss =  -1.8356841e+23
+loss =  -1.7847513e+23
+loss =  -1.971326e+23
+loss =  -1.975246e+23
+loss =  -1.8489363e+23
+loss =  -1.8627917e+23
+loss =  -1.8049044e+23
+loss =  -1.6829374e+23
+loss =  -2.0151661e+23
+loss =  -1.8776908e+23
+loss =  -2.1861442e+23
+loss =  -1.7593305e+23
+loss =  -1.928585e+23
+loss =  -1.8987255e+23
+loss =  -2.0152337e+23
+loss =  -1.9671094e+23
+loss =  -1.9903886e+23
+loss =  -2.100593e+23
+loss =  -1.9381666e+23
+loss =  -1.9477204e+23
+loss =  -1.9107473e+23
+loss =  -1.9919864e+23
+loss =  -1.8941196e+23
+loss =  -1.917365e+23
+loss =  -2.0052414e+23
+loss =  -2.0063407e+23
+loss =  -1.9007073e+23
+loss =  -1.8909743e+23
+loss =  -1.8472281e+23
+loss =  -1.9842226e+23
+loss =  -2.1067666e+23
+loss =  -2.1169844e+23
+loss =  -2.0149843e+23
+loss =  -2.0935437e+23
+loss =  -1.8960698e+23
+loss =  -1.9758369e+23
+loss =  -2.1136427e+23
+loss =  -2.015092e+23
+loss =  -2.0595426e+23
+loss =  -2.133537e+23
+loss =  -2.023732e+23
+loss =  -2.0669577e+23
+loss =  -1.9122052e+23
+loss =  -1.9942746e+23
+loss =  -1.9886361e+23
+loss =  -1.953038e+23
+loss =  -1.921593e+23
+loss =  -2.0842252e+23
+loss =  -2.0218338e+23
+loss =  -2.1075048e+23
+loss =  -1.9473237e+23
+loss =  -2.1081112e+23
+loss =  -1.994423e+23
+loss =  -2.1084973e+23
+loss =  -2.1022097e+23
+loss =  -2.0413484e+23
+loss =  -1.9567568e+23
+loss =  -2.044559e+23
+loss =  -1.7548678e+23
+loss =  -1.947889e+23
+loss =  -2.1216737e+23
+loss =  -2.2832672e+23
+loss =  -1.7683957e+23
+loss =  -1.767499e+23
+loss =  -1.9808744e+23
+loss =  -1.8118781e+23
+loss =  -2.0325554e+23
+loss =  -2.0872622e+23
+loss =  -2.1350838e+23
+loss =  -2.0457205e+23
+loss =  -1.8875645e+23
+loss =  -1.9950651e+23
+loss =  -2.0502965e+23
+loss =  -2.0589434e+23
+loss =  -2.2504956e+23
+loss =  -1.845227e+23
+loss =  -2.0718e+23
+loss =  -1.8219928e+23
+loss =  -1.834561e+23
+loss =  -1.9913084e+23
+loss =  -1.9510356e+23
+loss =  -2.1465874e+23
+loss =  -1.8033809e+23
+loss =  -1.958105e+23
+loss =  -1.9880092e+23
+loss =  -1.9637143e+23
+loss =  -2.0042647e+23
+loss =  -2.142843e+23
+loss =  -1.9395245e+23
+loss =  -2.1069332e+23
+loss =  -2.0184698e+23
+loss =  -1.9945193e+23
+loss =  -2.2126108e+23
+loss =  -1.9531486e+23
+loss =  -2.0856116e+23
+loss =  -2.0277007e+23
+loss =  -2.0092743e+23
+loss =  -1.8290556e+23
+loss =  -2.047928e+23
+loss =  -1.9378236e+23
+loss =  -1.9034718e+23
+loss =  -1.9695733e+23
+loss =  -2.0518166e+23
+loss =  -2.063391e+23
+loss =  -1.8572378e+23
+loss =  -1.929936e+23
+loss =  -2.198255e+23
+loss =  -2.0029177e+23
+loss =  -1.9615338e+23
+loss =  -1.9333993e+23
+loss =  -1.950165e+23
+loss =  -2.2322025e+23
+loss =  -2.0319588e+23
+loss =  -1.973658e+23
+loss =  -2.0829256e+23
+loss =  -1.8207643e+23
+loss =  -1.751714e+23
+loss =  -2.0223014e+23
+loss =  -2.2477624e+23
+loss =  -2.1210248e+23
+loss =  -2.0820251e+23
+loss =  -2.108938e+23
+loss =  -1.9566202e+23
+loss =  -1.9401392e+23
+loss =  -2.035921e+23
+loss =  -2.1624284e+23
+loss =  -2.0286212e+23
+loss =  -2.2272815e+23
+loss =  -1.8404021e+23
+loss =  -2.0282552e+23
+loss =  -1.8205034e+23
+loss =  -1.890984e+23
+loss =  -2.0370113e+23
+loss =  -1.9732718e+23
+loss =  -1.9210065e+23
+loss =  -2.0598506e+23
+loss =  -2.2025315e+23
+loss =  -2.0251589e+23
+loss =  -2.0468233e+23
+loss =  -2.0455162e+23
+loss =  -1.8376769e+23
+loss =  -1.9665759e+23
+loss =  -1.9515618e+23
+loss =  -2.2498622e+23
+loss =  -2.1526532e+23
+loss =  -1.8423345e+23
+loss =  -2.182269e+23
+loss =  -2.0822216e+23
+loss =  -2.0624253e+23
+loss =  -2.080409e+23
+loss =  -2.0390955e+23
+loss =  -1.9691316e+23
+loss =  -2.2539279e+23
+loss =  -1.9395514e+23
+loss =  -2.0910973e+23
+loss =  -1.8491207e+23
+loss =  -2.1655395e+23
+loss =  -2.0171208e+23
+loss =  -2.0027021e+23
+loss =  -2.2545856e+23
+loss =  -1.8819493e+23
+loss =  -1.8617982e+23
+loss =  -2.0227321e+23
+loss =  -1.9277727e+23
+loss =  -1.9718035e+23
+loss =  -2.0860526e+23
+loss =  -2.092202e+23
+loss =  -2.2433338e+23
+loss =  -2.1159558e+23
+loss =  -2.0534256e+23
+loss =  -2.08563e+23
+loss =  -2.0923263e+23
+loss =  -1.8959879e+23
+loss =  -2.137065e+23
+loss =  -2.1180964e+23
+loss =  -1.796323e+23
+loss =  -2.078663e+23
+loss =  -1.9265054e+23
+loss =  -2.017952e+23
+loss =  -2.004782e+23
+loss =  -2.1115015e+23
+Traceback (most recent call last):
+  File "/Users/ajgeorge/python/sis/main.py", line 93, in <module>
+    main()
+  File "/Users/ajgeorge/anaconda3/envs/sis/lib/python3.11/site-packages/hydra/main.py", line 94, in decorated_main
+    _run_hydra(
+  File "/Users/ajgeorge/anaconda3/envs/sis/lib/python3.11/site-packages/hydra/_internal/utils.py", line 394, in _run_hydra
+    _run_app(
+  File "/Users/ajgeorge/anaconda3/envs/sis/lib/python3.11/site-packages/hydra/_internal/utils.py", line 457, in _run_app
+    run_and_report(
+  File "/Users/ajgeorge/anaconda3/envs/sis/lib/python3.11/site-packages/hydra/_internal/utils.py", line 220, in run_and_report
+    return func()
+           ^^^^^^
+  File "/Users/ajgeorge/anaconda3/envs/sis/lib/python3.11/site-packages/hydra/_internal/utils.py", line 458, in <lambda>
+    lambda: hydra.run(
+            ^^^^^^^^^^
+  File "/Users/ajgeorge/anaconda3/envs/sis/lib/python3.11/site-packages/hydra/_internal/hydra.py", line 119, in run
+    ret = run_job(
+          ^^^^^^^^
+  File "/Users/ajgeorge/anaconda3/envs/sis/lib/python3.11/site-packages/hydra/core/utils.py", line 186, in run_job
+    ret.return_value = task_function(task_cfg)
+                       ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/ajgeorge/python/sis/main.py", line 73, in main
+    params = sampler.train()
+             ^^^^^^^^^^^^^^^
+  File "/Users/ajgeorge/python/sis/stint_sampler/stint/sis.py", line 89, in train
+    self.params, opt_state, L = opt_step(self.params, opt_state, runs - run,k1)
+                                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/ajgeorge/python/sis/stint_sampler/stint/sis.py", line 72, in opt_step
+    updates, opt_state = optimizer.update(grad_par, opt_state)
+                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/ajgeorge/anaconda3/envs/sis/lib/python3.11/site-packages/optax/_src/combine.py", line 59, in update_fn
+    updates, new_s = fn(updates, s, params, **extra_args)
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/ajgeorge/anaconda3/envs/sis/lib/python3.11/site-packages/optax/_src/base.py", line 311, in update
+    return tx.update(updates, state, params)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/ajgeorge/anaconda3/envs/sis/lib/python3.11/site-packages/optax/_src/transform.py", line 347, in update_fn
+    updates = jax.tree_util.tree_map(
+              ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/ajgeorge/anaconda3/envs/sis/lib/python3.11/site-packages/jax/_src/tree_util.py", line 244, in tree_map
+    return treedef.unflatten(f(*xs) for xs in zip(*all_leaves))
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/ajgeorge/anaconda3/envs/sis/lib/python3.11/site-packages/jax/_src/tree_util.py", line 244, in <genexpr>
+    return treedef.unflatten(f(*xs) for xs in zip(*all_leaves))
+                             ^^^^^^
+  File "/Users/ajgeorge/anaconda3/envs/sis/lib/python3.11/site-packages/optax/_src/transform.py", line 348, in <lambda>
+    lambda m, v: m / (jnp.sqrt(v + eps_root) + eps), mu_hat, nu_hat)
+                      ^^^^^^^^^^^^^^^^^^^^^^
+KeyboardInterrupt

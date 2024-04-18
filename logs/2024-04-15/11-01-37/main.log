@@ -1,0 +1,112 @@
+[2024-04-15 11:01:37,759][root][INFO] - Command line args:
+
+[2024-04-15 11:01:37,759][root][INFO] - Hydra and wandb output path: /Users/ajgeorge/python/sis/logs/2024-04-15/11-01-37
+[2024-04-15 11:01:37,759][root][INFO] - Solver output path: /Users/ajgeorge/python/sis/logs/2024-04-15/11-01-37
+[2024-04-15 11:01:45,101][root][INFO] - ---------------------------------------------------------------
+[2024-04-15 11:01:45,103][root][INFO] - Run config:
+wandb:
+  project: sis
+  resume: allow
+  mode: run
+  name: 2024-04-15/11-01-37,
+  tags: []
+  id: 5ac1465a16df6b31d89de2c7bea35dbc14ace3db40d95fa6eb41fdafbaab424a
+keops_build_path: /Users/ajgeorge/.cache/keops/unknown/2024-04-15/11-01-37
+merge_wandb_resume_cfg: true
+restore_ckpt_from_wandb: true
+target:
+  _target_: stint_sampler.targets.targets.gmm
+  mean: 5.0
+  var: 1.0
+interpolant:
+  _target_: stint_sampler.stint.linearInterpolants.linear
+  type: sin
+model:
+  _target_: stint_sampler.models.scoreNets.DenseNet
+  dim: 2
+  features:
+  - 20
+  - 50
+  - 200
+  - 200
+  - 50
+seed: 1
+T: 1.0
+dim: 2
+eps0: 1.0e-05
+eps1: 1.0e-05
+batch_size: 128
+train:
+  NtTrain: 50
+  epochs: 1000
+  epoch_steps: 4
+  learning_rate: 0.01
+solver:
+  _target_: stint_sampler.stint.sis.half_sis
+sampler:
+  Nsamples: 10000
+  NtSampler: 1000
+out_dir: /Users/ajgeorge/python/sis/logs/2024-04-15/11-01-37
+
+[2024-04-15 11:01:45,104][root][INFO] - ---------------------------------------------------------------
+[2024-04-15 11:01:46,022][jax._src.xla_bridge][INFO] - Unable to initialize backend 'cuda': module 'jaxlib.xla_extension' has no attribute 'GpuAllocatorConfig'
+[2024-04-15 11:01:46,022][jax._src.xla_bridge][INFO] - Unable to initialize backend 'rocm': module 'jaxlib.xla_extension' has no attribute 'GpuAllocatorConfig'
+[2024-04-15 11:01:46,024][jax._src.xla_bridge][INFO] - Unable to initialize backend 'tpu': INTERNAL: Failed to open libtpu.so: dlopen(libtpu.so, 0x0001): tried: 'libtpu.so' (no such file), '/System/Volumes/Preboot/Cryptexes/OSlibtpu.so' (no such file), '/Users/ajgeorge/anaconda3/envs/sis/lib/python3.11/site-packages/jaxlib/../../../libtpu.so' (no such file), '/Users/ajgeorge/anaconda3/envs/sis/bin/../lib/libtpu.so' (no such file), '/usr/lib/libtpu.so' (no such file, not in dyld cache), 'libtpu.so' (no such file), '/usr/local/lib/libtpu.so' (no such file), '/usr/lib/libtpu.so' (no such file, not in dyld cache)
+[2024-04-15 11:01:46,130][root][INFO] - Checkpoint directory: /Users/ajgeorge/python/sis/logs/2024-04-15/11-01-37/ckpt
+[2024-04-15 11:05:26,852][root][CRITICAL] - Encountered an unexpected tracer. A function transformed by JAX had a side effect, allowing for a reference to an intermediate value with type uint32[2] wrapped in a DynamicJaxprTracer to escape the scope of the transformation.
+JAX transformations require that functions explicitly return their outputs, and disallow saving intermediate values to global state.
+The function being traced when the value leaked was lossFn at /Users/ajgeorge/python/sis/stint_sampler/stint/sis.py:134 traced for jit.
+------------------------------
+The leaked intermediate value was created on line /Users/ajgeorge/python/sis/stint_sampler/stint/sis.py:127:8 (generateTimeSteps). 
+------------------------------
+When the value was created, the final 5 stack frames (most recent last) excluding JAX-internal frames were:
+------------------------------
+/Users/ajgeorge/python/sis/main.py:73:17 (main)
+/Users/ajgeorge/python/sis/stint_sampler/stint/sis.py:89:44 (train)
+/Users/ajgeorge/python/sis/stint_sampler/stint/sis.py:71:26 (opt_step)
+/Users/ajgeorge/python/sis/stint_sampler/stint/sis.py:136:16 (lossFn)
+/Users/ajgeorge/python/sis/stint_sampler/stint/sis.py:127:8 (generateTimeSteps)
+------------------------------
+
+To catch the leak earlier, try setting the environment variable JAX_CHECK_TRACER_LEAKS or using the `jax.checking_leaks` context manager.
+See https://jax.readthedocs.io/en/latest/errors.html#jax.errors.UnexpectedTracerError
+Traceback (most recent call last):
+  File "/Users/ajgeorge/python/sis/main.py", line 74, in main
+    X = sampler.generateSamples()
+        ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/ajgeorge/python/sis/stint_sampler/stint/sis.py", line 179, in generateSamples
+    k1, self.k = random.split(self.k)
+                 ^^^^^^^^^^^^^^^^^^^^
+  File "/Users/ajgeorge/anaconda3/envs/sis/lib/python3.11/site-packages/jax/_src/random.py", line 304, in split
+    key, wrapped = _check_prng_key(key)
+                   ^^^^^^^^^^^^^^^^^^^^
+  File "/Users/ajgeorge/anaconda3/envs/sis/lib/python3.11/site-packages/jax/_src/random.py", line 78, in _check_prng_key
+    wrapped_key = prng.random_wrap(key, impl=default_prng_impl())
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/ajgeorge/anaconda3/envs/sis/lib/python3.11/site-packages/jax/_src/prng.py", line 890, in random_wrap
+    return random_wrap_p.bind(base_arr, impl=impl)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/ajgeorge/anaconda3/envs/sis/lib/python3.11/site-packages/jax/_src/core.py", line 385, in bind
+    return self.bind_with_trace(find_top_trace(args), args, params)
+                                ^^^^^^^^^^^^^^^^^^^^
+  File "/Users/ajgeorge/anaconda3/envs/sis/lib/python3.11/site-packages/jax/_src/core.py", line 1288, in find_top_trace
+    top_tracer._assert_live()
+  File "/Users/ajgeorge/anaconda3/envs/sis/lib/python3.11/site-packages/jax/_src/interpreters/partial_eval.py", line 1621, in _assert_live
+    raise core.escaped_tracer_error(self, None)
+jax.errors.UnexpectedTracerError: Encountered an unexpected tracer. A function transformed by JAX had a side effect, allowing for a reference to an intermediate value with type uint32[2] wrapped in a DynamicJaxprTracer to escape the scope of the transformation.
+JAX transformations require that functions explicitly return their outputs, and disallow saving intermediate values to global state.
+The function being traced when the value leaked was lossFn at /Users/ajgeorge/python/sis/stint_sampler/stint/sis.py:134 traced for jit.
+------------------------------
+The leaked intermediate value was created on line /Users/ajgeorge/python/sis/stint_sampler/stint/sis.py:127:8 (generateTimeSteps). 
+------------------------------
+When the value was created, the final 5 stack frames (most recent last) excluding JAX-internal frames were:
+------------------------------
+/Users/ajgeorge/python/sis/main.py:73:17 (main)
+/Users/ajgeorge/python/sis/stint_sampler/stint/sis.py:89:44 (train)
+/Users/ajgeorge/python/sis/stint_sampler/stint/sis.py:71:26 (opt_step)
+/Users/ajgeorge/python/sis/stint_sampler/stint/sis.py:136:16 (lossFn)
+/Users/ajgeorge/python/sis/stint_sampler/stint/sis.py:127:8 (generateTimeSteps)
+------------------------------
+
+To catch the leak earlier, try setting the environment variable JAX_CHECK_TRACER_LEAKS or using the `jax.checking_leaks` context manager.
+See https://jax.readthedocs.io/en/latest/errors.html#jax.errors.UnexpectedTracerError

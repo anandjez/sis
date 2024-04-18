@@ -1,0 +1,1 @@
+{"device": "None", "error": "Error in call to target 'stint_sampler.stint.sis.half_sis':\nInstantiationException('Error in call to target \\'stint_sampler.stint.linearInterpolants.linear\\':\\nUnboundLocalError(\"cannot access local variable \\'g\\' where it is not associated with a value\")\\nfull_key: interpolant')\nfull_key: solver", "_wandb": {"runtime": 10}}

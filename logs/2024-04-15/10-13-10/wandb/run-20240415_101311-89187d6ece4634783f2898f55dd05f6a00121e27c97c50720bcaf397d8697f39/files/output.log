@@ -1,0 +1,76 @@
+{'wandb': {'project': 'sis', 'resume': 'allow', 'mode': 'run', 'name': '2024-04-15/10-13-10,', 'tags': [], 'id': '89187d6ece4634783f2898f55dd05f6a00121e27c97c50720bcaf397d8697f39'}, 'keops_build_path': '/Users/ajgeorge/.cache/keops/unknown/2024-04-15/10-13-10', 'merge_wandb_resume_cfg': True, 'restore_ckpt_from_wandb': True, 'target': {'_target_': 'stint_sampler.targets.targets.gmm', 'mean': 5.0, 'var': 1.0}, 'interpolant': {'_target_': 'stint_sampler.stint.linearInterpolants.linear', 'type': 'sin'}, 'model': {'_target_': 'stint_sampler.models.scoreNets.DenseNet', 'dim': 2, 'features': [20, 50, 200, 200, 50]}, 'seed': 1, 'T': 1.0, 'dim': 2, 'eps0': 1e-05, 'eps1': 1e-05, 'batch_size': 128, 'train': {'NtTrain': 100, 'epochs': 1000, 'epoch_steps': 4, 'learning_rate': 0.01}, 'solver': {'_target_': 'stint_sampler.stint.sis.half_sis'}, 'sampler': {'Nsamples': 10000, 'NtSampler': 1000}, 'out_dir': '/Users/ajgeorge/python/sis/logs/2024-04-15/10-13-10'}
+[2024-04-15 10:13:18,754][root][INFO] - ---------------------------------------------------------------
+[2024-04-15 10:13:18,756][root][INFO] - Run config:
+wandb:
+  project: sis
+  resume: allow
+  mode: run
+  name: 2024-04-15/10-13-10,
+  tags: []
+  id: 89187d6ece4634783f2898f55dd05f6a00121e27c97c50720bcaf397d8697f39
+keops_build_path: /Users/ajgeorge/.cache/keops/unknown/2024-04-15/10-13-10
+merge_wandb_resume_cfg: true
+restore_ckpt_from_wandb: true
+target:
+  _target_: stint_sampler.targets.targets.gmm
+  mean: 5.0
+  var: 1.0
+interpolant:
+  _target_: stint_sampler.stint.linearInterpolants.linear
+  type: sin
+model:
+  _target_: stint_sampler.models.scoreNets.DenseNet
+  dim: 2
+  features:
+  - 20
+  - 50
+  - 200
+  - 200
+  - 50
+seed: 1
+T: 1.0
+dim: 2
+eps0: 1.0e-05
+eps1: 1.0e-05
+batch_size: 128
+train:
+  NtTrain: 100
+  epochs: 1000
+  epoch_steps: 4
+  learning_rate: 0.01
+solver:
+  _target_: stint_sampler.stint.sis.half_sis
+sampler:
+  Nsamples: 10000
+  NtSampler: 1000
+out_dir: /Users/ajgeorge/python/sis/logs/2024-04-15/10-13-10
+[2024-04-15 10:13:18,757][root][INFO] - ---------------------------------------------------------------
+[2024-04-15 10:13:21,073][jax._src.xla_bridge][INFO] - Unable to initialize backend 'cuda': module 'jaxlib.xla_extension' has no attribute 'GpuAllocatorConfig'
+[2024-04-15 10:13:21,073][jax._src.xla_bridge][INFO] - Unable to initialize backend 'rocm': module 'jaxlib.xla_extension' has no attribute 'GpuAllocatorConfig'
+[2024-04-15 10:13:21,076][jax._src.xla_bridge][INFO] - Unable to initialize backend 'tpu': INTERNAL: Failed to open libtpu.so: dlopen(libtpu.so, 0x0001): tried: 'libtpu.so' (no such file), '/System/Volumes/Preboot/Cryptexes/OSlibtpu.so' (no such file), '/Users/ajgeorge/anaconda3/envs/sis/lib/python3.11/site-packages/jaxlib/../../../libtpu.so' (no such file), '/Users/ajgeorge/anaconda3/envs/sis/bin/../lib/libtpu.so' (no such file), '/usr/lib/libtpu.so' (no such file, not in dyld cache), 'libtpu.so' (no such file), '/usr/local/lib/libtpu.so' (no such file), '/usr/lib/libtpu.so' (no such file, not in dyld cache)
+[2024-04-15 10:13:21,204][root][INFO] - Checkpoint directory: /Users/ajgeorge/python/sis/logs/2024-04-15/10-13-10/ckpt
+[2024-04-15 10:13:32,258][root][CRITICAL] - Gradient only defined for scalar-output functions. Output was None.
+Traceback (most recent call last):
+  File "/Users/ajgeorge/anaconda3/envs/sis/lib/python3.11/site-packages/jax/_src/api.py", line 750, in _check_scalar
+    aval = core.get_aval(x)
+           ^^^^^^^^^^^^^^^^
+  File "/Users/ajgeorge/anaconda3/envs/sis/lib/python3.11/site-packages/jax/_src/core.py", line 1431, in get_aval
+    return concrete_aval(x)
+           ^^^^^^^^^^^^^^^^
+  File "/Users/ajgeorge/anaconda3/envs/sis/lib/python3.11/site-packages/jax/_src/core.py", line 1423, in concrete_aval
+    raise TypeError(f"Value {repr(x)} with type {type(x)} is not a valid JAX "
+TypeError: Value None with type <class 'NoneType'> is not a valid JAX type
+The above exception was the direct cause of the following exception:
+Traceback (most recent call last):
+  File "/Users/ajgeorge/python/sis/main.py", line 73, in main
+    params = sampler.train()
+             ^^^^^^^^^^^^^^^
+  File "/Users/ajgeorge/python/sis/stint_sampler/stint/sis.py", line 88, in train
+    self.params, opt_state, L = opt_step(self.params, opt_state, runs - run)
+                                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/ajgeorge/python/sis/stint_sampler/stint/sis.py", line 71, in opt_step
+    L, grad_par = self.loss_grad(params)
+                  ^^^^^^^^^^^^^^^^^^^^^^
+TypeError: Gradient only defined for scalar-output functions. Output was None.
+--------------------
+For simplicity, JAX has removed its internal frames from the traceback of the following exception. Set JAX_TRACEBACK_FILTERING=off to include these.

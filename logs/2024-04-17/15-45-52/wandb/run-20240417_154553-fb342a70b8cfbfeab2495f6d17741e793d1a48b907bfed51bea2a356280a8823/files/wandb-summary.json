@@ -1,0 +1,1 @@
+{"device": "None", "error": "Error in call to target 'stint_sampler.stint.sis.half_sis':\nInstantiationException('Error in call to target \\'stint_sampler.hjb_solver.oc.test\\':\\nTypeError(\"test.__init__() missing 1 required positional argument: \\'cfg\\'\")\\nfull_key: hjb_solver.cfg.hjb_solver')\nfull_key: solver", "_wandb": {"runtime": 13}}

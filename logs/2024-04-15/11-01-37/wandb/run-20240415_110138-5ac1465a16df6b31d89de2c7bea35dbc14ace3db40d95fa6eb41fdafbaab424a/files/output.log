@@ -1,0 +1,506 @@
+{'wandb': {'project': 'sis', 'resume': 'allow', 'mode': 'run', 'name': '2024-04-15/11-01-37,', 'tags': [], 'id': '5ac1465a16df6b31d89de2c7bea35dbc14ace3db40d95fa6eb41fdafbaab424a'}, 'keops_build_path': '/Users/ajgeorge/.cache/keops/unknown/2024-04-15/11-01-37', 'merge_wandb_resume_cfg': True, 'restore_ckpt_from_wandb': True, 'target': {'_target_': 'stint_sampler.targets.targets.gmm', 'mean': 5.0, 'var': 1.0}, 'interpolant': {'_target_': 'stint_sampler.stint.linearInterpolants.linear', 'type': 'sin'}, 'model': {'_target_': 'stint_sampler.models.scoreNets.DenseNet', 'dim': 2, 'features': [20, 50, 200, 200, 50]}, 'seed': 1, 'T': 1.0, 'dim': 2, 'eps0': 1e-05, 'eps1': 1e-05, 'batch_size': 128, 'train': {'NtTrain': 50, 'epochs': 1000, 'epoch_steps': 4, 'learning_rate': 0.01}, 'solver': {'_target_': 'stint_sampler.stint.sis.half_sis'}, 'sampler': {'Nsamples': 10000, 'NtSampler': 1000}, 'out_dir': '/Users/ajgeorge/python/sis/logs/2024-04-15/11-01-37'}
+[2024-04-15 11:01:45,101][root][INFO] - ---------------------------------------------------------------
+[2024-04-15 11:01:45,103][root][INFO] - Run config:
+wandb:
+  project: sis
+  resume: allow
+  mode: run
+  name: 2024-04-15/11-01-37,
+  tags: []
+  id: 5ac1465a16df6b31d89de2c7bea35dbc14ace3db40d95fa6eb41fdafbaab424a
+keops_build_path: /Users/ajgeorge/.cache/keops/unknown/2024-04-15/11-01-37
+merge_wandb_resume_cfg: true
+restore_ckpt_from_wandb: true
+target:
+  _target_: stint_sampler.targets.targets.gmm
+  mean: 5.0
+  var: 1.0
+interpolant:
+  _target_: stint_sampler.stint.linearInterpolants.linear
+  type: sin
+model:
+  _target_: stint_sampler.models.scoreNets.DenseNet
+  dim: 2
+  features:
+  - 20
+  - 50
+  - 200
+  - 200
+  - 50
+seed: 1
+T: 1.0
+dim: 2
+eps0: 1.0e-05
+eps1: 1.0e-05
+batch_size: 128
+train:
+  NtTrain: 50
+  epochs: 1000
+  epoch_steps: 4
+  learning_rate: 0.01
+solver:
+  _target_: stint_sampler.stint.sis.half_sis
+sampler:
+  Nsamples: 10000
+  NtSampler: 1000
+out_dir: /Users/ajgeorge/python/sis/logs/2024-04-15/11-01-37
+[2024-04-15 11:01:45,104][root][INFO] - ---------------------------------------------------------------
+[2024-04-15 11:01:46,022][jax._src.xla_bridge][INFO] - Unable to initialize backend 'cuda': module 'jaxlib.xla_extension' has no attribute 'GpuAllocatorConfig'
+[2024-04-15 11:01:46,022][jax._src.xla_bridge][INFO] - Unable to initialize backend 'rocm': module 'jaxlib.xla_extension' has no attribute 'GpuAllocatorConfig'
+[2024-04-15 11:01:46,024][jax._src.xla_bridge][INFO] - Unable to initialize backend 'tpu': INTERNAL: Failed to open libtpu.so: dlopen(libtpu.so, 0x0001): tried: 'libtpu.so' (no such file), '/System/Volumes/Preboot/Cryptexes/OSlibtpu.so' (no such file), '/Users/ajgeorge/anaconda3/envs/sis/lib/python3.11/site-packages/jaxlib/../../../libtpu.so' (no such file), '/Users/ajgeorge/anaconda3/envs/sis/bin/../lib/libtpu.so' (no such file), '/usr/lib/libtpu.so' (no such file, not in dyld cache), 'libtpu.so' (no such file), '/usr/local/lib/libtpu.so' (no such file), '/usr/lib/libtpu.so' (no such file, not in dyld cache)
+[2024-04-15 11:01:46,130][root][INFO] - Checkpoint directory: /Users/ajgeorge/python/sis/logs/2024-04-15/11-01-37/ckpt
+loss =  -2.260058
+loss =  -3.4399295
+loss =  -5.672066
+loss =  -6.3370886
+loss =  -7.420953
+loss =  -9.126198
+loss =  -7.4572725
+loss =  -8.759308
+loss =  -8.320105
+loss =  -9.608976
+loss =  -8.432913
+loss =  -8.480058
+loss =  -9.2510195
+loss =  -8.007126
+loss =  -9.225309
+loss =  -9.433392
+loss =  -8.607712
+loss =  -9.5076885
+loss =  -9.403122
+loss =  -10.005299
+loss =  -10.873855
+loss =  -8.772087
+loss =  -9.219059
+loss =  -7.994924
+loss =  -6.9047103
+loss =  -7.4858594
+loss =  -7.124863
+loss =  -7.8275337
+loss =  -7.8583446
+loss =  -8.40921
+loss =  -8.814378
+loss =  -9.178225
+loss =  -9.065366
+loss =  -8.963522
+loss =  -9.545109
+loss =  -9.634977
+loss =  -10.266606
+loss =  -9.237717
+loss =  -9.030829
+loss =  -8.882833
+loss =  -10.506732
+loss =  -7.477662
+loss =  -8.47077
+loss =  -8.056801
+loss =  -7.6673717
+loss =  -7.3752437
+loss =  -7.7810497
+loss =  -7.219
+loss =  -8.932202
+loss =  -7.596528
+loss =  -8.873295
+loss =  -9.47809
+loss =  -7.576834
+loss =  -8.052401
+loss =  -7.942945
+loss =  -8.6516
+loss =  -6.5586977
+loss =  -6.7034283
+loss =  -7.882878
+loss =  -7.2797446
+loss =  -8.058771
+loss =  -8.503897
+loss =  -9.036415
+loss =  -8.133086
+loss =  -7.725305
+loss =  -8.6797695
+loss =  -9.956515
+loss =  -9.161714
+loss =  -9.502283
+loss =  -9.838439
+loss =  -8.598915
+loss =  -8.810356
+loss =  -8.815095
+loss =  -8.254782
+loss =  -6.92581
+loss =  -7.8357983
+loss =  2.0031915
+loss =  0.08797753
+loss =  -5.171058
+loss =  -7.4451904
+loss =  -7.440184
+loss =  -6.8074956
+loss =  -8.923321
+loss =  -7.9458756
+loss =  -9.171063
+loss =  -9.022474
+loss =  -9.458893
+loss =  -5.8893323
+loss =  -5.5198526
+loss =  -7.953043
+loss =  -8.941718
+loss =  -9.721398
+loss =  -8.717462
+loss =  -10.200615
+loss =  -8.515133
+loss =  -9.283976
+loss =  -10.953239
+loss =  -8.564966
+loss =  -6.8900595
+loss =  -8.167529
+loss =  -8.732265
+loss =  -8.799723
+loss =  -8.2841835
+loss =  -9.009941
+loss =  -8.607288
+loss =  -8.396309
+loss =  -8.832537
+loss =  -7.7559543
+loss =  -8.483998
+loss =  -10.165497
+loss =  -8.867056
+loss =  -8.342813
+loss =  -9.107074
+loss =  -9.270061
+loss =  -9.975494
+loss =  -9.585738
+loss =  -9.243242
+loss =  -8.916104
+loss =  -9.213472
+loss =  -9.61211
+loss =  -9.368109
+loss =  -10.114374
+loss =  -9.338015
+loss =  -9.651285
+loss =  -10.114296
+loss =  -10.423565
+loss =  -9.668501
+loss =  -8.37389
+loss =  -9.119136
+loss =  -8.658966
+loss =  -8.2864
+loss =  -10.467247
+loss =  -9.209686
+loss =  -8.682753
+loss =  -8.742512
+loss =  -10.801256
+loss =  -8.887693
+loss =  -9.016224
+loss =  -8.807913
+loss =  -9.49289
+loss =  -10.765879
+loss =  -9.602902
+loss =  -10.216438
+loss =  -8.406883
+loss =  -9.218519
+loss =  -10.313198
+loss =  -8.820578
+loss =  -9.807388
+loss =  -9.639534
+loss =  -9.45542
+loss =  -9.567514
+loss =  -10.49371
+loss =  -10.729304
+loss =  -10.83382
+loss =  -9.83906
+loss =  -10.726496
+loss =  -11.097756
+loss =  -9.773481
+loss =  -10.098958
+loss =  -10.132874
+loss =  -10.224226
+loss =  -10.373214
+loss =  -9.0494
+loss =  -8.8696
+loss =  -8.959124
+loss =  -10.314737
+loss =  -9.136294
+loss =  -10.034975
+loss =  -9.905045
+loss =  -9.191053
+loss =  -9.479115
+loss =  -9.562403
+loss =  -10.526218
+loss =  -8.439028
+loss =  -9.039472
+loss =  -9.966055
+loss =  -10.889608
+loss =  -8.833594
+loss =  -7.91656
+loss =  -10.025158
+loss =  -8.656173
+loss =  -9.222046
+loss =  -9.464038
+loss =  -11.512518
+loss =  -9.984077
+loss =  -10.299255
+loss =  -9.405756
+loss =  -10.38044
+loss =  -9.455851
+loss =  -8.001728
+loss =  -9.699888
+loss =  -8.132197
+loss =  -10.366057
+loss =  -10.073803
+loss =  -9.836653
+loss =  -9.947391
+loss =  -9.429016
+loss =  -9.407763
+loss =  -9.859023
+loss =  -9.082334
+loss =  -9.471851
+loss =  -9.812534
+loss =  -9.703129
+loss =  -9.823662
+loss =  -10.387047
+loss =  -9.0040245
+loss =  -8.7026
+loss =  -9.047044
+loss =  -7.683689
+loss =  -9.349473
+loss =  -9.717725
+loss =  -10.34623
+loss =  -10.851459
+loss =  -10.475995
+loss =  -9.4740505
+loss =  -11.254195
+loss =  -10.053422
+loss =  -8.79658
+loss =  -9.492973
+loss =  -9.654526
+loss =  -9.650566
+loss =  -8.96627
+loss =  -9.921065
+loss =  -10.75408
+loss =  -8.828517
+loss =  -11.083906
+loss =  -10.003502
+loss =  -9.740435
+loss =  -10.192112
+loss =  -9.269548
+loss =  -10.061869
+loss =  -9.733218
+loss =  -9.409286
+loss =  -9.330321
+loss =  -9.511953
+loss =  -9.476299
+loss =  -9.897051
+loss =  -10.971634
+loss =  -9.958934
+loss =  -9.75828
+loss =  -9.099506
+loss =  -8.802803
+loss =  -8.415902
+loss =  -10.378182
+loss =  -9.753357
+loss =  -8.209047
+loss =  -10.373835
+loss =  -9.446018
+loss =  -9.772283
+loss =  -9.3786335
+loss =  -9.914372
+loss =  -8.774732
+loss =  -10.764574
+loss =  -9.668442
+loss =  -10.197952
+loss =  -10.088335
+loss =  -10.506556
+loss =  -9.253362
+loss =  -9.410345
+loss =  -9.977344
+loss =  -10.740522
+loss =  -8.951421
+loss =  -10.376455
+loss =  -10.485878
+loss =  -9.162439
+loss =  -9.221464
+loss =  -10.282455
+loss =  -10.594839
+loss =  -10.43147
+loss =  -8.852802
+loss =  -10.018737
+loss =  -9.390453
+loss =  -10.650811
+loss =  -9.543695
+loss =  -9.59271
+loss =  -9.165714
+loss =  -10.29074
+loss =  -9.869817
+loss =  -9.747121
+loss =  -10.151207
+loss =  -9.108658
+loss =  -9.514066
+loss =  -9.31822
+loss =  -10.280995
+loss =  -9.743359
+loss =  -10.351786
+loss =  -8.980216
+loss =  -9.754486
+loss =  -9.954306
+loss =  -9.764829
+loss =  -9.365807
+loss =  -9.004389
+loss =  -10.155691
+loss =  -11.100662
+loss =  -9.326514
+loss =  -9.774693
+loss =  -9.967539
+loss =  -8.543322
+loss =  -10.01536
+loss =  -9.614363
+loss =  -9.7006035
+loss =  -9.474626
+loss =  -11.342213
+loss =  -10.121826
+loss =  -10.747896
+loss =  -11.154412
+loss =  -9.121544
+loss =  -11.492377
+loss =  -9.501317
+loss =  -9.434221
+loss =  -9.912021
+loss =  -10.109484
+loss =  -9.00838
+loss =  -11.015169
+loss =  -9.819844
+loss =  -10.875463
+loss =  -11.129533
+loss =  -9.569344
+loss =  -9.098994
+loss =  -9.583856
+loss =  -9.792515
+loss =  -9.961704
+loss =  -9.075935
+loss =  -10.491195
+loss =  -8.890871
+loss =  -8.582397
+loss =  -10.8745365
+loss =  -10.811348
+loss =  -8.424576
+loss =  -10.4170685
+loss =  -11.338024
+loss =  -9.393888
+loss =  -8.4002285
+loss =  -10.514057
+loss =  -9.294346
+loss =  -10.015583
+loss =  -8.755235
+loss =  -10.619289
+loss =  -9.601091
+loss =  -9.730699
+loss =  -10.326712
+loss =  -9.427841
+loss =  -9.973698
+loss =  -10.237843
+loss =  -8.591736
+loss =  -8.465364
+loss =  -8.192614
+loss =  -10.166733
+loss =  -9.016062
+loss =  -9.156889
+loss =  -9.853117
+loss =  -9.885395
+loss =  -10.21776
+loss =  -11.299213
+loss =  -9.628409
+loss =  -9.957334
+loss =  -9.527876
+loss =  -9.90226
+loss =  -10.039978
+loss =  -9.6287155
+loss =  -10.042318
+loss =  -10.239828
+loss =  -9.203899
+loss =  -9.599745
+loss =  -9.883506
+loss =  -9.659561
+loss =  -10.170409
+loss =  -9.035374
+loss =  -10.18034
+loss =  -9.861233
+loss =  -9.147337
+loss =  -9.682945
+loss =  -10.935997
+loss =  -10.52985
+loss =  -9.512167
+loss =  -9.781342
+loss =  -10.241185
+loss =  -9.364367
+loss =  -9.2480545
+loss =  -9.7072
+loss =  -9.812344
+loss =  -10.765314
+loss =  -9.747841
+loss =  -10.063545
+loss =  -9.280034
+loss =  -9.56575
+loss =  -9.670146
+loss =  -9.014357
+loss =  -9.336985
+loss =  -9.854918
+loss =  -10.070084
+loss =  -9.944977
+loss =  -9.611998
+loss =  -8.958494
+loss =  -9.337414
+loss =  -10.100693
+loss =  -10.06852
+loss =  -10.448175
+loss =  -10.758673
+loss =  -9.944943
+[2024-04-15 11:05:26,852][root][CRITICAL] - Encountered an unexpected tracer. A function transformed by JAX had a side effect, allowing for a reference to an intermediate value with type uint32[2] wrapped in a DynamicJaxprTracer to escape the scope of the transformation.
+JAX transformations require that functions explicitly return their outputs, and disallow saving intermediate values to global state.
+The function being traced when the value leaked was lossFn at /Users/ajgeorge/python/sis/stint_sampler/stint/sis.py:134 traced for jit.
+------------------------------
+The leaked intermediate value was created on line /Users/ajgeorge/python/sis/stint_sampler/stint/sis.py:127:8 (generateTimeSteps).
+------------------------------
+When the value was created, the final 5 stack frames (most recent last) excluding JAX-internal frames were:
+------------------------------
+/Users/ajgeorge/python/sis/main.py:73:17 (main)
+/Users/ajgeorge/python/sis/stint_sampler/stint/sis.py:89:44 (train)
+/Users/ajgeorge/python/sis/stint_sampler/stint/sis.py:71:26 (opt_step)
+/Users/ajgeorge/python/sis/stint_sampler/stint/sis.py:136:16 (lossFn)
+/Users/ajgeorge/python/sis/stint_sampler/stint/sis.py:127:8 (generateTimeSteps)
+------------------------------
+To catch the leak earlier, try setting the environment variable JAX_CHECK_TRACER_LEAKS or using the `jax.checking_leaks` context manager.
+See https://jax.readthedocs.io/en/latest/errors.html#jax.errors.UnexpectedTracerError
+Traceback (most recent call last):
+  File "/Users/ajgeorge/python/sis/main.py", line 74, in main
+    X = sampler.generateSamples()
+        ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/ajgeorge/python/sis/stint_sampler/stint/sis.py", line 179, in generateSamples
+    k1, self.k = random.split(self.k)
+                 ^^^^^^^^^^^^^^^^^^^^
+  File "/Users/ajgeorge/anaconda3/envs/sis/lib/python3.11/site-packages/jax/_src/random.py", line 304, in split
+    key, wrapped = _check_prng_key(key)
+                   ^^^^^^^^^^^^^^^^^^^^
+  File "/Users/ajgeorge/anaconda3/envs/sis/lib/python3.11/site-packages/jax/_src/random.py", line 78, in _check_prng_key
+    wrapped_key = prng.random_wrap(key, impl=default_prng_impl())
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/ajgeorge/anaconda3/envs/sis/lib/python3.11/site-packages/jax/_src/prng.py", line 890, in random_wrap
+    return random_wrap_p.bind(base_arr, impl=impl)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/ajgeorge/anaconda3/envs/sis/lib/python3.11/site-packages/jax/_src/core.py", line 385, in bind
+    return self.bind_with_trace(find_top_trace(args), args, params)
+                                ^^^^^^^^^^^^^^^^^^^^
+  File "/Users/ajgeorge/anaconda3/envs/sis/lib/python3.11/site-packages/jax/_src/core.py", line 1288, in find_top_trace
+    top_tracer._assert_live()
+  File "/Users/ajgeorge/anaconda3/envs/sis/lib/python3.11/site-packages/jax/_src/interpreters/partial_eval.py", line 1621, in _assert_live
+    raise core.escaped_tracer_error(self, None)
+jax.errors.UnexpectedTracerError: Encountered an unexpected tracer. A function transformed by JAX had a side effect, allowing for a reference to an intermediate value with type uint32[2] wrapped in a DynamicJaxprTracer to escape the scope of the transformation.
+JAX transformations require that functions explicitly return their outputs, and disallow saving intermediate values to global state.
+The function being traced when the value leaked was lossFn at /Users/ajgeorge/python/sis/stint_sampler/stint/sis.py:134 traced for jit.
+------------------------------
+The leaked intermediate value was created on line /Users/ajgeorge/python/sis/stint_sampler/stint/sis.py:127:8 (generateTimeSteps).
+------------------------------
+When the value was created, the final 5 stack frames (most recent last) excluding JAX-internal frames were:
+------------------------------
+/Users/ajgeorge/python/sis/main.py:73:17 (main)
+/Users/ajgeorge/python/sis/stint_sampler/stint/sis.py:89:44 (train)
+/Users/ajgeorge/python/sis/stint_sampler/stint/sis.py:71:26 (opt_step)
+/Users/ajgeorge/python/sis/stint_sampler/stint/sis.py:136:16 (lossFn)
+/Users/ajgeorge/python/sis/stint_sampler/stint/sis.py:127:8 (generateTimeSteps)
+------------------------------
+To catch the leak earlier, try setting the environment variable JAX_CHECK_TRACER_LEAKS or using the `jax.checking_leaks` context manager.
+See https://jax.readthedocs.io/en/latest/errors.html#jax.errors.UnexpectedTracerError

@@ -1,0 +1,124 @@
+[2024-04-15 09:36:27,025][root][INFO] - Command line args:
+
+[2024-04-15 09:36:27,026][root][INFO] - Hydra and wandb output path: /Users/ajgeorge/python/sis/logs/2024-04-15/09-36-27
+[2024-04-15 09:36:27,026][root][INFO] - Solver output path: /Users/ajgeorge/python/sis/logs/2024-04-15/09-36-27
+[2024-04-15 09:36:35,342][root][INFO] - ---------------------------------------------------------------
+[2024-04-15 09:36:35,344][root][INFO] - Run config:
+wandb:
+  project: sis
+  resume: allow
+  mode: run
+  name: 2024-04-15/09-36-27,
+  tags: []
+  id: eed103b21f055456521cabc873802c277d77dc00c5c4233b10bea3d8a1886810
+keops_build_path: /Users/ajgeorge/.cache/keops/unknown/2024-04-15/09-36-27
+merge_wandb_resume_cfg: true
+restore_ckpt_from_wandb: true
+target:
+  _target_: stint_sampler.target.target.gmm
+  mean: 5.0
+  var: 1.0
+interpolant:
+  _target_: stint_sampler.stint.linearInterpolant.linear
+  type: sin
+model:
+  _target_: stint_sampler.models.scoreNets.DenseNet
+  dim: 2
+  features:
+  - 20
+  - 50
+  - 200
+  - 200
+  - 50
+seed: 1
+T: 1.0
+dim: 2
+batch_size: 128
+NtTrain: 100
+epochs: 1000
+epoch_steps: 4
+learning_rate: 0.01
+solver:
+  _target_: stint_sampler.stint.sis.half_sis
+sampler:
+  Nsamples: 10000
+  NtSampler: 1000
+out_dir: /Users/ajgeorge/python/sis/logs/2024-04-15/09-36-27
+
+[2024-04-15 09:36:35,344][root][INFO] - ---------------------------------------------------------------
+[2024-04-15 09:36:40,734][jax._src.xla_bridge][INFO] - Unable to initialize backend 'cuda': module 'jaxlib.xla_extension' has no attribute 'GpuAllocatorConfig'
+[2024-04-15 09:36:40,734][jax._src.xla_bridge][INFO] - Unable to initialize backend 'rocm': module 'jaxlib.xla_extension' has no attribute 'GpuAllocatorConfig'
+[2024-04-15 09:36:40,736][jax._src.xla_bridge][INFO] - Unable to initialize backend 'tpu': INTERNAL: Failed to open libtpu.so: dlopen(libtpu.so, 0x0001): tried: 'libtpu.so' (no such file), '/System/Volumes/Preboot/Cryptexes/OSlibtpu.so' (no such file), '/Users/ajgeorge/anaconda3/envs/sis/lib/python3.11/site-packages/jaxlib/../../../libtpu.so' (no such file), '/Users/ajgeorge/anaconda3/envs/sis/bin/../lib/libtpu.so' (no such file), '/usr/lib/libtpu.so' (no such file, not in dyld cache), 'libtpu.so' (no such file), '/usr/local/lib/libtpu.so' (no such file), '/usr/lib/libtpu.so' (no such file, not in dyld cache)
+[2024-04-15 09:36:40,770][root][INFO] - Checkpoint directory: /Users/ajgeorge/python/sis/logs/2024-04-15/09-36-27/ckpt
+[2024-04-15 09:36:40,771][root][CRITICAL] - Error in call to target 'stint_sampler.stint.sis.half_sis':
+InstantiationException("Error locating target 'stint_sampler.target.target.gmm', set env var HYDRA_FULL_ERROR=1 to see chained exception.\nfull_key: target")
+full_key: solver
+Traceback (most recent call last):
+  File "/Users/ajgeorge/anaconda3/envs/sis/lib/python3.11/site-packages/hydra/_internal/utils.py", line 644, in _locate
+    obj = getattr(obj, part)
+          ^^^^^^^^^^^^^^^^^^
+AttributeError: module 'stint_sampler' has no attribute 'target'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/Users/ajgeorge/anaconda3/envs/sis/lib/python3.11/site-packages/hydra/_internal/utils.py", line 650, in _locate
+    obj = import_module(mod)
+          ^^^^^^^^^^^^^^^^^^
+  File "/Users/ajgeorge/anaconda3/envs/sis/lib/python3.11/importlib/__init__.py", line 126, in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<frozen importlib._bootstrap>", line 1204, in _gcd_import
+  File "<frozen importlib._bootstrap>", line 1176, in _find_and_load
+  File "<frozen importlib._bootstrap>", line 1140, in _find_and_load_unlocked
+ModuleNotFoundError: No module named 'stint_sampler.target'
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/Users/ajgeorge/anaconda3/envs/sis/lib/python3.11/site-packages/hydra/_internal/instantiate/_instantiate2.py", line 134, in _resolve_target
+    target = _locate(target)
+             ^^^^^^^^^^^^^^^
+  File "/Users/ajgeorge/anaconda3/envs/sis/lib/python3.11/site-packages/hydra/_internal/utils.py", line 653, in _locate
+    raise ImportError(
+ImportError: Error loading 'stint_sampler.target.target.gmm':
+ModuleNotFoundError("No module named 'stint_sampler.target'")
+Are you sure that 'target' is importable from module 'stint_sampler'?
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/Users/ajgeorge/anaconda3/envs/sis/lib/python3.11/site-packages/hydra/_internal/instantiate/_instantiate2.py", line 92, in _call_target
+    return _target_(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/ajgeorge/python/sis/stint_sampler/stint/sis.py", line 103, in __init__
+    self.target,_ = call(self.cfg.target)
+                    ^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/ajgeorge/anaconda3/envs/sis/lib/python3.11/site-packages/hydra/_internal/instantiate/_instantiate2.py", line 226, in instantiate
+    return instantiate_node(
+           ^^^^^^^^^^^^^^^^^
+  File "/Users/ajgeorge/anaconda3/envs/sis/lib/python3.11/site-packages/hydra/_internal/instantiate/_instantiate2.py", line 333, in instantiate_node
+    _target_ = _resolve_target(node.get(_Keys.TARGET), full_key)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/ajgeorge/anaconda3/envs/sis/lib/python3.11/site-packages/hydra/_internal/instantiate/_instantiate2.py", line 139, in _resolve_target
+    raise InstantiationException(msg) from e
+hydra.errors.InstantiationException: Error locating target 'stint_sampler.target.target.gmm', set env var HYDRA_FULL_ERROR=1 to see chained exception.
+full_key: target
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/Users/ajgeorge/python/sis/main.py", line 72, in main
+    sampler = instantiate(cfg.solver, cfg)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/ajgeorge/anaconda3/envs/sis/lib/python3.11/site-packages/hydra/_internal/instantiate/_instantiate2.py", line 226, in instantiate
+    return instantiate_node(
+           ^^^^^^^^^^^^^^^^^
+  File "/Users/ajgeorge/anaconda3/envs/sis/lib/python3.11/site-packages/hydra/_internal/instantiate/_instantiate2.py", line 347, in instantiate_node
+    return _call_target(_target_, partial, args, kwargs, full_key)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/ajgeorge/anaconda3/envs/sis/lib/python3.11/site-packages/hydra/_internal/instantiate/_instantiate2.py", line 97, in _call_target
+    raise InstantiationException(msg) from e
+hydra.errors.InstantiationException: Error in call to target 'stint_sampler.stint.sis.half_sis':
+InstantiationException("Error locating target 'stint_sampler.target.target.gmm', set env var HYDRA_FULL_ERROR=1 to see chained exception.\nfull_key: target")
+full_key: solver

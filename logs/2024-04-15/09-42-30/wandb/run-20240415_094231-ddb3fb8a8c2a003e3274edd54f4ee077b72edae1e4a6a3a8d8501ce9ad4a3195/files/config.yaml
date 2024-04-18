@@ -1,0 +1,110 @@
+wandb_version: 1
+
+wandb:
+  desc: null
+  value:
+    project: sis
+    resume: allow
+    mode: run
+    name: 2024-04-15/09-42-30,
+    tags: []
+    id: ddb3fb8a8c2a003e3274edd54f4ee077b72edae1e4a6a3a8d8501ce9ad4a3195
+keops_build_path:
+  desc: null
+  value: /Users/ajgeorge/.cache/keops/unknown/2024-04-15/09-42-30
+merge_wandb_resume_cfg:
+  desc: null
+  value: true
+restore_ckpt_from_wandb:
+  desc: null
+  value: true
+target:
+  desc: null
+  value:
+    _target_: stint_sampler.targets.targets.gmm
+    mean: 5.0
+    var: 1.0
+interpolant:
+  desc: null
+  value:
+    _target_: stint_sampler.stint.linearInterpolant.linear
+    type: sin
+model:
+  desc: null
+  value:
+    _target_: stint_sampler.models.scoreNets.DenseNet
+    dim: 2
+    features:
+    - 20
+    - 50
+    - 200
+    - 200
+    - 50
+seed:
+  desc: null
+  value: 1
+T:
+  desc: null
+  value: 1.0
+dim:
+  desc: null
+  value: 2
+batch_size:
+  desc: null
+  value: 128
+NtTrain:
+  desc: null
+  value: 100
+epochs:
+  desc: null
+  value: 1000
+epoch_steps:
+  desc: null
+  value: 4
+learning_rate:
+  desc: null
+  value: 0.01
+solver:
+  desc: null
+  value:
+    _target_: stint_sampler.stint.sis.half_sis
+sampler:
+  desc: null
+  value:
+    Nsamples: 10000
+    NtSampler: 1000
+out_dir:
+  desc: null
+  value: /Users/ajgeorge/python/sis/logs/2024-04-15/09-42-30
+_wandb:
+  desc: null
+  value:
+    python_version: 3.11.4
+    cli_version: 0.16.6
+    is_jupyter_run: false
+    is_kaggle_kernel: false
+    start_time: 1713166951.0
+    t:
+      1:
+      - 50
+      - 55
+      2:
+      - 2
+      - 3
+      - 12
+      - 50
+      - 55
+      3:
+      - 2
+      - 13
+      - 14
+      - 16
+      - 23
+      - 62
+      4: 3.11.4
+      5: 0.16.6
+      8:
+      - 4
+      - 8
+      13: darwin-arm64
+    framework: keras

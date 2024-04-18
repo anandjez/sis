@@ -1,0 +1,1 @@
+{"device": "None", "loss": -7.581486701965332, "_timestamp": 1713170927.922477, "_runtime": 60.81804704666138, "_step": 399, "error": "'method' object is not subscriptable", "_wandb": {"runtime": 60}}
