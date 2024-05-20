@@ -1,0 +1,12 @@
+# @package _global_
+
+batch_size: 128
+eval_interval: 5000
+train:
+  NtTrain: 50
+  epochs: 10000
+  scheduler_scale: 0.1
+  scheduler_step: 3000
+  epoch_steps: 2
+  tval_ramp_time: 500
+  learning_rate: 1.0e-2

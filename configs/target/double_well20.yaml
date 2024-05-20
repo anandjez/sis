@@ -1,0 +1,4 @@
+_target_: stint_sampler.targets.targets.double_well
+d: 20
+w: 5
+delta: 3

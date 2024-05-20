@@ -40,41 +40,6 @@ def main(cfg: DictConfig):
         cfg.out_dir = str(out_dir)
     logging.info("Solver output path: %s", cfg.out_dir)
 
-    # Setup wandb
-    tags = [t for t in hydra_config.overrides.task if len(t) < 32]
-    if "wandb" not in cfg:
-        cfg.wandb = OmegaConf.create()
-    if not cfg.wandb.get("tags"):
-        cfg.wandb.tags = tags
-
-    if not cfg.wandb.get("id"):
-        # create id based on log directory for automatic (slurm) resuming
-        sha = hashlib.sha256()
-        sha.update(str(out_dir).encode())
-        cfg.wandb.id = sha.hexdigest()
-
-    if not cfg.wandb.get("name"):
-        if hydra_config.mode is hydra.types.RunMode.RUN:
-            name = str(out_dir.relative_to(out_dir.parents[1]))
-        else:
-            name = str(out_dir.parent.relative_to(out_dir.parents[2]))
-        cfg.wandb.name = name + "," + ",".join([t.split("=")[-1] for t in tags])
-    OmegaConf.set_struct(cfg, True)
-    wandb.init(
-        dir=out_dir,
-        **cfg.wandb,
-        config=OmegaConf.to_container(cfg, resolve=True, throw_on_missing=True), entity="anandjez"
-    )
-
-    print(wandb.config)
-    # Resume old wandb run
-    # if wandb.run is not None and wandb.run.resumed:
-    #     logging.info("Resume wandb run %s", wandb.run.path)
-    #     if cfg.get("merge_wandb_resume_cfg"):
-    #         cfg = merge_wandb_cfg(cfg)
-    #         print(cfg)
-
-    # Log config and overrides
     logging.info("---------------------------------------------------------------")
     logging.info("Run config:\n%s", OmegaConf.to_yaml(cfg, resolve=True))
     logging.info("---------------------------------------------------------------")
@@ -83,8 +48,6 @@ def main(cfg: DictConfig):
         sampler = instantiate(cfg.solver, cfg)
         params = sampler.train()
         sampler.eval()
-        wandb.run.summary["error"] = None
-        wandb.finish()
         logging.info("Completed ✅")
 
     except Exception as e:

@@ -10,12 +10,65 @@ from jax.scipy.stats import multivariate_normal
 from jax.scipy.stats import norm
 
 import numpy as np
+import pathlib
 
-def gmm(d=2,mean=5.0,var=1.0):
+homePath = pathlib.Path.home()
+
+def GSG(d=10,beta=0.5,lbda=0.0,h=0):
+    # beta = 0.99-lbda
+    filename = "python/sis/stint_sampler/targets/params/GSG_matrix"+str(d)+".npy"
+    try:
+        A = np.load(homePath / filename)
+        A = jnp.array(A)
+    except:
+        A = np.random.randn(d,d)
+        np.save(homePath / filename,A)
+        A = jnp.array(A)
+    def log_density(x):
+        H = -(1/jnp.sqrt(2*d))*jnp.dot(x,A@x)-h*jnp.sum(x)
+        log_density = -beta*H-((beta**2)/(4*d))*((jnp.sum(x**2))**2)+(lbda/2)*jnp.sum(x**2)-(1/2)*jnp.sum(x**2)-d*jnp.log(2*jnp.pi)/2
+        return jnp.clip(log_density,-1e4,1e4)
+    def sample(nsamples):
+      return 0
+
+    return jax.vmap(log_density), sample
+
+def SK_continuous(d=10,beta=10,gamma=1.0,delta=1.0):
+    filename = "python/sis/stint_sampler/targets/params/SK_matrix"+str(d)+".npy"
+    filenameh = "python/sis/stint_sampler/targets/params/SK_field"+str(d)+".npy"
+    try:
+        A = np.load(homePath / filename)
+        h = np.load(homePath / filenameh)
+        A = jnp.array(A)
+        h = jnp.array(h)
+    except:
+        A = np.random.randn(d,d)
+        h = np.random.randn(d)*0.1
+        A = A+np.diag(-np.diag(A))
+        np.save(homePath / filename,A)
+        np.save(homePath / filenameh,h)
+        A = jnp.array(A)
+        h = jnp.array(h)
+
+    log_density = lambda x: jnp.clip(-beta*(gamma*jnp.sum((x**2-delta)**2)+(1/jnp.sqrt(d))*jnp.dot(x,A@x)+jnp.dot(x,h)),-1e4,1e4)
+    def sample(nsamples):
+      return 0
+
+    return jax.vmap(log_density), sample
+
+def double_well(d=10,w=3,delta=2):
+    log_density = lambda x: jnp.clip(-jnp.sum((x[:w]**2-delta)**2)-0.5*jnp.sum(x[w:]**2),-1e4,1e4)
+    def sample(nsamples):
+      return 0
+
+    return jax.vmap(log_density), sample
+def gmm(d=2,mean=5.0,var=0.3):
     mean_vec = jnp.array([[mean * (i - 1), mean * (j - 1)] for i in range(3) for j in range(3)]).T
-    log_density_comp = lambda x: -jnp.sum((jnp.outer(x,jnp.ones((mean_vec.shape[1],)))-mean_vec)**2,axis=0)/(2*var)
-    log_density = lambda x:jnp.clip(jax.scipy.special.logsumexp(log_density_comp(x)),-1e3,1e3)
-    return jax.vmap(log_density),0
+    log_density_comp = lambda x: -jnp.sum((jnp.outer(x,jnp.ones((mean_vec.shape[1],)))-mean_vec)**2,axis=0)/(2*var)-jnp.log(mean_vec.shape[1]*2*jnp.pi*var)
+    log_density = lambda x:jnp.clip(jax.scipy.special.logsumexp(log_density_comp(x)),-1e4,1e4)
+    def sample(nsamples):
+      return jnp.array(np.random.randn(nsamples,d))+mean_vec.T[np.random.randint(0,mean_vec.shape[1],nsamples)]
+    return jax.vmap(log_density),sample
 
 def funnel(d=10, sig=3, clip_y=11):
   """Funnel distribution for testing. Returns energy and sample functions."""
@@ -33,188 +86,23 @@ def funnel(d=10, sig=3, clip_y=11):
       log_density_other = multivariate_normal.logpdf(x[1:],
                                                      mean=mean_other,
                                                      cov=cov_other)
-      return log_density_v + log_density_other
+      return jnp.clip(log_density_v + log_density_other,-1e4,1e4)
     output = jax.vmap(unbatched)(x)
     return output
 
   def sample_data(n_samples):
     # sample from Nd funnel distribution
     y = (sig * jnp.array(np.random.randn(n_samples, 1))).clip(-clip_y, clip_y)
-    x = jnp.array(np.random.randn(n_samples, d - 1)) * jnp.exp(-y / 2)
+    x = jnp.array(np.random.randn(n_samples, d - 1)) * jnp.exp(y / 2)
     return jnp.concatenate((y, x), axis=1)
 
   return neg_energy, sample_data
 
-
-def simple_gaussian(d=2, sigma=1):
-  """Wrapper method for simple Gaussian test distribution.
-
-  Args:
-    d: dim of N(0,sigma^2)
-    sigma: scale/std of gaussian dist
-
-  Returns:
-    Tuple with log density, None and plotting func
-  """
-
-  dist = distrax.MultivariateNormalDiag(
-      np.zeros(d), sigma * np.ones(d))
-
-  log_p_pure = dist.log_prob
-
-  def plot_distribution(ax):
-    rngx = np.linspace(-2, 2, 100)
-    rngy = np.linspace(-2.5, 2.5, 100)
-    xx, yy = np.meshgrid(rngx, rngy)
-    coords = np.dstack([xx, yy])
-    coords = coords.reshape(-1, 2)
-    log_ps = log_p_pure(coords)
-    z = log_ps.reshape(100, 100)
-    z = np.exp(z)
-    ax.contourf(xx, yy, z, levels=50)
-
-  return log_p_pure, None, plot_distribution
+# def rings(d=2,n_comp=4, std=0.02, radius=1.0):
+#     radius_comp = jnp
 
 
-def far_gaussian(d=2, sigma=1, mean=6.0):
-  """Wrapper method for simple Gaussian test distribution.
-
-  Args:
-    d: dim of N(0,sigma^2).
-    sigma: scale/std of gaussian dist.
-    mean: mean of gaussian.
-
-  Returns:
-    Tuple with log density, None and plotting func
-  """
-
-  dist = distrax.MultivariateNormalDiag(
-      np.zeros(d) + mean, sigma * np.ones(d))
-
-  log_p_pure = dist.log_prob
-
-  def plot_distribution(ax, xrng=None, yrng=None, cmap=None):
-    xrng = [-2, 2] if xrng is None else xrng
-    yrng = [-2, 2] if yrng is None else yrng
-
-    rngx = np.linspace(xrng[0], xrng[1], 100)
-    rngy = np.linspace(yrng[0], yrng[1], 100)
-    xx, yy = np.meshgrid(rngx, rngy)
-    coords = np.dstack([xx, yy])
-    coords = coords.reshape(-1, 2)
-    log_ps = log_p_pure(coords)
-    z = log_ps.reshape(100, 100)
-    z = np.exp(z)
-    ax.contourf(xx, yy, z, levels=50, cmap=cmap)
-
-  return log_p_pure, None, plot_distribution
-
-
-def mixture_well():
-  """Wrapper method for well of mixtures target.
-
-  Returns:
-    tuple log density for mixture well and None
-  """
-
-  def euclidean_distance_einsum(x, y):
-    """Efficiently calculates the euclidean distance between vectors in two mats.
-
-
-    Args:
-      x: first matrix (nxd)
-      y: second matrix (mxd)
-
-    Returns:
-      pairwise distance matrix (nxm)
-    """
-    xx = jnp.einsum('ij,ij->i', x, x)[:, jnp.newaxis]
-    yy = jnp.einsum('ij,ij->i', y, y)
-    xy = 2 * jnp.dot(x, y.T)
-    out = xx + yy - xy
-
-    return out
-
-  def log_p_pure(x):
-    """Gaussian mixture density on well like structure.
-
-    Args:
-      x: vectors over which to evaluate the density
-
-    Returns:
-      nx1 vector containing density evaluations
-    """
-
-    mu = 1.0
-    sigma2_ = 0.05
-    mus_full = np.array([
-        [- mu, 0.0],
-        [- mu, mu],
-        [- mu, -mu],
-        [- mu, 2 * mu],
-        [- mu, - 2 * mu],
-        [mu, 0.0],
-        [mu, mu],
-        [mu, -mu],
-        [mu, 2 * mu],
-        [mu, - 2 * mu],
-    ])
-
-    dist_to_means = euclidean_distance_einsum(x, mus_full)
-    out = logsumexp(-dist_to_means / (2 * sigma2_), axis=1)
-
-    return out
-
-  def plot_distribution(ax, xrng=None, yrng=None, cmap=None):
-    xrng = [-2, 2] if xrng is None else xrng
-    yrng = [-2, 2] if yrng is None else yrng
-
-    rngx = np.linspace(xrng[0], xrng[1], 100)
-    rngy = np.linspace(yrng[0], yrng[1], 100)
-    xx, yy = np.meshgrid(rngx, rngy)
-    coords = np.dstack([xx, yy])
-    coords = coords.reshape(-1, 2)
-    log_ps = log_p_pure(coords)
-    z = log_ps.reshape(100, 100)
-    z = np.exp(z)
-    ax.contourf(xx, yy, z, levels=50, cmap=cmap)
-
-  return log_p_pure, None, plot_distribution
-
-
-def toy_gmm(n_comp=8, std=0.075, radius=0.5):
-  """Ring of 2D Gaussians. Returns energy and sample functions."""
-
-  means_x = np.cos(2 * np.pi *
-                   np.linspace(0, (n_comp - 1) / n_comp, n_comp)).reshape(
-                       n_comp, 1, 1, 1)
-  means_y = np.sin(2 * np.pi *
-                   np.linspace(0, (n_comp - 1) / n_comp, n_comp)).reshape(
-                       n_comp, 1, 1, 1)
-  mean = radius * np.concatenate((means_x, means_y), axis=1)
-  weights = np.ones(n_comp) / n_comp
-
-  def neg_energy(x):
-    means = jnp.array(mean.reshape((-1, 1, 2)))
-    c = np.log(n_comp * 2 * np.pi * std**2)
-    f = -jax.nn.logsumexp(
-        jnp.sum(-0.5 * jnp.square((x - means) / std), axis=2), axis=0) + c
-    return -f
-
-  def sample(n_samples):
-    toy_sample = np.zeros(0).reshape((0, 2, 1, 1))
-    sample_group_sz = np.random.multinomial(n_samples, weights)
-    for i in range(n_comp):
-      sample_group = mean[i] + std * np.random.randn(
-          2 * sample_group_sz[i]).reshape(-1, 2, 1, 1)
-      toy_sample = np.concatenate((toy_sample, sample_group), axis=0)
-      np.random.shuffle(toy_sample)
-    return toy_sample[:, :, 0, 0]
-
-  return neg_energy, sample
-
-
-def toy_rings(n_comp=4, std=0.075, radius=0.5):
+def toy_rings(d=2,n_comp=4, std=0.05, radius=0.5):
   """Mixture of rings distribution. Returns energy and sample functions."""
 
   weights = np.ones(n_comp) / n_comp

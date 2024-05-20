@@ -1,0 +1,4 @@
+_target_: stint_sampler.targets.targets.GSG
+d: 10
+beta: 0.0
+lbda: 0.0

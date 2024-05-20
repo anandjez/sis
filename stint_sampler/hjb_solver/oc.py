@@ -43,15 +43,16 @@ class oc():
         self.NtTrain = self.cfg.train.get("NtTrain")
         self.scale_init = self.cfg.pde_solver.get("scale_init_train")
         self.train_sde_drift = self.cfg.pde_solver.get("train_sde_drift")
-        self.velocityFn = lambda params,t,x:self.velocity_model(params,t,x)*self.velocity_scale(t)
+        self.velocityFn = lambda params,t,x:self.velocity_scale(t)*self.velocity_model(params,t,x)
 
         self.terminalCond = jit(vmap(grad(lambda x: self.pde.phi(x[None, :])[0])))
 
     def generateTimeSteps(self,t0,t1,N,k):
-        tau = 1 - random.uniform(k, (N - 1,))  # ** tmult
-        tvals = tau.sort() * (t1-t0) + t0
-        tvals = jnp.append(tvals, t1)
-        tvals = jnp.insert(tvals, 0, t0)
+        tau = 1 - random.uniform(k, (self.bs,N - 1))  # ** tmult
+        tvals = tau.sort(axis=-1) * (t1-t0) + t0
+        tvals = jnp.concatenate((t0*jnp.ones((self.bs,1)),tvals,t1*jnp.ones((self.bs,1))),axis=-1)
+        # tvals = jnp.append(tvals, t1)
+        # tvals = jnp.insert(tvals, 0, t0)
         return tvals
 
     def lossFn(self,params,k):
@@ -63,14 +64,15 @@ class oc():
         L = 0.0
         for i in range(Nt):
             k1, k2 = random.split(k2)
-            delT = tvals[i+1]-tvals[i]
+            t = tvals[:,i]
+            delT = tvals[:,i+1]-tvals[:,i]
             W = random.normal(k1, X.shape)
-            velocity = self.velocityFn(params,jnp.ones((self.bs,1))*tvals[i],X)
-            L += delT*jnp.sum(velocity**2,axis=-1)*(self.pde.sigma(tvals[i])**2)/2
+            velocity = self.velocityFn(params,t[:,None],X)
+            L += delT*jnp.sum(velocity**2,axis=-1)*(self.pde.sigma(t)**2)/2
             # sde_mu = self.train_sde_drift*X
-            mu = (self.pde.sigma(tvals[i])**2)*velocity+self.pde.mu(tvals[i],X)
+            mu = (self.pde.sigma(t)**2)[:,None]*velocity+self.pde.mu(t,X)
             # mu = (self.pde.sigma(tvals[i])**2)*velocity+self.pde.mu(tvals[i],X)
-            X += mu * (delT) + self.pde.sigma(tvals[i]) * W * jnp.sqrt(delT)
+            X += delT[:,None]*mu + jnp.sqrt(delT[:,None]) * self.pde.sigma(t)[:,None] * W
         L -= self.pde.phi(X)
         Z = self.velocityFn(params, jnp.ones((self.bs, 1)) * self.T, X)
         Zh = self.terminalCond(X)

@@ -1,23 +1,15 @@
 defaults:
   - setup
   - target: funnel
-  - solver: full_sis
   - interpolant: linearInterpolant
   - hjb_solver: fbsde
   - model@score_model: eDISnet
   - model@velocity_model: ${model@score_model}
   - _self_
-  - short_run
-
-score_model:
-  width: 64
-
-velocity_model:
-  width: 64
+  - long_run
 
 #target:
-#  sig: 1.0
-#  var: 1.0
+#  var: 0.3
 #  mean: 5.0
 
 seed: 1
@@ -29,16 +21,15 @@ eps1: 1e-5
 batch_size: 128
 log_interval: 10
 eval_interval: 2000
-ckpt_interval: 1000
+ckpt_interval: 500
 jit_lossFn: 1
 learn_potential: 0
-debug: 0
 
 train:
   NtTrain: 20
   epochs: 3000
   epoch_steps: 3
-  learning_rate: 0.5e-2
+  learning_rate: 1.0e-3
   scheduler_scale: 0.5
   scheduler_step: 1000
   tval_ramp_time: 1500
@@ -46,6 +37,10 @@ train:
 
 interpolant:
   type: trig
+
+solver:
+  _target_: stint_sampler.stint.sis.full_sis
+
 sampler:
   Nsamples: 10000
   NtSampler: 1000
@@ -53,8 +48,7 @@ sampler:
 pde_solver:
   scale_init_train: 1.0
   train_sde_drift: 0.0
-  time_step: 5e-6
-  loss_bsde_scale: 1.0
+  time_step: 1e-6
 
 eval:
   hist_dims: [0,1]

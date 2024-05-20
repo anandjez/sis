@@ -83,23 +83,7 @@ class DDSnet_interpol(nn.Module):
         out = out1+t2*(t[0]*self.target(x)+(1-t[0])*(-jnp.sum(x**2)/2))
         return out[0]
 
-class DenseNet(nn.Module):
-    target_score: Any
-    features: Sequence[int]
 
-    def setup(self):
-        self.layers = [nn.Dense(f) for f in self.features]
-        # self.L0 = nn.Dense(1)
-
-    def __call__(self, t,x):
-        # tin = 1/self.L0(t+1e-5)
-        x= jnp.concatenate((t,x),axis=-1)
-        for i,lyr in enumerate(self.layers):
-            x= lyr(x)
-            if i != len(self.layers)-1:
-                x= nn.swish(x)
-        # x = jnp.clip(x,-50,50)
-        return x
 
 class DenseNet2(nn.Module):
     features: Sequence[int]
@@ -160,6 +144,122 @@ class FourierEmb(nn.Module):
         out = nn.Dense(features=self.dim_out)(out)
         return out
 
+
+
+
+class DISnet_init(nn.Module):
+    target_score: Any
+    width: int = 64
+    clip_val: float = 100.0
+
+    @nn.compact
+    def __call__(self, t,x):
+        t_embed = FourierEmb(dim_out=self.width)(t)
+        xt = nn.gelu(t_embed+nn.Dense(features=self.width)(x))
+        xt = nn.gelu(nn.Dense(features=self.width)(xt))
+        xt = nn.gelu(nn.Dense(features=self.width)(xt))
+        xt = nn.Dense(features=1,kernel_init=nn.initializers.zeros_init(),bias_init = nn.initializers.zeros_init())(xt)
+        # xt = jnp.clip(xt,-self.clip_val,self.clip_val)
+
+        # t2 =nn.gelu(FourierEmb(dim_out=self.width)(t))
+        t2 = nn.gelu(nn.Dense(features=self.width)(t_embed))
+        t2 = nn.Dense(features=1,kernel_init=nn.initializers.zeros_init(),bias_init = nn.initializers.constant(1))(t2)
+
+        t3 = nn.gelu(nn.Dense(features=self.width)(t_embed))
+        t3 = nn.Dense(features=1, kernel_init=nn.initializers.zeros_init(), bias_init=nn.initializers.constant(1))(t3)
+
+        # t3 =nn.gelu(FourierEmb(dim_out=self.width)(t))
+        # t3 = nn.gelu(nn.Dense(features=self.width)(t3))
+        # t3 = nn.Dense(features=1,kernel_init=nn.initializers.zeros_init(),bias_init = nn.initializers.constant(1))(t3)
+        # t3 = jnp.clip(t3, 1, 10)
+        targ_init = jnp.sum(jnp.clip((1 / t) * x/2, -10, 10)*x,axis=-1,keepdims=True)
+        targ = t2 * (1 - t) * targ_init + t3 * t * self.target_score(x)[:,None]
+        # xscale = jnp.clip(1/t,1,10)
+        # targ = self.target_score(xscale*x)[:,None]/xscale
+        # targ = jnp.clip(targ, -self.clip_val, self.clip_val)
+        # targ = (1-t)*jnp.sum(x**2,axis=-1,keepdims=True)/2+t*self.target_score(x)[:,None]
+        # targ = self.target_score(x)[:,None]
+        return xt+targ
+        # return xt+t*t2*self.target_score(x)[:,None]
+
+class DenseNet_init(nn.Module):
+    target_score: Any
+    features: Sequence[int]
+
+    @nn.compact
+    def __call__(self, t,x):
+        # tin = 1/self.L0(t+1e-5)
+        t_embed = FourierEmb(dim_out=8)(t)
+        t2 = nn.gelu(nn.Dense(features=4)(t_embed))
+        t2 = nn.Dense(features=1, kernel_init=nn.initializers.zeros_init(), bias_init=nn.initializers.constant(1))(t2)
+
+        t3 = nn.gelu(nn.Dense(features=4)(t_embed))
+        t3 = nn.Dense(features=1, kernel_init=nn.initializers.zeros_init(), bias_init=nn.initializers.constant(1))(t3)
+
+        x1 = jnp.array(x)
+        x1 = jnp.concatenate((t, x1), axis=-1)
+        for i,lyr in enumerate(self.features):
+            # if i%3 ==0:
+
+            # x1 = jnp.concatenate((t, x1), axis=-1)
+            x1= nn.Dense(features=lyr)(x1)
+            # if i != len(self.features)-1:
+            x1= nn.swish(x1)
+        x1 = nn.Dense(features=1, kernel_init=nn.initializers.zeros_init(), bias_init=nn.initializers.constant(0))(x1)
+        targ_init = jnp.sum(jnp.clip((1 / t) * x / 2, -20, 20) * x, axis=-1, keepdims=True)
+        targ = t2 * (1 - t) * targ_init + t3 * t * self.target_score(x)[:,None]
+        # x = jnp.clip(x,-50,50)
+        return x1+targ
+
+
+class DenseNet(nn.Module):
+
+    target_score: Any
+    features: Sequence[int]
+
+    @nn.compact
+    def __call__(self, t,x):
+        # tin = 1/self.L0(t+1e-5)
+        x = jnp.concatenate((t, x), axis=-1)
+        for i,lyr in enumerate(self.features):
+            # if i%3 ==0:
+
+            x= nn.Dense(features=lyr)(x)
+            # if i != len(self.features)-1:
+            x= nn.swish(x)
+        x = nn.Dense(features=1)(x)
+        # x = jnp.clip(x,-50,50)
+        return x
+
+class DenseNet_targ(nn.Module):
+    target_score: Any
+    features: Sequence[int]
+
+    @nn.compact
+    def __call__(self, t,x):
+        # tin = 1/self.L0(t+1e-5)
+        t_embed = FourierEmb(dim_out=8)(t)
+        t2 = nn.gelu(nn.Dense(features=4)(t_embed))
+        t2 = nn.Dense(features=1, kernel_init=nn.initializers.zeros_init(), bias_init=nn.initializers.constant(1))(t2)
+
+        # t3 = nn.gelu(nn.Dense(features=4)(t_embed))
+        # t3 = nn.Dense(features=1, kernel_init=nn.initializers.zeros_init(), bias_init=nn.initializers.constant(1))(t3)
+
+        x1 = jnp.array(x)
+        x1 = jnp.concatenate((t, x1), axis=-1)
+        for i,lyr in enumerate(self.features):
+            # if i%3 ==0:
+
+            # x1 = jnp.concatenate((t, x1), axis=-1)
+            x1= nn.Dense(features=lyr)(x1)
+            # if i != len(self.features)-1:
+            x1= nn.swish(x1)
+        x1 = nn.Dense(features=1, kernel_init=nn.initializers.zeros_init(), bias_init=nn.initializers.constant(0))(x1)
+        # targ_init = jnp.sum(jnp.clip((1 / t) * x / 2, -20, 20) * x, axis=-1, keepdims=True)
+        targ = t2 * self.target_score(x)[:,None]
+        # x = jnp.clip(x,-50,50)
+        return x1+targ
+
 class DISnet(nn.Module):
     target_score: Any
     width: int = 64
@@ -178,18 +278,33 @@ class DISnet(nn.Module):
         t2 = nn.gelu(nn.Dense(features=self.width)(t2))
         t2 = nn.Dense(features=1,kernel_init=nn.initializers.zeros_init(),bias_init = nn.initializers.constant(1))(t2)
 
-        t3 =nn.gelu(FourierEmb(dim_out=self.width)(t))
-        t3 = nn.gelu(nn.Dense(features=self.width)(t3))
-        t3 = nn.Dense(features=1,kernel_init=nn.initializers.zeros_init(),bias_init = nn.initializers.constant(1))(t3)
-        # t2 = jnp.clip(t2, -self.clip_val, self.clip_val)
-
-        # xscale = jnp.clip(1/t,1,10)
-        # targ = self.target_score(xscale*x)[:,None]/xscale
-        # targ = jnp.clip(targ, -self.clip_val, self.clip_val)
-        # targ = (1-t)*jnp.sum(x**2,axis=-1,keepdims=True)/2+t*self.target_score(x)[:,None]
-        targ = self.target_score(t3*x)[:,None]
+        targ = self.target_score(x)[:,None]
         return xt+t2*targ
-        # return xt+t*t2*self.target_score(x)[:,None]
+
+class DISnet_invt(nn.Module):
+    target_score: Any
+    width: int = 64
+    clip_val: float = 1000.0
+
+
+    @nn.compact
+    def __call__(self, t,x):
+        tfor_embed = FourierEmb(dim_out=self.width)(t)
+        tinv_embed = jnp.clip(1/t,-self.clip_val,self.clip_val)
+        t_embed = jnp.concatenate((tfor_embed,tinv_embed*tfor_embed),axis=-1)
+        xt = nn.gelu(nn.Dense(features=self.width)(t_embed)+nn.Dense(features=self.width)(x))
+        xt = nn.gelu(nn.Dense(features=self.width)(xt))
+        xt = nn.gelu(nn.Dense(features=self.width)(xt))
+        xt = nn.Dense(features=1,kernel_init=nn.initializers.zeros_init(),bias_init = nn.initializers.zeros_init())(xt)
+        # xt = jnp.clip(xt,-self.clip_val,self.clip_val)
+
+        # t2 =nn.gelu(FourierEmb(dim_out=self.width)(t))
+        t2 = nn.gelu(nn.Dense(features=self.width)(t_embed))
+        t2 = nn.Dense(features=1,kernel_init=nn.initializers.zeros_init(),bias_init = nn.initializers.constant(1))(t2)
+
+        targ = self.target_score(x)[:, None]
+        return xt + t2 * targ
+
 
 class DISnet0(nn.Module):
     target_score: Any
@@ -198,7 +313,7 @@ class DISnet0(nn.Module):
 
     @nn.compact
     def __call__(self, t,x):
-        t1 = FourierEmb(dim_out=self.width)(t)
+        t1 = FourierEmb(dim_out=self.width//2)(t)
         xt = nn.gelu(t1+nn.Dense(features=self.width)(x))
         xt = nn.gelu(nn.Dense(features=self.width)(xt))
         xt = nn.gelu(nn.Dense(features=self.width)(xt))
@@ -208,10 +323,6 @@ class DISnet0(nn.Module):
         t2 =nn.gelu(FourierEmb(dim_out=self.width)(t))
         t2 = nn.gelu(nn.Dense(features=self.width)(t2))
         t2 = nn.Dense(features=1,kernel_init=nn.initializers.zeros_init(),bias_init = nn.initializers.constant(1))(t2)
-        # t2 = jnp.clip(t2, -self.clip_val, self.clip_val)
 
-        # xscale = jnp.clip(1/t,1,10)
-        # targ = self.target_score(xscale*x)[:,None]/xscale
-        # targ = jnp.clip(targ, -self.clip_val, self.clip_val)
         targ = self.target_score(x)[:,None]
         return xt+t2*targ

@@ -1,0 +1,14 @@
+# @package _global_
+
+batch_size: 128
+eval_interval: 2000
+jit_lossFn: 1
+debug: 1
+log_interval: 1000
+train:
+  NtTrain: 60
+  epochs: 1100
+  scheduler_scale: 0.2
+  scheduler_step: 2000
+  epoch_steps: 2
+  tval_ramp_time: 100

@@ -1,0 +1,5 @@
+_target_: stint_sampler.targets.targets.SK_continuous
+d: 10
+beta: 1.0
+gamma: 5.0
+delta: 1.0

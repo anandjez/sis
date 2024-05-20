@@ -1,0 +1,9 @@
+# @package _global_
+
+batch_size: 512
+train:
+  NtTrain: 100
+  epochs: 8000
+  scheduler_scale: 0.2
+  scheduler_step: 2000
+  tval_ramp_time: 100
