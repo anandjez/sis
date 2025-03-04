@@ -178,7 +178,10 @@ def evalResults(pathList,outPath,evalFns):
             evals_local = {}
             for par in sweepPars:
                 attr = par.split(".")
-                evals_local[".".join(attr[:-1])] = [attr[-1]]
+                if attr[-2].isdigit():
+                    evals_local[".".join(attr[:-2])] = [".".join(attr[-2:])]
+                else:
+                    evals_local[".".join(attr[:-1])] = [attr[-1]]
             evals_local["Function"] = ["logZ"]
             evals_local["Value"] = [float(results["Estimates"]["logZ"][-1])]
             evals.append(pd.DataFrame(evals_local))
@@ -196,7 +199,43 @@ def evalResults(pathList,outPath,evalFns):
         evalsList.append(evals)
     logging.info("Completed ✅")
     evals_pd = pd.concat(evalsList,ignore_index=True)
-    evals_pd.to_pickle(outPath / "eval_results_final.pkl")
+    # evals_pd.to_pickle(outPath / "eval_results_final.pkl")
+    return evals_pd
+
+def evalResults_logZ(pathList,outPath):
+    orbax_checkpointer = orbax.checkpoint.PyTreeCheckpointer()
+    samples_full = []
+    weights_full = []
+    evalsList = []
+    for path in pathList:
+        runPaths = [x for x in path.iterdir() if x.is_dir()]
+        evals = []
+        for runPath in runPaths:
+            sweepPars = runPath.name.split("-")
+            ckptPath = runPath / "ckpt" / "results"
+            results = orbax_checkpointer.restore(ckptPath)
+            evals_local = {}
+            for par in sweepPars:
+                attr = par.split(".")
+                if attr[-2].isdigit():
+                    evals_local[".".join(attr[:-2])] = [".".join(attr[-2:])]
+                else:
+                    evals_local[".".join(attr[:-1])] = [attr[-1]]
+            evals_local["score_model.width"] = [128]
+            evals_local["velocity_model.width"] = [128]
+            for stp in range(len(results["Estimates"]["logZ"])):
+                evals_local["Steps"] = [2000*stp]
+                # for fns in results["Estimates"].keys():
+                evals_local["Function"] = ["logZ"]
+                evals_local["Value"] = [float(results["Estimates"]["logZ"][stp])]
+                evals.append(pd.DataFrame(evals_local))
+
+        evals = pd.concat(evals)
+        # evals.to_pickle(path / "eval_results.pkl")
+        evalsList.append(evals)
+    logging.info("Completed ✅")
+    evals_pd = pd.concat(evalsList,ignore_index=True)
+    # evals_pd.to_pickle(outPath / "eval_results_final.pkl")
     return evals_pd
 
 

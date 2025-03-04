@@ -27,7 +27,8 @@ from stint_sampler.eval.ipm import OT
 import numpy as np
 import jax.numpy as jnp
 from jax import grad
-
+import matplotlib.animation as animation
+from matplotlib.lines import Line2D
 import scipy.integrate as integrate
 import scipy.special as special
 
@@ -62,7 +63,8 @@ trainPhasePath = [homePath / "python/sis/slurm/logs/2024-08-03/10-11-19",
 
 interpolant = 0
 kde_plot = 0
-traj_plot = 0
+traj_plot = 1
+interpolant_plot=0
 eval_model = 0
 eval_results = 0
 logZ = 0
@@ -70,7 +72,7 @@ trainPhase = 0
 eval_logZ_hd = 0
 ablations = 0
 ipm =0
-emc = 1
+emc = 0
 
 if interpolant:
     plotObj = plotter([])
@@ -108,10 +110,34 @@ if traj_plot:
     trajData_0 = trajData[:,np.nonzero((trajData[-1,:]<2.5)*(trajData[-1,:]>-2.5))[0]]
     trajData_m5 = trajData[:,np.nonzero(trajData[-1,:]<=-2.5)[0]]
     data = samples[:, :, 0]
+    t = np.linspace(0,1, trajData.shape[0])
     fig, ax = plt.subplots(1, 3, gridspec_kw={'width_ratios': [1, 5, 1]},figsize=[14,4])    # sns.lineplot(trajData,ax = ax[1],legend=False,markers=False,dashes=False,palette='r')
-    ax[1].plot(trajData_0,c='b',linewidth=0.8)
-    ax[1].plot(trajData_5,c='r',linewidth=0.8)
-    ax[1].plot(trajData_m5,c='g',linewidth=0.8)
+
+    lb = ax[1].plot(t[0],trajData_0[:1,:], c='b', linewidth=0.8)
+    lr = ax[1].plot(t[0],trajData_5[:1,:], c='r', linewidth=0.8)
+    lg = ax[1].plot(t[0],trajData_m5[:1,:], c='g', linewidth=0.8)
+    def update(frame):
+        # for each frame, update the data stored on each artist.
+        x = t[:frame]
+        yb = trajData_0[:frame,:]
+        yr = trajData_5[:frame,:]
+        yg = trajData_m5[:frame,:]
+        # update the line plot:
+        for i,line in enumerate(lb):
+            line.set_xdata(x)
+            line.set_ydata(yb[:,i])
+        for i, line in enumerate(lr):
+            line.set_xdata(x)
+            line.set_ydata(yr[:, i])
+        for i, line in enumerate(lg):
+            line.set_xdata(x)
+            line.set_ydata(yg[:, i])
+
+        #return (lb,lr,lg)
+
+    # ax[1].plot(trajData_0,c='b',linewidth=0.8)
+    # ax[1].plot(trajData_5,c='r',linewidth=0.8)
+    # ax[1].plot(trajData_m5,c='g',linewidth=0.8)
     sns.kdeplot(y=data[0,:],ax = ax[0],fill=True)
     ax[0].invert_xaxis()
     # ax[0].spines[['left', 'top', 'bottom']].set_visible(False)
@@ -119,15 +145,65 @@ if traj_plot:
     ax[2].set_axis_off()
     ax[0].set_ylim([-8,8])
     ax[1].set_ylim([-8,8])
-    ax[1].set_ylim([-8,8])
+    ax[1].set_xlim([0,1])
+    ax[2].set_ylim([-8,8])
     # ax[2].spines[['right', 'top', 'bottom']].set_visible(False)
     sns.kdeplot(y=data[-1,:],ax = ax[2],fill=True)
 
     ax[1].tick_params(bottom=True, top=False, left=True, right=True,
                       labelbottom=True, labeltop=False, labelleft=True, labelright=True)
     ax[1].set_yticks([-5,0,5])
-    fig.savefig(path / "trajectory.png", bbox_inches='tight', pad_inches=0.1, dpi=300)
+    ani = animation.FuncAnimation(fig=fig, func=update, frames=trajData.shape[0], interval=30,repeat=False)
+    ani.save(filename=path / "traj.gif", writer="pillow")
+    # ani.save(filename=path / "traj.mp4", writer="ffmpeg")
+    plt.show()
+    # fig.savefig(path / "trajectory.png", bbox_inches='tight', pad_inches=0.1, dpi=300)
 
+if interpolant_plot:
+    samples = genTraj(genTrajPath,path)
+    trajData = samples[:, :100, 0]
+    data = samples[:, :, 0]
+    t = np.linspace(0,1, trajData.shape[0])
+    fig, ax = plt.subplots(1, 3, gridspec_kw={'width_ratios': [1, 1, 1]},figsize=[12,4])    # sns.lineplot(trajData,ax = ax[1],legend=False,markers=False,dashes=False,palette='r')
+
+
+
+    sns.kdeplot(x=data[0,:],ax = ax[0],fill=True)
+    # ax[0].invert_xaxis()
+    # ax[0].spines[['left', 'top', 'bottom']].set_visible(False)
+    # ax[0].set_axis_off()
+    # ax[1].set_axis_off()
+    # ax[2].set_axis_off()
+    # ax[0].set_xlim([-8,8])
+    # ax[1].set_xlim([-8,8])
+    # ax[2].set_xlim([-8,8])
+    # ax[2].spines[['right', 'top', 'bottom']].set_visible(False)
+    sns.kdeplot(x=data[int(trajData.shape[0]/2),:],ax = ax[1],fill=True)
+    sns.kdeplot(x=data[-1,:],ax = ax[2],fill=True)
+
+    for i in range(3):
+        ax[i].set_xlim([-8, 8])
+        ax[i].set_frame_on(False)
+        ax[i].get_xaxis().tick_bottom()
+        ax[i].axes.get_yaxis().set_visible(False)
+        xmin, xmax = ax[i].get_xaxis().get_view_interval()
+        ymin, ymax = ax[i].get_yaxis().get_view_interval()
+        ax[i].add_artist(Line2D((xmin, xmax), (ymin, ymin), color='black', linewidth=2))
+
+    # ax[0].tick_params(bottom=True, top=False, left=False, right=False,labelbottom=True, labeltop=False, labelleft=False, labelright=False)
+    # ax[1].tick_params(bottom=True, top=False, left=False, right=False,labelbottom=True, labeltop=False, labelleft=False, labelright=False)
+    # ax[2].tick_params(bottom=True, top=False, left=False, right=False,labelbottom=True, labeltop=False, labelleft=False, labelright=False)
+    # ax[0].set_xticks([-5,0,5])
+    # ax[1].set_xticks([-5,0,5])
+    # ax[2].set_xticks([-5,0,5])
+    ax[0].set_xlabel("t=0")
+    ax[1].set_xlabel("t=0.5")
+    ax[2].set_xlabel("t=1")
+    # ani = animation.FuncAnimation(fig=fig, func=update, frames=trajData.shape[0], interval=50,repeat=False)
+    # ani.save(filename=path / "traj.gif", writer="pillow")
+    # ani.save(filename=path / "traj.mp4", writer="ffmpeg")
+    plt.show()
+    fig.savefig(path / "intrplntTraj.png", bbox_inches='tight', pad_inches=0.1, dpi=300)
 def getDWgt(d=10,w=3,delta=2):
     mass1d = integrate.quad(lambda x: np.exp(-(x ** 2 - delta) ** 2), -np.inf, np.inf)[0]
     mean_abs1d = integrate.quad(lambda x: np.abs(x)*np.exp(-(x ** 2 - delta) ** 2), -np.inf, np.inf)[0]/mass1d

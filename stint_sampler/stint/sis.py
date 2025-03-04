@@ -87,7 +87,8 @@ class sampler():
         self.ckpt_interval = self.cfg.get("ckpt_interval")
         self.jit_lossFn = self.cfg.get("jit_lossFn")
 
-        self.results = {"Estimates":{"logZ":[],"mean_abs":[],"mean_sq":[]}}
+        self.results = {"Estimates":{"logZ":[],"mean_abs":[],"mean_sq":[]},
+                        "Metrics":{"loss":[]}}
 
 
 
@@ -153,6 +154,7 @@ class sampler():
             # step_log.append(steps)
             if step % self.log_interval == 0:
                 # metrics["loss"]=L
+                self.results["Metrics"]["loss"].append(float(metrics["loss"]))
                 print(metrics)
                 wandb.log(metrics)
                 if self.debug:
@@ -227,7 +229,7 @@ class sampler():
         X = jnp.array([[-xrange + 2*xrange * i / N] + xd1 for i in range(N)])
         fig, ax = plt.subplots(nrows=2,ncols=1,figsize=(6, 10))
         plt.tight_layout()
-        for t in np.linspace(self.eps0, self.T, 5):
+        for t in [self.eps0,0.25,0.5,0.75,1.0]: # np.linspace(self.eps0, self.T, 5):
             tv = (t) * np.ones([N, 1])
             if hasattr(self,"scoreFn"):
                 Z = self.velocityFn(self.params_ema['params0'], tv, X)
@@ -238,8 +240,9 @@ class sampler():
                 Z = self.velocityFn(self.params_ema, tv, X)
                 ax[0].plot(X[:, 0], Z[:, 0], label=str(t))
 
+        Y0 = self.scoreFn(self.params_ema['params1'], jnp.ones((N, 1)) * self.T0, X * self.beta(self.T0)) * self.beta(self.T0) + self.terminalCondT0(X)
         Y = self.terminalCondT(X)
-        ax[0].plot(X[:, 0], Y[:, 0], marker='*', label='True 1.0')
+        ax[0].plot(X[:, 0], Y0[:, 0], marker='*', label='True 1.0')
         ax[1].plot(X[:, 0], Y[:, 0], marker='*', label='True 1.0')
         ax[0].set_ylim(-10,10)
         ax[1].set_ylim(-10,10)
@@ -412,7 +415,7 @@ class full_sis(sampler):
         self.debug = self.cfg.get("debug")
         self.NtTrain = self.cfg.train.get("NtTrain")
 
-        self.loss_bsde_scale = self.cfg.pde_solver.get("loss_bsde_scale")*(0.1*(self.d>=10)+1.0*(self.d<10))
+        self.loss_bsde_scale = self.cfg.pde_solver.get("loss_bsde_scale",1.0)*(0.1*(self.d>=10)+1.0*(self.d<10))#*(1.0/(10**int(jnp.log10(self.d))))#
 
         solver_name = self.cfg.hjb_solver.get("name")
 

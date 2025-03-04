@@ -1,6 +1,6 @@
 defaults:
   - setup
-  - target: funnel
+  - target: gmm
   - solver: full_sis
   - interpolant: linearInterpolant
   - hjb_solver: fbsde
@@ -53,7 +53,7 @@ sampler:
 pde_solver:
   scale_init_train: 1.0
   train_sde_drift: 0.0
-  time_step: 5e-6
+  time_step: 1.0
   loss_bsde_scale: 1.0
 
 eval:

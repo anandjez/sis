@@ -33,7 +33,7 @@ class fbsde():
         # self.NtTrain = self.cfg.train.get("NtTrain")
         self.NtTrain = self.solver_params["NtTrain"]
         self.train_sde_drift = self.cfg.pde_solver.get("train_sde_drift")
-        self.time_step = self.cfg.pde_solver.get("time_step")*(0.1*(self.d>=10)+1.0*(self.d<10))
+        self.time_step = self.cfg.pde_solver.get("time_step")*5e-6*(0.01*((self.d>=1000))+1.0*((self.d>=10) and (self.d<1000))+1.0*(self.d<10))#(1.0/(10**int(jnp.log10(self.d))))#
         self.velocity_scale = lambda t: 1.0  # /self.intrplnt.r(t)
         self.generateGrads()
 
@@ -81,24 +81,75 @@ class fbsde():
         # tvals = jnp.insert(tvals, 0, t0)
         return tvals
 
-    def lossFn_old(self,params,X,k,tmult,time_step_scale):
+    def lossFn_old1(self, params, X, k, t_range, time_step_scale):
         # implementing dX_t = Y_tdt + dW_t, dY_t=Z_tdW_t, Y_T=g(X_T)
         Nt = self.NtTrain
         k1, k2 = random.split(k)
-        # t0 = jnp.max(self.t0,t_range)
-        tvals = self.generateTimeSteps(self.t0 + tmult*(self.t1-self.t0), self.t1, Nt, k1)
+        t0 = jnp.maximum(self.t0, t_range)
+        tvals = self.generateTimeSteps(t0, self.t1, Nt, k1)
         # k1, k2 = random.split(k2)
         # X = random.normal(k1,(self.bs,self.d))
         L = 0.0
         loss_term_fbsde = 0.0
         for i in range(0, Nt):
             k1, k2 = random.split(k2)
+            l, Xr, metrics_bsde = self.lossBSDE(params, tvals[:, i], X, tvals[:, i + 1] - tvals[:, i], k1,
+                                                time_step_scale)
+            if self.compute_process:
+                t = tvals[:, i]
+                # tv = jnp.ones((self.bs, 1)) * t
+                b = ((self.intrplnt.dr(t) / self.intrplnt.r(t))[:, None] * X
+                     + ((self.sig0(t) ** 2) / (2 * self.beta(t)))[:, None] * self.velocityFn(params, t[:, None],
+                                                                                             (1 / self.beta(t))[:,
+                                                                                             None] * X))
+                X += (tvals[:, i + 1] - tvals[:, i])[:, None] * (b + self.train_sde_drift * X)
+                X = jax.lax.stop_gradient(X)
+            else:
+                X = Xr
+            L += self.loss_bsde_scale * l / time_step_scale
+        loss_bsde = L
+        # if loss_bsde>5:
+        #     print("Glitch!")
+        if self.add_terminal_loss:
+            Z = self.velocityFn(params, jnp.ones((self.bs, 1)) * self.T, X)
+            Zh = self.terminalCond(X)
+            # Z = jnp.clip(Z,-100.0,100.0)
+            loss_term_fbsde = jnp.mean(jnp.power((Z - Zh), 2))
+            if self.learn_pot:
+                Y = self.velocityPot(params, jnp.ones((self.bs, 1)) * self.T, X)
+                Yh = self.pde.phi(X)[:, None]
+                loss_term_fbsde += jnp.mean(jnp.power((Y - Yh), 2))
+            # if loss_term_fbsde>50:
+            #     print("Glitch")
+            L += loss_term_fbsde
+        metrics = {"loss": L, "loss_bsde": loss_bsde, "loss_term_fbsde": loss_term_fbsde, "x_max": jnp.max(X),
+                   "x_min": jnp.min(X)}
+        metrics.update(metrics_bsde)
+        return L, metrics, X
+
+    def lossFn_old(self,params,X,k,t_range,time_step_scale):
+        # implementing dX_t = Y_tdt + dW_t, dY_t=Z_tdW_t, Y_T=g(X_T)
+        Nt = self.NtTrain
+        k1, k2 = random.split(k)
+        t0 = jnp.maximum(self.t0,t_range)
+        tvals = self.generateTimeSteps(t0, self.t1, Nt, k1)
+        # k1, k2 = random.split(k2)
+        # X = random.normal(k1,(self.bs,self.d))
+        L = 0.0
+        loss_term_fbsde = 0.0
+        tc = 0.25
+        for i in range(0, Nt):
+            k1, k2 = random.split(k2)
             l,Xr,metrics_bsde = self.lossBSDE(params, tvals[:,i], X, tvals[:,i + 1] - tvals[:,i], k1,time_step_scale)
             if self.compute_process:
                 t=tvals[:,i]
                 # tv = jnp.ones((self.bs, 1)) * t
-                b = ((self.intrplnt.dr(t)/self.intrplnt.r(t))[:,None] * X
-                     + (self.intrplnt.dg(t) * self.intrplnt.r(t) - self.intrplnt.dr(t) * self.intrplnt.g(t))[:,None] * self.velocityFn(params, t[:,None], (self.intrplnt.g(t)/ self.intrplnt.r(t))[:,None] * X ))
+                b1 = ((self.intrplnt.dr(t)/self.intrplnt.r(t))[:,None] * X
+                     + ((self.sig0(t)**2)/(2*self.beta(t)))[:,None] * self.velocityFn(params, t[:,None], (1/self.beta(t))[:,None] * X ))
+                s = (1/self.beta(t))[:,None]*self.velocityFn(params, t[:,None], (1/self.beta(t))[:,None] * X )-(1/(self.intrplnt.r(t)**2))[:,None]*X
+                b2 = ((self.intrplnt.dg(t)/self.intrplnt.g(t))[:,None] * X
+                     + ((self.sig0(t)**2)/(2))[:,None] * s)
+                b = 1.0*(t<tc)[:,None]*b1+1.0*(t>=tc)[:,None]*b2
                 X += (tvals[:,i + 1] - tvals[:,i])[:,None]*(b+self.train_sde_drift*X)
                 X = jax.lax.stop_gradient(X)
             else:
@@ -110,10 +161,12 @@ class fbsde():
         if self.add_terminal_loss:
             Z = self.velocityFn(params, jnp.ones((self.bs, 1)) * self.T, X)
             Zh = self.terminalCond(X)
-            Y = self.velocityPot(params, jnp.ones((self.bs, 1)) * self.T, X)
-            Yh = self.pde.phi(X)[:,None]
             # Z = jnp.clip(Z,-100.0,100.0)
-            loss_term_fbsde = jnp.mean(jnp.power((Z - Zh), 2)) +jnp.mean(jnp.power((Y - Yh), 2))
+            loss_term_fbsde = jnp.mean(jnp.power((Z - Zh), 2))
+            if self.learn_pot:
+                Y = self.velocityPot(params, jnp.ones((self.bs, 1)) * self.T, X)
+                Yh = self.pde.phi(X)[:, None]
+                loss_term_fbsde += jnp.mean(jnp.power((Y - Yh), 2))
             # if loss_term_fbsde>50:
             #     print("Glitch")
             L += loss_term_fbsde
@@ -168,9 +221,9 @@ class fbsde():
 
         # tv = jnp.ones((self.bs, 1)) * t
 
-        Y = jnp.clip(self.velocityPot(params, t[:,None], X),-500,500)
+        Y = jnp.clip(self.velocityPot(params, t[:,None], X),-100000,100000)#500 in first submission
         s = self.pde.sigma(t)[:,None]
-        Z = jnp.clip(s * self.velocityFn(params, t[:,None], X),-100,100)
+        Z = jnp.clip(s * self.velocityFn(params, t[:,None], X),-1000,1000)#100 in first submission
         metrics = {"ymax":jnp.max(jnp.abs(Y)),"zmax":jnp.max(jnp.abs(Z))}
         k1, k2 = random.split(k)
         W = random.normal(k1, X.shape)  # *tmask_mat
@@ -178,7 +231,7 @@ class fbsde():
         mu = self.pde.mu(t,X)+s*Z
         Xn = X + time_step * mu   + s * jnp.sqrt(time_step) * W   # * tmask_mat
         Y += time_step * self.pde.f(t,X,Z) + jnp.sqrt(time_step) * jnp.sum(Z * W, axis=-1,keepdims=True)  # -self.pde.f(t,X,Z)*time_step +
-        Y_nn = jnp.clip(self.velocityPot(params, t[:,None] + time_step, Xn),-500,500)
+        Y_nn = jnp.clip(self.velocityPot(params, t[:,None] + time_step, Xn),-100000,100000)#500 in first submission
 
         L = jnp.mean(jnp.power((Y_nn - Y), 2))#/jnp.sqrt(t[:,None])
         # if jnp.isnan(L):

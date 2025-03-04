@@ -8,13 +8,37 @@ import jax.numpy as jnp
 from jax.scipy.special import logsumexp
 from jax.scipy.stats import multivariate_normal
 from jax.scipy.stats import norm
+from scipy.stats import multivariate_t
 
 import numpy as np
 import pathlib
+from stint_sampler.targets.lgcp import LogGaussianCoxPines
 
 homePath = pathlib.Path.home()
 
-def GSG(d=10,beta=0.5,lbda=0.0,h=0):
+def student(d=2,nu=2.5,var=0.3):
+    log_density = lambda x:jnp.clip(-0.5*(nu+d)*jnp.log(1+jnp.sum(x**2)/(nu*var)),-1e4,1e4)
+    def sample(nsamples):
+      return 0
+    return jax.vmap(log_density),sample
+
+def mos(d=100,k=10,var=1.0):
+    nu = 2.0
+    mean = float(k)
+    mean_vec = (jax.random.uniform(jax.random.PRNGKey(0), (d, k)) - 0.5) * 2 * mean
+    log_density_comp = lambda x: -0.5*(nu+d)*jnp.log(1+jnp.sum((jnp.outer(x,jnp.ones((mean_vec.shape[1],)))-mean_vec)**2,axis=0)/(nu*var)) + jax.scipy.special.gammaln(0.5*(nu+d))- jax.scipy.special.gammaln(nu/2)-jnp.log(k)-jnp.log(nu*jnp.pi**var)*d/2
+    log_density = lambda x:jnp.clip(jax.scipy.special.logsumexp(log_density_comp(x)),-1e8,1e8)
+    def sample(nsamples):
+        rv = multivariate_t(loc = np.zeros((d,)),shape=np.identity(d),df=2.0)
+        return jnp.array(rv.rvs(size=(nsamples,))) + mean_vec.T[np.random.randint(0, mean_vec.shape[1], nsamples)]
+    return jax.vmap(log_density),sample
+def lgcp(d=1600):
+    LGCP = LogGaussianCoxPines()
+    def sample(nsamples):
+      return 0
+
+    return LGCP.evaluate_log_density, sample
+def GSG(d=10,beta=0.0,lbda=0.5,h=0):
     # beta = 0.99-lbda
     filename = "python/sis/stint_sampler/targets/params/GSG_matrix"+str(d)+".npy"
     try:
@@ -66,6 +90,16 @@ def gmm(d=2,mean=5.0,var=0.3):
     mean_vec = jnp.array([[mean * (i - 1), mean * (j - 1)] for i in range(3) for j in range(3)]).T
     log_density_comp = lambda x: -jnp.sum((jnp.outer(x,jnp.ones((mean_vec.shape[1],)))-mean_vec)**2,axis=0)/(2*var)-jnp.log(mean_vec.shape[1]*2*jnp.pi*var)
     log_density = lambda x:jnp.clip(jax.scipy.special.logsumexp(log_density_comp(x)),-1e4,1e4)
+    def sample(nsamples):
+      return jnp.array(np.random.randn(nsamples,d))+mean_vec.T[np.random.randint(0,mean_vec.shape[1],nsamples)]
+    return jax.vmap(log_density),sample
+
+def mog(d=100,k=40,var=1.0):
+    mean=float(k)
+    # mean_vec = jnp.array([[mean * (i - 1), mean * (j - 1)] for i in range(3) for j in range(3)]).T
+    mean_vec = (jax.random.uniform(jax.random.PRNGKey(0),(d,k))-0.5)*2*mean
+    log_density_comp = lambda x: -jnp.sum((jnp.outer(x,jnp.ones((mean_vec.shape[1],)))-mean_vec)**2,axis=0)/(2*var)-jnp.log(2*jnp.pi*var)*d/2-jnp.log(k)
+    log_density = lambda x:jnp.clip(jax.scipy.special.logsumexp(log_density_comp(x)),-1e8,1e8)
     def sample(nsamples):
       return jnp.array(np.random.randn(nsamples,d))+mean_vec.T[np.random.randint(0,mean_vec.shape[1],nsamples)]
     return jax.vmap(log_density),sample

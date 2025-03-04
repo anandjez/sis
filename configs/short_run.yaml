@@ -3,7 +3,7 @@
 batch_size: 128
 eval_interval: 2000
 train:
-  NtTrain: 100
+  NtTrain: 60
   epochs: 6000
   scheduler_scale: 0.2
   scheduler_step: 2000
