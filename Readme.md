@@ -17,13 +17,13 @@ This repository contains the code implementation of the methods and experiments 
 The python packages required to run this code can be found in `requirements.txt`. The main code files can be found in the folder `stint_sampler`.
 
 ### Training the Model
-Run the main.py script for training the model.
+Run the `main.py` script for training the model.
 
 ### Hyperparameters
 Hyperparameters used in the implementation can be found in the `configs` directory.
 
 ### Evaluating the Model
-The script make_plots.py can be used to generate the figures in the paper.
+The script `make_plots.py` can be used to generate the figures in the paper.
 
 ## Citation
 If you find this code useful, please consider citing our paper.
