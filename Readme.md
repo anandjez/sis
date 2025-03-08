@@ -14,15 +14,15 @@ Accepted to AISTATS, 2025
 ## Overview
 This repository contains the code implementation of the methods and experiments presented in our paper. The goal of this work is to approach the sampling problem using Stochastic interpolants framework.
 
-The python packages required to run this code can be found in `requirements.txt`
+The python packages required to run this code can be found in `requirements.txt`. The main code files can be found in the folder `stint_sampler`.
 
-### Training a Model
+### Training the Model
 Run the main.py script for training the model.
 
 ### Hyperparameters
 Hyperparameters used in the implementation can be found in the `configs` directory.
 
-### Evaluating a Model
+### Evaluating the Model
 The script make_plots.py can be used to generate the figures in the paper.
 
 ## Citation
