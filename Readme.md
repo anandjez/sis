@@ -14,6 +14,8 @@ Accepted to AISTATS, 2025
 ## Overview
 This repository contains the code implementation of the methods and experiments presented in our paper. The goal of this work is to approach the sampling problem using Stochastic interpolants framework.
 
+The python packages required to run this code can be found in `requirements.txt`
+
 ### Training a Model
 Run the main.py script for training the model.
 
